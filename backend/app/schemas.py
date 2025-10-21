@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, EmailStr, validator, field_validator
+from pydantic import BaseModel, Field, EmailStr, field_validator
 from typing import Optional, List, Union
 from datetime import datetime
 import re
@@ -68,33 +68,6 @@ class GrievancePublic(BaseModel):
 
     attachments: Optional[List[AttachmentIn]] = None
 
-class GrievanceExport(BaseModel):
-    id: str
-    created_at: datetime
-    updated_at: datetime
-    external_status: Optional[str] = None
-    external_status_note: Optional[str] = None
-    is_anonymous: bool
-
-    complainant_name: Optional[str] = None
-    complainant_email: Optional[EmailStr] = None
-    complainant_phone: Optional[str] = None
-    complainant_gender: Optional[str] = None
-
-    is_hh_registered: Optional[bool] = None
-    hh_id: Optional[str] = None
-    hh_address: Optional[str] = None
-
-    island: Optional[str] = None
-    district: Optional[str] = None
-    village: Optional[str] = None
-
-    category_type: Optional[str] = None
-
-    details: Optional[str] = None
-
-    attachments: Optional[List[AttachmentIn]] = None
-
 class StatusUpdate(BaseModel):
     status: str
     note: Optional[str] = None
@@ -121,13 +94,14 @@ class GrievanceBatchUpdateItem(BaseModel):
     external_updated_at: Optional[datetime] = None
     hh_id: Optional[str] = None
     category_type: Optional[str] = None
-    # (optional passthroughs if Odoo sends locations directly)
+    # (optional passthroughs if Odoo sends them)
     island: Optional[str] = None
     district: Optional[str] = None
     village: Optional[str] = None
 
-    @validator("gid")
-    def _gid_format(cls, v):
+    @field_validator("gid")
+    @classmethod
+    def _gid_format(cls, v: str) -> str:
         if not GRIEVANCE_ID_RE.match(v):
             raise ValueError(f"Invalid grievance ID format: {v}")
         return v
@@ -139,7 +113,6 @@ class GrievanceBatchUpdateItem(BaseModel):
             return None
         return v
         
-
 class GrievanceBatchUpdateRequest(BaseModel):
     updates: List[GrievanceBatchUpdateItem]
 

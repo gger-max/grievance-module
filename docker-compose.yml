@@ -9,13 +9,13 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-    # stays on default network
+    # This service joins the default network and is reachable by other services.
 
   redis:
     image: redis:7-alpine
     ports:
       - "6379:6379"
-    # stays on default network
+    # This service also joins the default network.
 
   api:
     build: ./backend
@@ -25,22 +25,22 @@ services:
       - redis
     ports:
       - "8000:8000"
-    #networks:
-    #  - default          # reach db/redis by their service names
-    #  - grievance_net    # be reachable from Typebot as "grievance-api"
-    
-    # IMPORTANT: give a stable alias on grievance_net
-    # Docker needs per-network aliases; use the extended form if you want explicit alias:
+    # This service connects to two networks:
+    # 1. The "default" network to communicate with `db` and `redis`.
+    # 2. The external "grievance_net" to be reachable from the Typebot container.
     networks:
-       default: {}
-       grievance_net:
-         aliases:
-           - grievance-api
+      default: {}
+      grievance_net:
+        # On the grievance_net network, this service will be findable
+        # using the stable hostname "grievance-api".
+        aliases:
+          - grievance-api
 
 networks:
   grievance_net:
-    external: true  # created earlier via: docker network create grievance_net
-  # "default" network is implicit; no need to declare it
+    external: true # This network must be created manually:
+                   # docker network create grievance_net
+  # The "default" network is created automatically by Docker Compose.
 
 volumes:
   pgdata:
