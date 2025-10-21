@@ -1,6 +1,4 @@
-# Grievance Management SystemMonorepo for the **Vaka Sosiale** GRM. It captures grievances via Typebot, processes and classifies them through a FastAPI middleware, stores data in PostgreSQL/MinIO, and integrates with Vaka Sosiale for analytics and feedback.
-
-
+# Grievance Management System.
 
 Monorepo for the **Vaka Sosiale** GRM. It captures grievances via Typebot, processes and classifies them through a FastAPI middleware, stores data in PostgreSQL/MinIO, and integrates with Vaka Sosiale for analytics and feedback.<p align="center">
 
@@ -8,43 +6,23 @@ Monorepo for the **Vaka Sosiale** GRM. It captures grievances via Typebot, proce
 
 <p align="center"></p>
 
-  <img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture Overview" width="720">
+## Repository layout
 
-</p>## Repository layout
+grievance-module/# 
 
-# grievance-module/
-
-## Repository Layout# ├─ backend/ # FastAPI app, tests, Dockerfile
-
-# ├─ frontend-typebot/ # Typebot export, embed snippets, docs
-
-```# ├─ infra/ # docker-compose, .env.example, local run
-
-grievance-module/# ├─ ops/ # CI/CD workflows and helper scripts
-
-├── backend/              # FastAPI app, tests, Dockerfile# ├─ docs/ # report docs, images, diagrams
-
+├── backend/              # FastAPI app, tests, Dockerfile# 
 ├── frontend-typebot/     # Typebot export, embed snippets, docs# ├─ .github/workflows/ # GitHub Actions
-
 ├── infra/                # docker-compose, .env.example, local run# ├─ .gitignore
-
 ├── ops/                  # CI/CD workflows and helper scripts# ├─ .gitattributes
-
 ├── docs/                 # report docs, images, diagrams# ├─ LICENSE
-
 ├── .github/workflows/    # GitHub Actions# ├─ README.md
-
 ├── .gitignore# └─ SECURITY.md
-
 ├── .gitattributes
-
 ├── LICENSE## Quick start (local)
-
 ├── README.md
-
 └── SECURITY.md```bash
 
-```# 1) Start infra (DB/Redis/MinIO) + API + Typebot* (optional)
+# 1) Start infra (DB/Redis/MinIO) + API + Typebot* (optional)
 
 cd infra
 
