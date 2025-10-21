@@ -5,18 +5,18 @@ Monorepo for the **Vaka Sosiale** GRM. It captures grievances via Typebot, proce
 </p>
 
 ## Repository layout
-grievance-module/
-├─ backend/ # FastAPI app, tests, Dockerfile
-├─ frontend-typebot/ # Typebot export, embed snippets, docs
-├─ infra/ # docker-compose, .env.example, local run
-├─ ops/ # CI/CD workflows and helper scripts
-├─ docs/ # report docs, images, diagrams
-├─ .github/workflows/ # GitHub Actions
-├─ .gitignore
-├─ .gitattributes
-├─ LICENSE
-├─ README.md
-└─ SECURITY.md
+#grievance-module/
+#├─ backend/ # FastAPI app, tests, Dockerfile
+#├─ frontend-typebot/ # Typebot export, embed snippets, docs
+#├─ infra/ # docker-compose, .env.example, local run
+#├─ ops/ # CI/CD workflows and helper scripts
+#├─ docs/ # report docs, images, diagrams
+#├─ .github/workflows/ # GitHub Actions
+#├─ .gitignore
+#├─ .gitattributes
+#├─ LICENSE
+#├─ README.md
+#└─ SECURITY.md
 
 ## Quick start (local)
 

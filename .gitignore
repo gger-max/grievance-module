@@ -1,0 +1,33 @@
+# Python / FastAPI
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+env/
+.coverage
+htmlcov/
+
+# Node/Typebot builds
+node_modules/
+.next/
+dist/
+build/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Docker / runtime
+*.log
+.env
+.env.*
+*.pid
+
+# Data / uploads
+backend/uploads/
+infra/minio-data/
+infra/pgdata/
+infra/redis-data/
