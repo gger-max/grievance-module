@@ -17,6 +17,106 @@ services:
       - "6379:6379"
     # This service also joins the default network.
 
+  # Typebot database (separate from main grievance DB)
+  typebot-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: typebot
+      POSTGRES_USER: typebot
+      POSTGRES_PASSWORD: typebot
+    ports:
+      - "5433:5432"
+    volumes:
+      - typebot_pgdata:/var/lib/postgresql/data
+
+  # MailHog for catching test emails (no real SMTP needed)
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"  # SMTP port
+      - "8025:8025"  # Web UI
+    networks:
+      - default
+
+  # Typebot Builder (for creating/editing bots)
+  typebot-builder:
+    image: baptistearno/typebot-builder:latest
+    environment:
+      DATABASE_URL: postgresql://typebot:typebot@typebot-db:5432/typebot
+      ENCRYPTION_SECRET: aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpP
+      NEXTAUTH_URL: http://localhost:8081
+      NEXT_PUBLIC_VIEWER_URL: http://localhost:8082
+      NEXTAUTH_URL_INTERNAL: http://typebot-builder:3000
+      ADMIN_EMAIL: ${TYPEBOT_ADMIN_EMAIL:-admin@example.com}
+      DISABLE_SIGNUP: false
+      # Email configuration with MailHog
+      NEXT_PUBLIC_SMTP_FROM: noreply@typebot.local
+      SMTP_HOST: mailhog
+      SMTP_PORT: 1025
+      SMTP_USERNAME: x
+      SMTP_PASSWORD: x
+      SMTP_SECURE: false
+      SMTP_AUTH_DISABLED: false
+      # S3/MinIO configuration - use HTTP not HTTPS
+      S3_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
+      S3_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      S3_BUCKET: typebot
+      S3_ENDPOINT: minio
+      S3_PORT: 9000
+      S3_SSL: false
+      # Public URL for browser access
+      NEXT_PUBLIC_S3_ENDPOINT: http://localhost:9000
+    depends_on:
+      - typebot-db
+      - minio
+      - mailhog
+    ports:
+      - "8081:3000"
+    networks:
+      - default
+      - grievance_net
+
+  # Typebot Viewer (for displaying/running bots to end users)
+  typebot-viewer:
+    image: baptistearno/typebot-viewer:latest
+    environment:
+      DATABASE_URL: postgresql://typebot:typebot@typebot-db:5432/typebot
+      ENCRYPTION_SECRET: aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpP
+      NEXTAUTH_URL: http://localhost:8082
+      NEXT_PUBLIC_VIEWER_URL: http://localhost:8082
+      # Allow http:// connections in development
+      NEXT_PUBLIC_VIEWER_INTERNAL_URL: http://typebot-viewer:3000
+      # S3/MinIO configuration - use HTTP not HTTPS
+      S3_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
+      S3_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      S3_BUCKET: typebot
+      S3_ENDPOINT: minio
+      S3_PORT: 9000
+      S3_SSL: false
+      # Public URL for browser access
+      NEXT_PUBLIC_S3_ENDPOINT: http://localhost:9000
+    depends_on:
+      - typebot-db
+      - minio
+    ports:
+      - "8082:3000"
+    networks:
+      - default
+      - grievance_net
+
+  # MinIO for file storage (used by both Typebot and API)
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
   api:
     build: ./backend
     env_file: ./backend/.env
@@ -44,3 +144,5 @@ networks:
 
 volumes:
   pgdata:
+  typebot_pgdata:
+  minio_data:

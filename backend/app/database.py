@@ -1,9 +1,29 @@
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
+from sqlalchemy.pool import NullPool
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-engine = create_engine(DATABASE_URL, pool_pre_ping=True)
+# Get database URL from environment
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///:memory:")
+
+# Configure engine with appropriate settings
+if DATABASE_URL.startswith("sqlite"):
+    # SQLite-specific configuration
+    engine = create_engine(
+        DATABASE_URL,
+        connect_args={"check_same_thread": False},
+        poolclass=NullPool,  # Use NullPool for SQLite to avoid threading issues
+    )
+else:
+    # PostgreSQL or other databases
+    engine = create_engine(
+        DATABASE_URL,
+        pool_pre_ping=True,  # Verify connections before using them
+        pool_size=5,  # Maintain 5 connections in the pool
+        max_overflow=10,  # Allow up to 10 additional connections
+        pool_recycle=3600,  # Recycle connections after 1 hour
+    )
+
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 class Base(DeclarativeBase):

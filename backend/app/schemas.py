@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field, EmailStr, field_validator
-from typing import Optional, List, Union
+from pydantic import BaseModel, Field, EmailStr, field_validator, model_validator, ConfigDict
+from typing import Optional, List, Union, Any
 from datetime import datetime
 import re
 
@@ -12,6 +12,8 @@ class AttachmentIn(BaseModel):
     type: Optional[str] = ""
 
 class GrievanceCreate(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+    
     is_anonymous: bool = Field(default=True)
 
     # Optional complainant info (only when not anonymous)
@@ -32,7 +34,7 @@ class GrievanceCreate(BaseModel):
 
     category_type: Optional[str] = None
 
-    # Core content
+    # Core content - accepts both "details" and "grievance_details" from Typebot
     details: Optional[str] = None
 
     # Friendly string from Typebot (not required by backend)
@@ -40,6 +42,16 @@ class GrievanceCreate(BaseModel):
 
     # Can arrive as a native array or a JSON-encoded string
     attachments: Optional[Union[List[AttachmentIn], str]] = None
+    
+    @model_validator(mode='before')
+    @classmethod
+    def accept_grievance_details_alias(cls, data: Any) -> Any:
+        """Accept both 'details' and 'grievance_details' field names for Typebot compatibility"""
+        if isinstance(data, dict):
+            # If 'grievance_details' is provided but 'details' is not, use it
+            if 'grievance_details' in data and 'details' not in data:
+                data['details'] = data['grievance_details']
+        return data
 
 class GrievancePublic(BaseModel):
     id: str
