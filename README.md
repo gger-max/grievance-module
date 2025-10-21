@@ -1,4 +1,4 @@
-<div align="center"><div align="center"># Grievance Management System.
+<div align="center"><div align="center"><div align="center"># Grievance Management System.
 
 
 
@@ -6,87 +6,95 @@
 
 
 
-### _Modern, scalable grievance tracking for Vaka Sosiale_# 🎯 Grievance Management SystemMonorepo for the **Vaka Sosiale** GRM. It captures grievances via Typebot, processes and classifies them through a FastAPI middleware, stores data in PostgreSQL/MinIO, and integrates with Vaka Sosiale for analytics and feedback.<p align="center">
+### _Modern, scalable grievance tracking for Vaka Sosiale_# 🎯 Grievance Management System
 
 
 
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
+<br>
+
+
+
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)### _Modern, scalable grievance tracking for Vaka Sosiale_# 🎯 Grievance Management SystemMonorepo for the **Vaka Sosiale** GRM. It captures grievances via Typebot, processes and classifies them through a FastAPI middleware, stores data in PostgreSQL/MinIO, and integrates with Vaka Sosiale for analytics and feedback.<p align="center">
 
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)### _Modern, scalable grievance tracking for Vaka Sosiale_  <img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture Overview" width="720">
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
 
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
 
-[![Tests](https://img.shields.io/badge/Tests-41%20passing-success.svg?style=flat)](backend/tests/)
+[![Tests](https://img.shields.io/badge/Tests-41%20passing-success.svg?style=flat)](backend/tests/)[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
 
 
 
-<br>[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)<p align="center"></p>
+<br>[![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 
 
 
-<img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture" width="800">[![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
+<p align="center">[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)### _Modern, scalable grievance tracking for Vaka Sosiale_  <img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture Overview" width="720">
+
+  <img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture" width="800">
+
+</p>[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
 
 
 
-<br>[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)## Repository layout
+<br>[![Tests](https://img.shields.io/badge/Tests-41%20passing-success.svg?style=flat)](backend/tests/)
 
 
 
-**Capture grievances via Typebot chatbot** · **Process through FastAPI middleware** · **Store in PostgreSQL/MinIO** · **Integrate with analytics**[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
+**Capture grievances via Typebot chatbot** · **Process through FastAPI middleware** · **Store in PostgreSQL/MinIO** · **Integrate with analytics**
 
 
 
-<br>[![Tests](https://img.shields.io/badge/Tests-41%20passing-success.svg?style=flat)](backend/tests/)grievance-module/# 
+<br><br>[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)<p align="center"></p>
 
 
 
-[Quick Start](#-quick-start) • [Architecture](#-architecture) • [Testing](#-testing) • [API Docs](#-api-endpoints) • [Deployment](#-production-deployment)
+[Quick Start](#-quick-start) • [Architecture](#-architecture) • [API Docs](#-api-endpoints) • [Testing](#-testing) • [Deployment](#-production-deployment)
 
 
 
-</div>---├── backend/              # FastAPI app, tests, Dockerfile# 
+---<img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture" width="800">[![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 
 
 
----├── frontend-typebot/     # Typebot export, embed snippets, docs# 
+</div>
 
 
 
-## 📋 Table of Contents<img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture" width="800">├── infra/                # docker-compose, .env.example, local run# 
+## 📋 Table of Contents<br>[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)## Repository layout
 
 
 
-- [🚀 Quick Start](#-quick-start)├── ops/                  # CI/CD workflows and helper scripts# 
+- [🚀 Quick Start](#-quick-start)
 
 - [🏗 Architecture](#-architecture)
 
-- [🧪 Testing](#-testing)**Capture grievances via Typebot chatbot** · **Process through FastAPI middleware** · **Store in PostgreSQL/MinIO** · **Integrate with analytics**├── docs/                 # report docs, images, diagrams# 
+- [🧪 Testing](#-testing)**Capture grievances via Typebot chatbot** · **Process through FastAPI middleware** · **Store in PostgreSQL/MinIO** · **Integrate with analytics**[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
 
 - [📡 API Endpoints](#-api-endpoints)
 
-- [🤖 Typebot Configuration](#-typebot-configuration)├── .github/workflows/    # GitHub Actions# 
+- [🤖 Typebot Configuration](#-typebot-configuration)
 
 - [💻 Development](#-development)
 
-- [🔧 Troubleshooting](#-troubleshooting)[Quick Start](#-quick-start) • [Architecture](#-architecture) • [API Docs](#-api-endpoints) • [Testing](#-testing) • [Deployment](#-production-deployment)├── .gitignore# 
+- [🔧 Troubleshooting](#-troubleshooting)<br>[![Tests](https://img.shields.io/badge/Tests-41%20passing-success.svg?style=flat)](backend/tests/)grievance-module/# 
 
 - [🚀 Production Deployment](#-production-deployment)
 
-├── .gitattributes
+
 
 ---
 
-</div>├── LICENSE## Quick start (local)
+[Quick Start](#-quick-start) • [Architecture](#-architecture) • [Testing](#-testing) • [API Docs](#-api-endpoints) • [Deployment](#-production-deployment)
 
 ## 🚀 Quick Start
 
-├── README.md
+
 
 Get up and running in 3 simple steps:
 
----└── SECURITY.md
+</div>---├── backend/              # FastAPI app, tests, Dockerfile# 
 
 ```bash
 
@@ -94,531 +102,1175 @@ Get up and running in 3 simple steps:
 
 docker network create grievance_net
 
-## 📋 Table of Contents```bash
+---├── frontend-typebot/     # Typebot export, embed snippets, docs# 
 
 # Step 2: Start all services
 
-docker compose up -d --build# 1) Start infra (DB/Redis/MinIO) + API + Typebot* (optional)
+docker compose up -d --build
 
 
 
-# Step 3: Access the services ✨- [Quick Start](#-quick-start)
+# Step 3: Access the services ✨## 📋 Table of Contents<img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture" width="800">├── infra/                # docker-compose, .env.example, local run# 
 
 ```
 
-- [Architecture](#-architecture)cd infra
+
 
 ### 🌐 Service URLs
 
-- [Testing](#-testing)
+- [🚀 Quick Start](#-quick-start)├── ops/                  # CI/CD workflows and helper scripts# 
 
 | Service | URL | Description |
 
-|---------|-----|-------------|- [API Endpoints](#-api-endpoints)## Quick Start (Local)cp .env.example .env
+|---------|-----|-------------|- [🏗 Architecture](#-architecture)
 
 | 📚 **API Documentation** | http://localhost:8000/docs | Interactive Swagger UI |
 
-| 🤖 **Typebot Builder** | http://localhost:8081 | Design bot flows |- [Typebot Configuration](#-typebot-configuration)
+| 🤖 **Typebot Builder** | http://localhost:8081 | Design bot flows |- [🧪 Testing](#-testing)**Capture grievances via Typebot chatbot** · **Process through FastAPI middleware** · **Store in PostgreSQL/MinIO** · **Integrate with analytics**├── docs/                 # report docs, images, diagrams# 
 
 | 💬 **Typebot Viewer** | http://localhost:8082 | Public bot interface |
 
-| 📦 **MinIO Console** | http://localhost:9001 | S3 storage management |- [Development](#-development)# edit values, then:
+| 📦 **MinIO Console** | http://localhost:9001 | S3 storage management |- [📡 API Endpoints](#-api-endpoints)
 
 | 📧 **MailHog** | http://localhost:8025 | Email testing UI |
 
-- [Troubleshooting](#-troubleshooting)
+- [🤖 Typebot Configuration](#-typebot-configuration)├── .github/workflows/    # GitHub Actions# 
 
 ---
 
-- [Production Deployment](#-production-deployment)bashdocker compose up -d
+- [💻 Development](#-development)
 
 ## 🏗 Architecture
 
-
+- [🔧 Troubleshooting](#-troubleshooting)[Quick Start](#-quick-start) • [Architecture](#-architecture) • [API Docs](#-api-endpoints) • [Testing](#-testing) • [Deployment](#-production-deployment)├── .gitignore# 
 
 ### Service Overview
 
----# 1) Create external Docker network for API-Typebot communication
+- [🚀 Production Deployment](#-production-deployment)
 
 <table>
 
-<tr>
+<tr>├── .gitattributes
 
 <td width="50%" valign="top">
 
-## 🚀 Quick Startdocker network create grievance_net# 2) Visit:
+---
 
 #### 🔥 **FastAPI Backend**
 
-
+</div>├── LICENSE## Quick start (local)
 
 **Location:** `backend/`
 
-Get up and running in 3 simple steps:# API docs:          http://localhost:8000/docs
+## 🚀 Quick Start
 
 **Endpoints:** 
 
-- `/api/grievances` - CRUD operations
+- `/api/grievances` - CRUD operations├── README.md
 
 - `/api/status` - System health
 
-```bash# 2) Start all services (DB/Redis/MinIO/API/Typebot)# Typebot Builder*:  http://localhost:8081
+Get up and running in 3 simple steps:
 
 **Features:**
 
-- ✅ RESTful API with FastAPI# Step 1: Create Docker network for service communication
+- ✅ RESTful API with FastAPI---└── SECURITY.md
 
 - ✅ PDF receipt generation
 
-- ✅ File attachment handlingdocker network create grievance_netdocker compose up -d --build# Typebot Viewer*:   http://localhost:8082
+- ✅ File attachment handling```bash
 
 - ✅ Custom CORS middleware
 
-- ✅ ULID-based IDs
+- ✅ ULID-based IDs# Step 1: Create Docker network for service communication
 
 
 
-**Stack:**# Step 2: Start all services# MinIO Console:     http://localhost:9001
+**Stack:**docker network create grievance_net
 
 - PostgreSQL (data)
 
-- MinIO (files)docker compose up -d --build# 3) Visit:
+- MinIO (files)## 📋 Table of Contents```bash
 
 - Redis (cache)
 
-# API docs:          http://localhost:8000/docs
+# Step 2: Start all services
 
 **Tests:** 🎯 41 passing
 
-- 26 general API tests# Step 3: Access the services# Typebot Builder:   http://localhost:8081
+- 26 general API testsdocker compose up -d --build# 1) Start infra (DB/Redis/MinIO) + API + Typebot* (optional)
 
 - 15 Typebot integration tests
 
-```# Typebot Viewer:    http://localhost:8082
+
 
 </td>
 
-<td width="50%" valign="top"># MinIO Console:     http://localhost:9001
+<td width="50%" valign="top"># Step 3: Access the services ✨- [Quick Start](#-quick-start)
 
 
 
-#### 🤖 **Typebot Chatbot**### 🌐 Service URLs# MailHog (email):   http://localhost:8025
+#### 🤖 **Typebot Chatbot**```
 
 
 
-**Location:** `frontend-typebot/````
+**Location:** `frontend-typebot/`- [Architecture](#-architecture)cd infra
 
 
 
-**Ports:** | Service | URL | Description |
+**Ports:** ### 🌐 Service URLs
 
 - 8081 (Builder)
 
-- 8082 (Viewer)|---------|-----|-------------|## Architecture
+- 8082 (Viewer)- [Testing](#-testing)
 
 
 
-**Modes:**| 📚 **API Documentation** | http://localhost:8000/docs | Interactive Swagger UI |
+**Modes:**| Service | URL | Description |
 
 - 🔵 **Production:** Server-side webhooks
 
-- 🟢 **Development:** Browser webhooks| 🤖 **Typebot Builder** | http://localhost:8081 | Design bot flows |### Services
+- 🟢 **Development:** Browser webhooks|---------|-----|-------------|- [API Endpoints](#-api-endpoints)## Quick Start (Local)cp .env.example .env
 
 
 
-**Features:**| 💬 **Typebot Viewer** | http://localhost:8082 | Public bot interface |
+**Features:**| 📚 **API Documentation** | http://localhost:8000/docs | Interactive Swagger UI |
 
 - 🎨 No-code bot designer
 
-- 🔗 Webhook integration| 📦 **MinIO Console** | http://localhost:9001 | S3 storage management |- **FastAPI Backend** (`backend/`): REST API for grievance management
+- 🔗 Webhook integration| 🤖 **Typebot Builder** | http://localhost:8081 | Design bot flows |- [Typebot Configuration](#-typebot-configuration)
 
 - 📎 File upload support
 
-- 🌍 Multi-language support| 📧 **MailHog** | http://localhost:8025 | Email testing UI |  - Endpoints: `/api/grievances`, `/api/status`
+- 🌍 Multi-language support| 💬 **Typebot Viewer** | http://localhost:8082 | Public bot interface |
 
 - 📧 Email notifications
 
-- 🛡️ Anti-spam protection  - Features: CRUD operations, PDF receipt generation, attachment handling
+- 🛡️ Anti-spam protection| 📦 **MinIO Console** | http://localhost:9001 | S3 storage management |- [Development](#-development)# edit values, then:
 
 
 
-**Integration:**---  - Storage: PostgreSQL + MinIO (S3-compatible)
+**Integration:**| 📧 **MailHog** | http://localhost:8025 | Email testing UI |
 
 - Connects via `grievance_net`
 
-- Seamless API communication  - Tests: 41 passing tests (26 general + 15 Typebot integration)
+- Seamless API communication- [Troubleshooting](#-troubleshooting)
 
 - Two export configurations
 
-## 🏗 Architecture
+---
 
 </td>
 
-</tr>- **Typebot** (`frontend-typebot/`): No-code chatbot for grievance intake
+</tr>- [Production Deployment](#-production-deployment)bashdocker compose up -d
 
 </table>
 
-### Service Overview  - Builder (port 8081): Design and configure bot flows
+## 🏗 Architecture
 
 ### 💾 Data & Infrastructure
 
-  - Viewer (port 8082): Public-facing bot interface
+
 
 | Service | Port(s) | Purpose | Technology |
 
-|---------|---------|---------|------------|<table>  - Two export versions:
+|---------|---------|---------|------------|### Service Overview
 
 | **PostgreSQL** (grievance) | 5432 | Main grievance data | PostgreSQL 16 |
 
-| **PostgreSQL** (typebot) | 5433 | Typebot configuration | PostgreSQL 16 |<tr>    - `typebot-export-grievance-intake-qwdn4no.json`: Production (server-side webhooks)
+| **PostgreSQL** (typebot) | 5433 | Typebot configuration | PostgreSQL 16 |---# 1) Create external Docker network for API-Typebot communication
 
 | **MinIO** | 9000 / 9001 | S3-compatible file storage | MinIO latest |
 
-| **Redis** | 6379 | Caching & sessions | Redis 7 |<td width="50%">    - `typebot-export-grievance-intake-LOCALHOST-TEST.json`: Development (browser webhooks)
+| **Redis** | 6379 | Caching & sessions | Redis 7 |<table>
 
 | **MailHog** | 1025 / 8025 | Email testing (SMTP + UI) | MailHog latest |
 
-
+<tr>
 
 ### 🌐 Network Architecture
 
-#### 🔥 **FastAPI Backend**- **PostgreSQL**: Two databases
+<td width="50%" valign="top">
 
 ```
 
-┌─────────────────┐- **Location:** `backend/`  - `grievance` (port 5432): Main grievance data
+┌─────────────────┐## 🚀 Quick Startdocker network create grievance_net# 2) Visit:
 
 │  User Browser   │
 
-└────────┬────────┘- **Endpoints:** `/api/grievances`, `/api/status`  - `typebot` (port 5433): Typebot configuration
+└────────┬────────┘#### 🔥 **FastAPI Backend**
 
          │ HTTP
 
-         ▼- **Features:**
+         ▼
 
 ┌─────────────────┐     grievance_net      ┌──────────────┐
 
-│ Typebot Viewer  ├────────────────────────►│   FastAPI    │  - ✅ CRUD operations- **MinIO** (ports 9000/9001): S3-compatible object storage for attachments
+│ Typebot Viewer  ├────────────────────────►│   FastAPI    │**Location:** `backend/`
 
 │   (port 8082)   │                         │  (port 8000) │
 
-└─────────────────┘                         └──────┬───────┘  - ✅ PDF receipt generation
+└─────────────────┘                         └──────┬───────┘Get up and running in 3 simple steps:# API docs:          http://localhost:8000/docs
 
                                                    │ default network
 
-                    ┌──────────────────────────────┼────────────┐  - ✅ File attachment handling- **Redis** (port 6379): Caching and session storage
+                    ┌──────────────────────────────┼────────────┐**Endpoints:** 
 
                     ▼                              ▼            ▼
 
-            ┌──────────────┐            ┌────────────┐  ┌───────────┐  - ✅ Custom CORS middleware
+            ┌──────────────┐            ┌────────────┐  ┌───────────┐- `/api/grievances` - CRUD operations
 
             │  PostgreSQL  │            │   MinIO    │  │   Redis   │
 
-            │  (port 5432) │            │ (port 9000)│  │ (port 6379)│- **Storage:** PostgreSQL + MinIO- **MailHog** (ports 1025/8025): Email testing (SMTP + web UI)
+            │  (port 5432) │            │ (port 9000)│  │ (port 6379)│- `/api/status` - System health
 
             └──────────────┘            └────────────┘  └───────────┘
 
-```- **Tests:** 41 passing (26 general + 15 Typebot)
+``````bash# 2) Start all services (DB/Redis/MinIO/API/Typebot)# Typebot Builder*:  http://localhost:8081
 
 
 
-**Network Details:**### Networking
+**Network Details:****Features:**
 
 - 🔵 **`default`** (auto-created): Internal service communication (DB, Redis, MinIO)
 
-- 🟢 **`grievance_net`** (external): Typebot ↔ API communication</td>
+- 🟢 **`grievance_net`** (external): Typebot ↔ API communication- ✅ RESTful API with FastAPI# Step 1: Create Docker network for service communication
 
   - API accessible as `grievance-api:8000` from Typebot services
 
-<td width="50%">The system uses two Docker networks:
+- ✅ PDF receipt generation
+
+---
+
+- ✅ File attachment handlingdocker network create grievance_netdocker compose up -d --build# Typebot Viewer*:   http://localhost:8082
+
+## 🧪 Testing
+
+- ✅ Custom CORS middleware
+
+### Run Backend Tests
+
+- ✅ ULID-based IDs
+
+```bash
+
+# Run all 41 tests
+
+docker exec grievancemodule-api-1 pytest
+
+**Stack:**# Step 2: Start all services# MinIO Console:     http://localhost:9001
+
+# Run Typebot integration tests only (15 tests)
+
+docker exec grievancemodule-api-1 pytest backend/tests/test_typebot_integration.py -v- PostgreSQL (data)
+
+
+
+# Run with coverage report- MinIO (files)docker compose up -d --build# 3) Visit:
+
+docker exec grievancemodule-api-1 pytest --cov=app --cov-report=html
+
+- Redis (cache)
+
+# View coverage
+
+open backend/htmlcov/index.html  # macOS/Linux# API docs:          http://localhost:8000/docs
+
+start backend/htmlcov/index.html  # Windows
+
+```**Tests:** 🎯 41 passing
+
+
+
+### 🤖 Test Typebot Integration- 26 general API tests# Step 3: Access the services# Typebot Builder:   http://localhost:8081
+
+
+
+#### **Method 1: Published Bot** ⭐ _Recommended_- 15 Typebot integration tests
+
+
+
+1. Open Typebot Builder: http://localhost:8081```# Typebot Viewer:    http://localhost:8082
+
+2. Import: `frontend-typebot/typebot-export-grievance-intake-qwdn4no.json`
+
+3. Click **"Publish"** button (⚠️ not "Test" - CSP restrictions)</td>
+
+4. Open the published bot URL in a new tab
+
+5. Complete the flow and submit a test grievance<td width="50%" valign="top"># MinIO Console:     http://localhost:9001
+
+6. Verify: Check API response and database entry
+
+
+
+#### **Method 2: Browser Testing**
+
+#### 🤖 **Typebot Chatbot**### 🌐 Service URLs# MailHog (email):   http://localhost:8025
+
+1. Open `test-browser-webhook.html` in your browser
+
+2. Click **"Test Webhook"** button
+
+3. Check console for success message
+
+4. Verify grievance created with API call**Location:** `frontend-typebot/````
+
+
+
+### ✅ Test Coverage Summary
+
+
+
+<details>**Ports:** | Service | URL | Description |
+
+<summary><b>📊 Typebot Integration Tests</b> (15 tests in <code>test_typebot_integration.py</code>)</summary>
+
+- 8081 (Builder)
+
+<br>
+
+- 8082 (Viewer)|---------|-----|-------------|## Architecture
+
+#### ✅ Core Functionality (5 tests)
+
+- Field mapping (Typebot schema → API schema)
+
+- Complainant information (name, email, phone, gender)
+
+- Location data (island, district, village)**Modes:**| 📚 **API Documentation** | http://localhost:8000/docs | Interactive Swagger UI |
+
+- Category types
+
+- Grievance details and descriptions- 🔵 **Production:** Server-side webhooks
+
+
+
+#### ✅ File Handling (3 tests)- 🟢 **Development:** Browser webhooks| 🤖 **Typebot Builder** | http://localhost:8081 | Design bot flows |### Services
+
+- Single file attachment
+
+- Multiple file attachments
+
+- Attachment validation & size limits
+
+**Features:**| 💬 **Typebot Viewer** | http://localhost:8082 | Public bot interface |
+
+#### ✅ User Flows (4 tests)
+
+- Anonymous submissions- 🎨 No-code bot designer
+
+- Named submissions with full details
+
+- Household registration flow- 🔗 Webhook integration| 📦 **MinIO Console** | http://localhost:9001 | S3 storage management |- **FastAPI Backend** (`backend/`): REST API for grievance management
+
+- Status lookup by grievance ID
+
+- 📎 File upload support
+
+#### ✅ Features (3 tests)
+
+- PDF receipt generation- 🌍 Multi-language support| 📧 **MailHog** | http://localhost:8025 | Email testing UI |  - Endpoints: `/api/grievances`, `/api/status`
+
+- Email notifications
+
+- Error handling & validation- 📧 Email notifications
+
+
+
+</details>- 🛡️ Anti-spam protection  - Features: CRUD operations, PDF receipt generation, attachment handling
+
+
 
 ---
 
 
 
-## 🧪 Testing
+## 📡 API Endpoints**Integration:**---  - Storage: PostgreSQL + MinIO (S3-compatible)
 
-#### 🤖 **Typebot Chatbot**1. **`default`** (auto-created): Internal service communication
 
-### Run Backend Tests
 
-- **Location:** `frontend-typebot/`2. **`grievance_net`** (external): Enables Typebot → API communication
+### 📝 Grievances- Connects via `grievance_net`
 
-```bash
 
-# Run all 41 tests- **Ports:** 8081 (Builder), 8082 (Viewer)   - API is accessible as `grievance-api:8000` from Typebot services
 
-docker exec grievancemodule-api-1 pytest
-
-- **Modes:**
-
-# Run Typebot integration tests only (15 tests)
-
-docker exec grievancemodule-api-1 pytest backend/tests/test_typebot_integration.py -v  - 🔵 **Production:** Server-side webhooks## Testing
-
-
-
-# Run with coverage report  - 🟢 **Development:** Browser webhooks
-
-docker exec grievancemodule-api-1 pytest --cov=app --cov-report=html
-
-- **Features:**### Run Backend Tests
-
-# View coverage
-
-open backend/htmlcov/index.html  # macOS/Linux  - No-code bot designer
-
-start backend/htmlcov/index.html  # Windows
-
-```  - Webhook integration```bash
-
-
-
-### 🤖 Test Typebot Integration  - File upload support# All tests (41 total)
-
-
-
-#### **Method 1: Published Bot** ⭐ _Recommended_  - Multi-language supportdocker exec grievancemodule-api-1 pytest
-
-
-
-1. Open Typebot Builder: http://localhost:8081
-
-2. Import: `frontend-typebot/typebot-export-grievance-intake-qwdn4no.json`
-
-3. Click **"Publish"** button (⚠️ not "Test" - CSP restrictions)</td># Typebot integration tests only (15 tests)
-
-4. Open the published bot URL in a new tab
-
-5. Complete the flow and submit a test grievance</tr>docker exec grievancemodule-api-1 pytest backend/tests/test_typebot_integration.py
-
-6. Verify: Check API response and database entry
-
-</table>
-
-#### **Method 2: Browser Testing**
-
-# With coverage
-
-1. Open `test-browser-webhook.html` in your browser
-
-2. Click **"Test Webhook"** button### 💾 Data Layerdocker exec grievancemodule-api-1 pytest --cov=app
-
-3. Check console for success message
-
-4. Verify grievance created with API call```
-
-
-
-### ✅ Test Coverage Summary| Service | Port | Purpose |
-
-
-
-<details>|---------|------|---------|### Test Typebot Integration
-
-<summary><b>📊 Typebot Integration Tests</b> (15 tests in <code>test_typebot_integration.py</code>)</summary>
-
-| **PostgreSQL** (grievance) | 5432 | Main grievance data |
-
-<br>
-
-| **PostgreSQL** (typebot) | 5433 | Typebot configuration |**Option 1: Published Bot (Recommended)**
-
-#### ✅ Core Functionality (5 tests)
-
-- Field mapping (Typebot schema → API schema)| **MinIO** | 9000/9001 | S3-compatible file storage |1. Open Typebot Builder: http://localhost:8081
-
-- Complainant information (name, email, phone, gender)
-
-- Location data (island, district, village)| **Redis** | 6379 | Caching & sessions |2. Import `frontend-typebot/typebot-export-grievance-intake-qwdn4no.json`
-
-- Category types
-
-- Grievance details and descriptions| **MailHog** | 1025/8025 | Email testing (SMTP + UI) |3. Click **"Publish"** (not "Test" - CSP restrictions apply to preview mode)
-
-
-
-#### ✅ File Handling (3 tests)4. Access published bot URL
-
-- Single file attachment
-
-- Multiple file attachments### 🌐 Network Architecture5. Submit a grievance - webhook executes server-side
-
-- Attachment validation & size limits
-
-
-
-#### ✅ User Flows (4 tests)
-
-- Anonymous submissions```mermaid**Option 2: Browser Testing**
-
-- Named submissions with full details
-
-- Household registration flowgraph LR1. Open `test-browser-webhook.html` in browser
-
-- Status lookup by grievance ID
-
-    A[User Browser] -->|HTTP| B[Typebot Viewer]2. Click "Test Webhook"
-
-#### ✅ Features (3 tests)
-
-- PDF receipt generation    B -->|grievance_net| C[FastAPI]3. Simulates client-side webhook execution with CORS
-
-- Email notifications
-
-- Error handling & validation    C -->|default| D[PostgreSQL]
-
-
-
-</details>    C -->|default| E[MinIO]### Test Coverage
-
-
-
----    C -->|default| F[Redis]
-
-
-
-## 📡 API Endpoints    G[Typebot Builder] -->|grievance_net| C**Typebot Integration Tests** (`test_typebot_integration.py`):
-
-
-
-### 📝 Grievances```- ✅ Field mapping (Typebot → API schema)
-
-
-
-<details>- ✅ Complainant information handling
+<details>- Seamless API communication  - Tests: 41 passing tests (26 general + 15 Typebot integration)
 
 <summary><b>POST</b> <code>/api/grievances</code> - Create a new grievance</summary>
 
-**Two Docker Networks:**- ✅ Location data (island, district, village)
+- Two export configurations
 
 <br>
 
-- 🔵 **`default`** (auto-created): Internal service communication- ✅ Category types
+## 🏗 Architecture
 
 **Request:**
 
-```bash- 🟢 **`grievance_net`** (external): Typebot ↔ API communication- ✅ Attachment handling (single & multiple files)
+```bash</td>
 
 curl -X POST http://localhost:8000/api/grievances \
 
-  -H "Content-Type: application/json" \  - API accessible as `grievance-api:8000` from Typebot- ✅ Anonymous submissions
+  -H "Content-Type: application/json" \</tr>- **Typebot** (`frontend-typebot/`): No-code chatbot for grievance intake
 
   -d '{
 
-    "is_anonymous": false,- ✅ Named submissions with full details
+    "is_anonymous": false,</table>
 
     "complainant_name": "John Doe",
 
-    "complainant_email": "john@example.com",---- ✅ Household registration flow
+    "complainant_email": "john@example.com",### Service Overview  - Builder (port 8081): Design and configure bot flows
 
     "complainant_phone": "+676123456",
 
-    "complainant_gender": "Male",- ✅ Status lookup by grievance ID
+    "complainant_gender": "Male",### 💾 Data & Infrastructure
 
     "is_hh_registered": true,
 
-    "hh_id": "HH12345",## 🧪 Testing- ✅ PDF receipt generation
+    "hh_id": "HH12345",  - Viewer (port 8082): Public-facing bot interface
 
     "hh_address": "Main Street, Kolofo'\''ou",
 
-    "island": "Tongatapu",- ✅ Email notifications
+    "island": "Tongatapu",| Service | Port(s) | Purpose | Technology |
 
     "district": "Nuku'\''alofa",
 
-    "village": "Kolofo'\''ou",### Run Backend Tests- ✅ Error handling and validation
+    "village": "Kolofo'\''ou",|---------|---------|---------|------------|<table>  - Two export versions:
 
     "category_type": "Registration",
 
-    "details": "Need assistance with registration renewal",
+    "details": "Need assistance with registration renewal",| **PostgreSQL** (grievance) | 5432 | Main grievance data | PostgreSQL 16 |
 
     "attachments": [
 
-      {```bash## Typebot Configuration
+      {| **PostgreSQL** (typebot) | 5433 | Typebot configuration | PostgreSQL 16 |<tr>    - `typebot-export-grievance-intake-qwdn4no.json`: Production (server-side webhooks)
 
         "name": "document.pdf",
 
-        "url": "https://storage.example.com/file.pdf",# Run all 41 tests
+        "url": "https://storage.example.com/file.pdf",| **MinIO** | 9000 / 9001 | S3-compatible file storage | MinIO latest |
 
         "size": 102400,
 
-        "type": "application/pdf"docker exec grievancemodule-api-1 pytest### Production Setup (Server-side webhooks)
+        "type": "application/pdf"| **Redis** | 6379 | Caching & sessions | Redis 7 |<td width="50%">    - `typebot-export-grievance-intake-LOCALHOST-TEST.json`: Development (browser webhooks)
 
       }
 
-    ]
+    ]| **MailHog** | 1025 / 8025 | Email testing (SMTP + UI) | MailHog latest |
 
   }'
 
-```# Run Typebot integration tests only (15 tests)File: `typebot-export-grievance-intake-qwdn4no.json`
+```
 
 
 
-**Response:** `201 Created`docker exec grievancemodule-api-1 pytest backend/tests/test_typebot_integration.py -v
+**Response:** `201 Created`### 🌐 Network Architecture
 
 ```json
 
-{```json
+{#### 🔥 **FastAPI Backend**- **PostgreSQL**: Two databases
 
   "id": "GRV-01K83WMY346N2S1KA7FK3W26RP",
 
-  "created_at": "2025-10-21T12:00:00Z",# Run with coverage report{
+  "created_at": "2025-10-21T12:00:00Z",```
 
   "updated_at": "2025-10-21T12:00:00Z",
 
-  "is_anonymous": false,docker exec grievancemodule-api-1 pytest --cov=app --cov-report=html  "isExecutedOnClient": false,
+  "is_anonymous": false,┌─────────────────┐- **Location:** `backend/`  - `grievance` (port 5432): Main grievance data
 
   "complainant_name": "John Doe",
 
-  "complainant_email": "john@example.com",```  "webhook": {
+  "complainant_email": "john@example.com",│  User Browser   │
 
   "island": "Tongatapu",
 
-  "district": "Nuku'alofa",    "url": "http://grievance-api:8000/api/grievances",
+  "district": "Nuku'alofa",└────────┬────────┘- **Endpoints:** `/api/grievances`, `/api/status`  - `typebot` (port 5433): Typebot configuration
 
   "details": "Need assistance with registration renewal",
 
-  ...### 🤖 Test Typebot Integration    "method": "POST",
+  ...         │ HTTP
 
 }
 
-```    "headers": [{"key": "Content-Type", "value": "application/json"}]
+```         ▼- **Features:**
 
 
 
-</details>#### **Option 1: Published Bot** ⭐ _Recommended_  }
+</details>┌─────────────────┐     grievance_net      ┌──────────────┐
 
 
 
-<details>}
+<details>│ Typebot Viewer  ├────────────────────────►│   FastAPI    │  - ✅ CRUD operations- **MinIO** (ports 9000/9001): S3-compatible object storage for attachments
 
 <summary><b>GET</b> <code>/api/grievances/{id}</code> - Get grievance by ID</summary>
 
-1. Open Typebot Builder: http://localhost:8081```
+│   (port 8082)   │                         │  (port 8000) │
 
 <br>
 
-2. Import `frontend-typebot/typebot-export-grievance-intake-qwdn4no.json`
+└─────────────────┘                         └──────┬───────┘  - ✅ PDF receipt generation
 
 ```bash
 
-curl http://localhost:8000/api/grievances/GRV-01K83WMY346N2S1KA7FK3W26RP3. Click **"Publish"** button (⚠️ don't use "Test" - CSP restrictions)- Webhooks execute from Typebot Viewer container
+curl http://localhost:8000/api/grievances/GRV-01K83WMY346N2S1KA7FK3W26RP                                                   │ default network
 
 ```
 
-4. Access the published bot URL- Uses Docker internal network (`grievance_net`)
+                    ┌──────────────────────────────┼────────────┐  - ✅ File attachment handling- **Redis** (port 6379): Caching and session storage
 
 **Response:** `200 OK` (full grievance object)
 
-5. Submit a test grievance- API accessible as `grievance-api:8000`
+                    ▼                              ▼            ▼
 
 </details>
+
+            ┌──────────────┐            ┌────────────┐  ┌───────────┐  - ✅ Custom CORS middleware
+
+<details>
+
+<summary><b>GET</b> <code>/api/grievances/{id}/receipt.pdf</code> - Download PDF receipt</summary>            │  PostgreSQL  │            │   MinIO    │  │   Redis   │
+
+
+
+<br>            │  (port 5432) │            │ (port 9000)│  │ (port 6379)│- **Storage:** PostgreSQL + MinIO- **MailHog** (ports 1025/8025): Email testing (SMTP + web UI)
+
+
+
+```bash            └──────────────┘            └────────────┘  └───────────┘
+
+curl -O http://localhost:8000/api/grievances/GRV-01K83WMY346N2S1KA7FK3W26RP/receipt.pdf
+
+``````- **Tests:** 41 passing (26 general + 15 Typebot)
+
+
+
+**Response:** `200 OK` (PDF file with QR code)
+
+
+
+</details>**Network Details:**### Networking
+
+
+
+<details>- 🔵 **`default`** (auto-created): Internal service communication (DB, Redis, MinIO)
+
+<summary><b>PATCH</b> <code>/api/grievances/{id}</code> - Update grievance status</summary>
+
+- 🟢 **`grievance_net`** (external): Typebot ↔ API communication</td>
+
+<br>
+
+  - API accessible as `grievance-api:8000` from Typebot services
+
+```bash
+
+curl -X PATCH http://localhost:8000/api/grievances/GRV-01K83WMY346N2S1KA7FK3W26RP \<td width="50%">The system uses two Docker networks:
+
+  -H "Content-Type: application/json" \
+
+  -d '{---
+
+    "external_status": "Under Review",
+
+    "external_status_note": "Processing your request"
+
+  }'
+
+```## 🧪 Testing
+
+
+
+**Response:** `200 OK` (updated grievance)#### 🤖 **Typebot Chatbot**1. **`default`** (auto-created): Internal service communication
+
+
+
+</details>### Run Backend Tests
+
+
+
+### 🏥 Health & Status- **Location:** `frontend-typebot/`2. **`grievance_net`** (external): Enables Typebot → API communication
+
+
+
+| Endpoint | Method | Description | Response |```bash
+
+|----------|--------|-------------|----------|
+
+| `/` | GET | API health check | `{"ok": true, "service": "Grievance Management API"}` |# Run all 41 tests- **Ports:** 8081 (Builder), 8082 (Viewer)   - API is accessible as `grievance-api:8000` from Typebot services
+
+| `/api/status` | GET | System status | `{"status": "ok", "database": "connected", ...}` |
+
+docker exec grievancemodule-api-1 pytest
+
+---
+
+- **Modes:**
+
+## 🤖 Typebot Configuration
+
+# Run Typebot integration tests only (15 tests)
+
+### 🔵 Production Setup (Server-side webhooks)
+
+docker exec grievancemodule-api-1 pytest backend/tests/test_typebot_integration.py -v  - 🔵 **Production:** Server-side webhooks## Testing
+
+**File:** `typebot-export-grievance-intake-qwdn4no.json`
+
+
+
+```json
+
+{# Run with coverage report  - 🟢 **Development:** Browser webhooks
+
+  "isExecutedOnClient": false,
+
+  "webhook": {docker exec grievancemodule-api-1 pytest --cov=app --cov-report=html
+
+    "url": "http://grievance-api:8000/api/grievances",
+
+    "method": "POST",- **Features:**### Run Backend Tests
+
+    "headers": [
+
+      {"key": "Content-Type", "value": "application/json"}# View coverage
+
+    ]
+
+  }open backend/htmlcov/index.html  # macOS/Linux  - No-code bot designer
+
+}
+
+```start backend/htmlcov/index.html  # Windows
+
+
+
+**✅ Use this for:**```  - Webhook integration```bash
+
+- Production deployments
+
+- Published bots
+
+- Server-side execution (more secure)
+
+- Docker internal network communication### 🤖 Test Typebot Integration  - File upload support# All tests (41 total)
+
+
+
+### 🟢 Development Setup (Browser webhooks)
+
+
+
+**File:** `typebot-export-grievance-intake-LOCALHOST-TEST.json`#### **Method 1: Published Bot** ⭐ _Recommended_  - Multi-language supportdocker exec grievancemodule-api-1 pytest
+
+
+
+```json
+
+{
+
+  "isExecutedOnClient": true,1. Open Typebot Builder: http://localhost:8081
+
+  "webhook": {
+
+    "url": "http://localhost:8000/api/grievances"2. Import: `frontend-typebot/typebot-export-grievance-intake-qwdn4no.json`
+
+  }
+
+}3. Click **"Publish"** button (⚠️ not "Test" - CSP restrictions)</td># Typebot integration tests only (15 tests)
+
+```
+
+4. Open the published bot URL in a new tab
+
+**✅ Use this for:**
+
+- Local development5. Complete the flow and submit a test grievance</tr>docker exec grievancemodule-api-1 pytest backend/tests/test_typebot_integration.py
+
+- Browser testing
+
+- Debugging webhook payloads6. Verify: Check API response and database entry
+
+- Client-side execution
+
+</table>
+
+### 🛡 CORS Configuration
+
+#### **Method 2: Browser Testing**
+
+The API uses **custom CORS middleware** to support all integration scenarios:
+
+# With coverage
+
+**Automatically handles:**
+
+- ✅ All origins including `null` (file:// protocol)1. Open `test-browser-webhook.html` in your browser
+
+- ✅ OPTIONS preflight requests
+
+- ✅ Browser-based webhook execution2. Click **"Test Webhook"** button### 💾 Data Layerdocker exec grievancemodule-api-1 pytest --cov=app
+
+- ✅ Typebot client-side mode
+
+- ✅ Cross-origin requests3. Check console for success message
+
+
+
+**Implementation:**4. Verify grievance created with API call```
+
+```python
+
+# backend/app/main.py
+
+@app.middleware("http")
+
+async def custom_cors_middleware(request: Request, call_next):### ✅ Test Coverage Summary| Service | Port | Purpose |
+
+    origin = request.headers.get("origin", "*")
+
+    if request.method == "OPTIONS":
+
+        return Response(status_code=200, headers={
+
+            "Access-Control-Allow-Origin": origin,<details>|---------|------|---------|### Test Typebot Integration
+
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
+
+            "Access-Control-Allow-Headers": "*",<summary><b>📊 Typebot Integration Tests</b> (15 tests in <code>test_typebot_integration.py</code>)</summary>
+
+        })
+
+    | **PostgreSQL** (grievance) | 5432 | Main grievance data |
+
+    response = await call_next(request)
+
+    response.headers["Access-Control-Allow-Origin"] = origin<br>
+
+    return response
+
+```| **PostgreSQL** (typebot) | 5433 | Typebot configuration |**Option 1: Published Bot (Recommended)**
+
+
+
+---#### ✅ Core Functionality (5 tests)
+
+
+
+## 💻 Development- Field mapping (Typebot schema → API schema)| **MinIO** | 9000/9001 | S3-compatible file storage |1. Open Typebot Builder: http://localhost:8081
+
+
+
+### 📁 Project Structure- Complainant information (name, email, phone, gender)
+
+
+
+```- Location data (island, district, village)| **Redis** | 6379 | Caching & sessions |2. Import `frontend-typebot/typebot-export-grievance-intake-qwdn4no.json`
+
+grievance-module/
+
+│- Category types
+
+├── 📂 backend/                           # FastAPI Application
+
+│   ├── 📂 app/- Grievance details and descriptions| **MailHog** | 1025/8025 | Email testing (SMTP + UI) |3. Click **"Publish"** (not "Test" - CSP restrictions apply to preview mode)
+
+│   │   ├── main.py                      # FastAPI app + CORS middleware
+
+│   │   ├── database.py                  # SQLAlchemy configuration
+
+│   │   ├── models.py                    # Database ORM models
+
+│   │   ├── schemas.py                   # Pydantic validation schemas#### ✅ File Handling (3 tests)4. Access published bot URL
+
+│   │   ├── 📂 routers/
+
+│   │   │   ├── grievances.py           # Grievance CRUD endpoints- Single file attachment
+
+│   │   │   └── status.py               # System status endpoints
+
+│   │   └── 📂 utils/- Multiple file attachments### 🌐 Network Architecture5. Submit a grievance - webhook executes server-side
+
+│   │       ├── id.py                    # ULID generator (GRV-01ABC...)
+
+│   │       └── pdf.py                   # PDF receipt generator (with QR)- Attachment validation & size limits
+
+│   ├── 📂 tests/
+
+│   │   ├── test_api.py                  # 26 general API tests
+
+│   │   └── test_typebot_integration.py  # 15 Typebot integration tests
+
+│   ├── Dockerfile                       # Multi-stage Docker build#### ✅ User Flows (4 tests)
+
+│   ├── requirements.txt                 # Python dependencies
+
+│   └── .env                            # Environment configuration- Anonymous submissions```mermaid**Option 2: Browser Testing**
+
+│
+
+├── 📂 frontend-typebot/                  # Typebot Configuration- Named submissions with full details
+
+│   ├── typebot-export-grievance-intake-qwdn4no.json         # Production
+
+│   ├── typebot-export-grievance-intake-LOCALHOST-TEST.json  # Development- Household registration flowgraph LR1. Open `test-browser-webhook.html` in browser
+
+│   ├── 📂 public/
+
+│   │   └── typebot-grievance-flow.html  # Embed example- Status lookup by grievance ID
+
+│   └── test-browser-webhook.html        # Browser testing tool
+
+│    A[User Browser] -->|HTTP| B[Typebot Viewer]2. Click "Test Webhook"
+
+├── 📂 docs/                              # Documentation & Diagrams
+
+│   └── 📂 images/#### ✅ Features (3 tests)
+
+│       └── figure-10-grm-architecture.png
+
+│- PDF receipt generation    B -->|grievance_net| C[FastAPI]3. Simulates client-side webhook execution with CORS
+
+├── 📂 ops/                               # CI/CD & Operations
+
+│   └── 📂 github-actions/- Email notifications
+
+│       ├── ci.yml                       # Continuous Integration
+
+│       └── docker-api.yml               # Docker build & push- Error handling & validation    C -->|default| D[PostgreSQL]
+
+│
+
+├── docker-compose.yml                    # Service orchestration
+
+├── README.md                             # This file
+
+└── LICENSE                               # Project license</details>    C -->|default| E[MinIO]### Test Coverage
+
+```
+
+
+
+### 🔧 Environment Variables
+
+---    C -->|default| F[Redis]
+
+<details>
+
+<summary><b>Backend Configuration</b> (<code>.env</code>)</summary>
+
+
+
+<br>## 📡 API Endpoints    G[Typebot Builder] -->|grievance_net| C**Typebot Integration Tests** (`test_typebot_integration.py`):
+
+
+
+```bash
+
+# Database
+
+DATABASE_URL=postgresql://grievance:grievance@db:5432/grievance### 📝 Grievances```- ✅ Field mapping (Typebot → API schema)
+
+
+
+# Cache
+
+REDIS_URL=redis://redis:6379/0
+
+<details>- ✅ Complainant information handling
+
+# Object Storage (MinIO/S3)
+
+MINIO_ENDPOINT=minio:9000<summary><b>POST</b> <code>/api/grievances</code> - Create a new grievance</summary>
+
+MINIO_ACCESS_KEY=minioadmin
+
+MINIO_SECRET_KEY=minioadmin**Two Docker Networks:**- ✅ Location data (island, district, village)
+
+MINIO_BUCKET=grievances
+
+MINIO_SECURE=false<br>
+
+
+
+# API Configuration- 🔵 **`default`** (auto-created): Internal service communication- ✅ Category types
+
+DEBUG=true
+
+API_VERSION=0.1.0**Request:**
+
+SECRET_KEY=your-secret-key-here
+
+```bash- 🟢 **`grievance_net`** (external): Typebot ↔ API communication- ✅ Attachment handling (single & multiple files)
+
+# CORS (optional - custom middleware handles all origins)
+
+ALLOWED_ORIGINS=*curl -X POST http://localhost:8000/api/grievances \
+
+```
+
+  -H "Content-Type: application/json" \  - API accessible as `grievance-api:8000` from Typebot- ✅ Anonymous submissions
+
+</details>
+
+  -d '{
+
+<details>
+
+<summary><b>Typebot Configuration</b> (in <code>docker-compose.yml</code>)</summary>    "is_anonymous": false,- ✅ Named submissions with full details
+
+
+
+<br>    "complainant_name": "John Doe",
+
+
+
+```yaml    "complainant_email": "john@example.com",---- ✅ Household registration flow
+
+# Core Settings
+
+DATABASE_URL: postgresql://typebot:typebot@typebot-db:5432/typebot    "complainant_phone": "+676123456",
+
+ENCRYPTION_SECRET: <64-character-random-string-required-for-webhooks>
+
+NEXTAUTH_URL: http://localhost:8081    "complainant_gender": "Male",- ✅ Status lookup by grievance ID
+
+NEXT_PUBLIC_VIEWER_URL: http://localhost:8082
+
+NEXTAUTH_URL_INTERNAL: http://typebot-builder:3000    "is_hh_registered": true,
+
+ADMIN_EMAIL: admin@example.com
+
+DISABLE_SIGNUP: false    "hh_id": "HH12345",## 🧪 Testing- ✅ PDF receipt generation
+
+
+
+# Email (MailHog for local testing)    "hh_address": "Main Street, Kolofo'\''ou",
+
+SMTP_HOST: mailhog
+
+SMTP_PORT: 1025    "island": "Tongatapu",- ✅ Email notifications
+
+SMTP_USERNAME: x
+
+SMTP_PASSWORD: x    "district": "Nuku'\''alofa",
+
+SMTP_SECURE: false
+
+NEXT_PUBLIC_SMTP_FROM: noreply@typebot.local    "village": "Kolofo'\''ou",### Run Backend Tests- ✅ Error handling and validation
+
+
+
+# Storage (MinIO S3-compatible)    "category_type": "Registration",
+
+S3_ACCESS_KEY: minioadmin
+
+S3_SECRET_KEY: minioadmin    "details": "Need assistance with registration renewal",
+
+S3_BUCKET: typebot
+
+S3_ENDPOINT: minio    "attachments": [
+
+S3_PORT: 9000
+
+S3_SSL: false      {```bash## Typebot Configuration
+
+NEXT_PUBLIC_S3_ENDPOINT: http://localhost:9000
+
+```        "name": "document.pdf",
+
+
+
+</details>        "url": "https://storage.example.com/file.pdf",# Run all 41 tests
+
+
+
+### ✨ Key Features        "size": 102400,
+
+
+
+#### 📎 **Attachment Handling**        "type": "application/pdf"docker exec grievancemodule-api-1 pytest### Production Setup (Server-side webhooks)
+
+- 📤 Multiple file uploads (max 5 files)
+
+- ⚖️ Size validation (10MB per file, 25MB total)      }
+
+- 📄 Supported formats: `.jpg`, `.png`, `.pdf`, `.docx`, `.xlsx`, `.img`
+
+- 🗄️ Stores file URLs from MinIO S3 storage    ]
+
+- 🔄 Handles both Pydantic `AttachmentIn` objects and raw dicts
+
+  }'
+
+#### 🆔 **Smart ID Generation**
+
+- **Format:** `GRV-01ABC123...` (26 characters)```# Run Typebot integration tests only (15 tests)File: `typebot-export-grievance-intake-qwdn4no.json`
+
+- **Technology:** ULID (Universally Unique Lexicographically Sortable Identifier)
+
+- **Benefits:** 
+
+  - ✅ Sortable by timestamp
+
+  - ✅ Globally unique**Response:** `201 Created`docker exec grievancemodule-api-1 pytest backend/tests/test_typebot_integration.py -v
+
+  - ✅ URL-safe
+
+  - ✅ Case-insensitive```json
+
+  - ✅ Timestamp embedded
+
+{```json
+
+#### 📄 **PDF Receipt Generation**
+
+- 🎨 Professional formatting with branding  "id": "GRV-01K83WMY346N2S1KA7FK3W26RP",
+
+- 📊 Includes all grievance details
+
+- 🔲 QR code for easy tracking  "created_at": "2025-10-21T12:00:00Z",# Run with coverage report{
+
+- 📥 Downloadable via `/api/grievances/{id}/receipt.pdf`
+
+- 📧 Email-ready format  "updated_at": "2025-10-21T12:00:00Z",
+
+
+
+#### 🛡 **Anti-Spam Protection**  "is_anonymous": false,docker exec grievancemodule-api-1 pytest --cov=app --cov-report=html  "isExecutedOnClient": false,
+
+- 🍯 **Honeypot field** (invisible to humans, catches bots)
+
+- ⏱️ **Timing validation** (minimum 3 seconds to complete form)  "complainant_name": "John Doe",
+
+- 🧮 **Math challenge** for suspicious submissions (1 + 2 = ?)
+
+- 🚫 **Rate limiting** (configurable per IP)  "complainant_email": "john@example.com",```  "webhook": {
+
+
+
+---  "island": "Tongatapu",
+
+
+
+## 🔧 Troubleshooting  "district": "Nuku'alofa",    "url": "http://grievance-api:8000/api/grievances",
+
+
+
+### ⚠️ Common Issues  "details": "Need assistance with registration renewal",
+
+
+
+<table>  ...### 🤖 Test Typebot Integration    "method": "POST",
+
+<tr>
+
+<th width="35%">Issue</th>}
+
+<th width="65%">Solution</th>
+
+</tr>```    "headers": [{"key": "Content-Type", "value": "application/json"}]
+
+
+
+<tr>
+
+<td><b>Typebot "Test" Button Error</b><br><code>Error! Could not reach server</code></td>
+
+<td></details>#### **Option 1: Published Bot** ⭐ _Recommended_  }
+
+✅ <b>Use "Publish" instead of "Test"</b><br>
+
+1. Click "Publish" in Typebot Builder<br>
+
+2. Access bot via the published URL<br>
+
+3. Webhooks work correctly in published mode<br><details>}
+
+<br>
+
+<i>Reason: Content Security Policy (CSP) blocks HTTP in preview mode</i><summary><b>GET</b> <code>/api/grievances/{id}</code> - Get grievance by ID</summary>
+
+</td>
+
+</tr>1. Open Typebot Builder: http://localhost:8081```
+
+
+
+<tr><br>
+
+<td><b>CORS Errors</b><br><code>No 'Access-Control-Allow-Origin' header</code></td>
+
+<td>2. Import `frontend-typebot/typebot-export-grievance-intake-qwdn4no.json`
+
+✅ <b>Already Fixed!</b> Custom CORS middleware handles all origins<br>
+
+- Supports <code>null</code> origin (file:// protocol)<br>```bash
+
+- Handles OPTIONS preflight requests<br>
+
+- Works with server-side and client-side webhookscurl http://localhost:8000/api/grievances/GRV-01K83WMY346N2S1KA7FK3W26RP3. Click **"Publish"** button (⚠️ don't use "Test" - CSP restrictions)- Webhooks execute from Typebot Viewer container
+
+</td>
+
+</tr>```
+
+
+
+<tr>4. Access the published bot URL- Uses Docker internal network (`grievance_net`)
+
+<td><b>Network Connectivity</b><br>Typebot can't reach API</td>
+
+<td>**Response:** `200 OK` (full grievance object)
+
+<b>Ensure network exists:</b><br>
+
+<code>docker network create grievance_net</code><br>5. Submit a test grievance- API accessible as `grievance-api:8000`
+
+<code>docker compose up -d</code><br>
+
+<br></details>
+
+<b>Verify configuration:</b><br>
+
+<code>docker network inspect grievance_net</code><br>
+
+Should show: api, typebot-builder, typebot-viewer
+
+</td><details>
+
+</tr>
+
+<summary><b>GET</b> <code>/api/grievances/{id}/receipt.pdf</code> - Download PDF receipt</summary>#### **Option 2: Browser Testing**### Development Setup (Browser webhooks)
+
+<tr>
+
+<td><b>Service won't start</b><br>Port already in use</td>
+
+<td>
+
+<b>Check ports:</b><br><br>
+
+<code>netstat -ano | findstr :8000</code> (Windows)<br>
+
+<code>lsof -i :8000</code> (macOS/Linux)<br>
+
+<br>
+
+<b>Or change ports in docker-compose.yml</b>```bash1. Open `test-browser-webhook.html` in your browserFile: `typebot-export-grievance-intake-LOCALHOST-TEST.json`
+
+</td>
+
+</tr>curl -O http://localhost:8000/api/grievances/GRV-01K83WMY346N2S1KA7FK3W26RP/receipt.pdf
+
+</table>
+
+```2. Click **"Test Webhook"** button
+
+### 🗄 Database Management
 
 
 
 <details>
 
-<summary><b>GET</b> <code>/api/grievances/{id}/receipt.pdf</code> - Download PDF receipt</summary>#### **Option 2: Browser Testing**### Development Setup (Browser webhooks)
+<summary><b>Reset all data</b> (⚠️ destructive operation)</summary>**Response:** `200 OK` (PDF file with QR code)3. Verify successful creation```json
 
 
 
@@ -626,317 +1278,605 @@ curl http://localhost:8000/api/grievances/GRV-01K83WMY346N2S1KA7FK3W26RP3. Click
 
 
 
-```bash1. Open `test-browser-webhook.html` in your browserFile: `typebot-export-grievance-intake-LOCALHOST-TEST.json`
+```bash</details>{
 
-curl -O http://localhost:8000/api/grievances/GRV-01K83WMY346N2S1KA7FK3W26RP/receipt.pdf
+# Stop and remove all containers, networks, and volumes
 
-```2. Click **"Test Webhook"** button
-
-
-
-**Response:** `200 OK` (PDF file with QR code)3. Verify successful creation```json
+docker compose down -v
 
 
 
-</details>{
+# Rebuild and start fresh<details>### ✅ Test Coverage  "isExecutedOnClient": true,
+
+docker compose up -d --build
+
+```<summary><b>PATCH</b> <code>/api/grievances/{id}</code> - Update grievance status</summary>
 
 
 
-<details>### ✅ Test Coverage  "isExecutedOnClient": true,
+</details>  "webhook": {
 
-<summary><b>PATCH</b> <code>/api/grievances/{id}</code> - Update grievance status</summary>
 
-  "webhook": {
 
-<br>
+<details><br>
+
+<summary><b>Access PostgreSQL databases</b></summary>
 
 <details>    "url": "http://localhost:8000/api/grievances"
 
+<br>
+
 ```bash
 
-curl -X PATCH http://localhost:8000/api/grievances/GRV-01K83WMY346N2S1KA7FK3W26RP \<summary><b>Typebot Integration Tests</b> (15 tests in <code>test_typebot_integration.py</code>)</summary>  }
+```bash
+
+# Access grievance databasecurl -X PATCH http://localhost:8000/api/grievances/GRV-01K83WMY346N2S1KA7FK3W26RP \<summary><b>Typebot Integration Tests</b> (15 tests in <code>test_typebot_integration.py</code>)</summary>  }
+
+docker exec -it grievancemodule-db-1 psql -U grievance -d grievance
 
   -H "Content-Type: application/json" \
 
-  -d '{}
+# Access Typebot database
 
-    "external_status": "Under Review",
-
-    "external_status_note": "Processing your request"#### Core Functionality```
-
-  }'
-
-```- ✅ Field mapping (Typebot schema → API schema)
+docker exec -it grievancemodule-typebot-db-1 psql -U typebot -d typebot  -d '{}
 
 
+
+# Useful SQL commands:    "external_status": "Under Review",
+
+# \dt              - List tables
+
+# \d+ table_name   - Describe table    "external_status_note": "Processing your request"#### Core Functionality```
+
+# SELECT * FROM grievances LIMIT 10;
+
+```  }'
+
+
+
+</details>```- ✅ Field mapping (Typebot schema → API schema)
+
+
+
+<details>
+
+<summary><b>View service logs</b></summary>
 
 **Response:** `200 OK` (updated grievance)- ✅ Complainant information (name, email, phone, gender)- Webhooks execute in user's browser
 
-
-
-</details>- ✅ Location data (island, district, village)- Requires CORS configuration (already configured)
+<br>
 
 
 
-### 🏥 Health & Status- ✅ Category types- For testing in Typebot Builder environment
+```bash
+
+# API logs</details>- ✅ Location data (island, district, village)- Requires CORS configuration (already configured)
+
+docker compose logs -f api
 
 
+
+# Typebot Viewer logs
+
+docker compose logs -f typebot-viewer### 🏥 Health & Status- ✅ Category types- For testing in Typebot Builder environment
+
+
+
+# All services
+
+docker compose logs -f
 
 | Endpoint | Method | Description | Response |- ✅ Grievance details and descriptions
 
-|----------|--------|-------------|----------|
+# Last 100 lines
 
-| `/` | GET | API health check | `{"ok": true, "service": "Grievance Management API"}` |### CORS Configuration
+docker compose logs --tail=100 api|----------|--------|-------------|----------|
 
-| `/api/status` | GET | System status | `{"status": "ok", "database": "connected", ...}` |
 
-#### File Handling
 
----
+# Filter for errors| `/` | GET | API health check | `{"ok": true, "service": "Grievance Management API"}` |### CORS Configuration
+
+docker compose logs api | grep ERROR
+
+```| `/api/status` | GET | System status | `{"status": "ok", "database": "connected", ...}` |
+
+
+
+</details>#### File Handling
+
+
+
+<details>---
+
+<summary><b>Restart individual services</b></summary>
 
 - ✅ Single file attachmentThe API uses custom CORS middleware to support:
 
+<br>
+
 ## 🤖 Typebot Configuration
 
-- ✅ Multiple file attachments- All origins including `null` (for `file://` protocol)
+```bash
+
+# Restart API- ✅ Multiple file attachments- All origins including `null` (for `file://` protocol)
+
+docker compose restart api
 
 ### 🔵 Production Setup (Server-side webhooks)
 
-- ✅ Attachment validation- Browser-based webhook execution
+# Restart Typebot services
 
-**File:** `typebot-export-grievance-intake-qwdn4no.json`
+docker compose restart typebot-builder typebot-viewer- ✅ Attachment validation- Browser-based webhook execution
 
-- Typebot client-side mode
 
-```json
 
-{#### User Flows
+# Restart database**File:** `typebot-export-grievance-intake-qwdn4no.json`
 
-  "isExecutedOnClient": false,
+docker compose restart db
 
-  "webhook": {- ✅ Anonymous submissions```python
+```- Typebot client-side mode
 
-    "url": "http://grievance-api:8000/api/grievances",
 
-    "method": "POST",- ✅ Named submissions with full details# backend/app/main.py
 
-    "headers": [
+</details>```json
 
-      {"key": "Content-Type", "value": "application/json"}- ✅ Household registration flow@app.middleware("http")
 
-    ]
+
+---{#### User Flows
+
+
+
+## 🚀 Production Deployment  "isExecutedOnClient": false,
+
+
+
+### ✅ Prerequisites Checklist  "webhook": {- ✅ Anonymous submissions```python
+
+
+
+- [ ] **HTTPS/SSL certificates** (required for Typebot)    "url": "http://grievance-api:8000/api/grievances",
+
+- [ ] **Domain names** configured (e.g., api.example.com, bot.example.com)
+
+- [ ] **Managed PostgreSQL** database set up    "method": "POST",- ✅ Named submissions with full details# backend/app/main.py
+
+- [ ] **S3-compatible storage** (AWS S3, DigitalOcean Spaces, etc.)
+
+- [ ] **Email service** (SendGrid, AWS SES, Mailgun)    "headers": [
+
+- [ ] **Strong secrets** generated for all services
+
+- [ ] **Firewall rules** configured (allow only necessary ports)      {"key": "Content-Type", "value": "application/json"}- ✅ Household registration flow@app.middleware("http")
+
+- [ ] **Monitoring & alerting** system in place
+
+- [ ] **Backup strategy** implemented    ]
+
+- [ ] **CI/CD pipeline** configured
 
   }- ✅ Status lookup by grievance IDasync def custom_cors_middleware(request: Request, call_next):
 
+### ⚙️ Production Configuration
+
 }
 
-```    origin = request.headers.get("origin", "*")
+<details>
+
+<summary><b>Environment Variables</b></summary>```    origin = request.headers.get("origin", "*")
 
 
 
-**✅ Use this for:**#### Features    # Handles OPTIONS preflight and adds CORS headers to all responses
+<br>
 
-- Production deployments
+
+
+```bash**✅ Use this for:**#### Features    # Handles OPTIONS preflight and adds CORS headers to all responses
+
+####################
+
+# API Configuration- Production deployments
+
+####################
 
 - Published bots- ✅ PDF receipt generation```
 
-- Server-side execution (more secure)
+# Database (use managed PostgreSQL)
 
-- Docker internal network communication- ✅ Email notifications
-
-
-
-### 🟢 Development Setup (Browser webhooks)- ✅ Error handling and validation## API Endpoints
+DATABASE_URL=postgresql://user:strong_password@db-host.example.com:5432/grievance?sslmode=require- Server-side execution (more secure)
 
 
 
-**File:** `typebot-export-grievance-intake-LOCALHOST-TEST.json`- ✅ Anti-spam measures
+# Cache (use managed Redis)- Docker internal network communication- ✅ Email notifications
+
+REDIS_URL=redis://redis-host.example.com:6379/0?ssl=true
 
 
 
-```json### Grievances
+# Object Storage (use AWS S3 or similar)
+
+MINIO_ENDPOINT=s3.amazonaws.com### 🟢 Development Setup (Browser webhooks)- ✅ Error handling and validation## API Endpoints
+
+MINIO_ACCESS_KEY=<aws-access-key-id>
+
+MINIO_SECRET_KEY=<aws-secret-access-key>
+
+MINIO_BUCKET=prod-grievances
+
+MINIO_SECURE=true**File:** `typebot-export-grievance-intake-LOCALHOST-TEST.json`- ✅ Anti-spam measures
+
+
+
+# API Settings
+
+DEBUG=false
+
+API_VERSION=0.1.0```json### Grievances
+
+SECRET_KEY=<64-character-random-string>
 
 {
 
-  "isExecutedOnClient": true,</details>
+# CORS (restrict to specific domains in production)
 
-  "webhook": {
+ALLOWED_ORIGINS=https://bot.example.com,https://builder.example.com  "isExecutedOnClient": true,</details>
 
-    "url": "http://localhost:8000/api/grievances"**Create Grievance**
 
-  }
 
-}---```bash
+####################  "webhook": {
+
+# Typebot Configuration
+
+####################    "url": "http://localhost:8000/api/grievances"**Create Grievance**
+
+
+
+# Core Settings  }
+
+DATABASE_URL=postgresql://typebot:strong_password@typebot-db.example.com:5432/typebot?sslmode=require
+
+ENCRYPTION_SECRET=<64-character-random-string>}---```bash
+
+NEXTAUTH_URL=https://builder.example.com
+
+NEXT_PUBLIC_VIEWER_URL=https://bot.example.com```
+
+ADMIN_EMAIL=admin@example.com
+
+DISABLE_SIGNUP=true  # Disable public signups in productionPOST /api/grievances
+
+
+
+# SMTP (use real email service)**✅ Use this for:**
+
+SMTP_HOST=smtp.sendgrid.net
+
+SMTP_PORT=587- Local development## 📡 API EndpointsContent-Type: application/json
+
+SMTP_USERNAME=apikey
+
+SMTP_PASSWORD=<sendgrid-api-key>- Browser testing
+
+SMTP_SECURE=true
+
+NEXT_PUBLIC_SMTP_FROM=noreply@example.com- Debugging webhook payloads
+
+
+
+# Storage- Client-side execution
+
+S3_ACCESS_KEY=<aws-access-key-id>
+
+S3_SECRET_KEY=<aws-secret-access-key>### 📝 Grievances{
+
+S3_BUCKET=prod-typebot
+
+S3_ENDPOINT=s3.amazonaws.com### 🛡 CORS Configuration
+
+S3_SSL=true
+
+NEXT_PUBLIC_S3_ENDPOINT=https://cdn.example.com  "is_anonymous": true,
 
 ```
-
-POST /api/grievances
-
-**✅ Use this for:**
-
-- Local development## 📡 API EndpointsContent-Type: application/json
-
-- Browser testing
-
-- Debugging webhook payloads
-
-- Client-side execution
-
-### 📝 Grievances{
-
-### 🛡 CORS Configuration
-
-  "is_anonymous": true,
 
 The API uses **custom CORS middleware** to support all integration scenarios:
 
+</details>
+
 <details>  "complainant_name": "John Doe",
+
+### 🔒 Security Checklist
 
 **Automatically handles:**
 
+**Before going live:**
+
 - ✅ All origins including `null` (file:// protocol)<summary><b>POST</b> <code>/api/grievances</code> - Create a new grievance</summary>  "complainant_email": "john@example.com",
 
-- ✅ OPTIONS preflight requests
+- [ ] Change all default passwords
 
-- ✅ Browser-based webhook execution  "complainant_phone": "+676123456",
+- [ ] Enable SSL/TLS for all connections (PostgreSQL, Redis)- ✅ OPTIONS preflight requests
 
-- ✅ Typebot client-side mode
+- [ ] Configure proper SMTP credentials
 
-- ✅ Cross-origin requests```bash  "complainant_gender": "Male",
+- [ ] Set up automated database backups (daily minimum)- ✅ Browser-based webhook execution  "complainant_phone": "+676123456",
 
+- [ ] Enable API rate limiting (e.g., 100 requests/minute)
 
+- [ ] Configure firewall rules (allow only 80, 443, and admin access)- ✅ Typebot client-side mode
 
-**Implementation:**curl -X POST http://localhost:8000/api/grievances \  "is_hh_registered": false,
+- [ ] Set up SSL certificates for all domains (Let's Encrypt or commercial)
 
-```python
+- [ ] Enable HTTPS redirect (HTTP → HTTPS)- ✅ Cross-origin requests```bash  "complainant_gender": "Male",
+
+- [ ] Configure CORS for specific production domains only
+
+- [ ] Review and update security headers (CSP, HSTS, X-Frame-Options)
+
+- [ ] Set up intrusion detection (fail2ban or similar)
+
+- [ ] Enable container security scanning**Implementation:**curl -X POST http://localhost:8000/api/grievances \  "is_hh_registered": false,
+
+- [ ] Implement log monitoring and alerting
+
+- [ ] Set up DDoS protection (Cloudflare or AWS Shield)```python
+
+- [ ] Review and harden Docker security
 
 # backend/app/main.py  -H "Content-Type: application/json" \  "hh_id": "HH123",
 
+### 📊 Monitoring & Health Checks
+
 @app.middleware("http")
+
+#### Health Endpoints
 
 async def custom_cors_middleware(request: Request, call_next):  -d '{  "hh_address": "Main Street",
 
-    origin = request.headers.get("origin", "*")
+```bash
 
-        "is_anonymous": false,  "island": "Tongatapu",
+# API health check    origin = request.headers.get("origin", "*")
 
-    if request.method == "OPTIONS":
+curl https://api.example.com/
 
-        return Response(status_code=200, headers={    "complainant_name": "John Doe",  "district": "Nuku'alofa",
+# Expected: {"ok": true, "service": "Grievance Management API", "version": "0.1.0"}        "is_anonymous": false,  "island": "Tongatapu",
 
-            "Access-Control-Allow-Origin": origin,
 
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",    "complainant_email": "john@example.com",  "village": "Kolofo'ou",
+
+# System status    if request.method == "OPTIONS":
+
+curl https://api.example.com/api/status
+
+# Expected: {"status": "ok", "database": "connected", "redis": "connected"}        return Response(status_code=200, headers={    "complainant_name": "John Doe",  "district": "Nuku'alofa",
+
+
+
+# Typebot health            "Access-Control-Allow-Origin": origin,
+
+curl https://bot.example.com/
+
+# Expected: 200 OK            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",    "complainant_email": "john@example.com",  "village": "Kolofo'ou",
+
+```
 
             "Access-Control-Allow-Headers": "*",
 
+#### Logging & Monitoring
+
         })    "complainant_phone": "+676123456",  "category_type": "Registration",
 
-    
+```bash
+
+# Production logs (if using Docker Compose)    
+
+docker compose -f docker-compose.prod.yml logs -f --tail=100 api
 
     response = await call_next(request)    "complainant_gender": "Male",  "details": "Issue description...",
 
-    response.headers["Access-Control-Allow-Origin"] = origin
+# Error monitoring
 
-    return response    "is_hh_registered": true,  "attachments": [
+docker compose logs api | grep ERROR    response.headers["Access-Control-Allow-Origin"] = origin
+
+
+
+# Access logs (track API usage)    return response    "is_hh_registered": true,  "attachments": [
+
+docker compose logs api | grep POST
 
 ```
 
-    "hh_id": "HH12345",    {
+# Performance monitoring
+
+docker stats grievancemodule-api-1    "hh_id": "HH12345",    {
+
+```
 
 ---
 
-    "hh_address": "Main Street, Kolofo'\''ou",      "name": "photo.jpg",
+**Recommended monitoring tools:**
 
-## 💻 Development
+- 📊 **Application Performance Monitoring:** New Relic, Datadog, or Sentry    "hh_address": "Main Street, Kolofo'\''ou",      "name": "photo.jpg",
+
+- 🚨 **Alerting:** PagerDuty or Opsgenie
+
+- 📈 **Metrics:** Prometheus + Grafana## 💻 Development
+
+- 📝 **Log aggregation:** ELK Stack (Elasticsearch, Logstash, Kibana) or Loki
 
     "island": "Tongatapu",      "url": "https://...",
 
+### 📈 Performance Optimization
+
 ### 📁 Project Structure
+
+**For production workloads:**
 
     "district": "Nuku'\''alofa",      "size": 1024,
 
-```
+1. **Database Optimization**
 
-grievance-module/    "village": "Kolofo'\''ou",      "type": "image/jpeg"
+   - Enable connection pooling (SQLAlchemy default: 5-10 connections)```
+
+   - Add indexes for frequently queried fields (`id`, `created_at`, `island`, `district`)
+
+   - Regular VACUUM and ANALYZE operationsgrievance-module/    "village": "Kolofo'\''ou",      "type": "image/jpeg"
+
+   - Consider read replicas for high traffic
 
 │
 
-├── 📂 backend/                           # FastAPI Application    "category_type": "Registration",    }
+2. **Caching Strategy**
 
-│   ├── 📂 app/
+   - Configure Redis for session storage and API response caching├── 📂 backend/                           # FastAPI Application    "category_type": "Registration",    }
 
-│   │   ├── main.py                      # FastAPI app + CORS middleware    "details": "Need assistance with registration renewal",  ]
+   - Cache static content (PDF receipts after generation)
 
-│   │   ├── database.py                  # SQLAlchemy configuration
+   - Implement cache invalidation strategy│   ├── 📂 app/
+
+
+
+3. **CDN & Static Assets**│   │   ├── main.py                      # FastAPI app + CORS middleware    "details": "Need assistance with registration renewal",  ]
+
+   - Serve static files through CDN (CloudFront, Cloudflare)
+
+   - Enable gzip/brotli compression│   │   ├── database.py                  # SQLAlchemy configuration
+
+   - Optimize images and assets
 
 │   │   ├── models.py                    # Database ORM models    "attachments": [}
 
-│   │   ├── schemas.py                   # Pydantic validation schemas
+4. **API Optimization**
 
-│   │   ├── 📂 routers/      {
+   - Implement pagination for large datasets (default: 50 items per page)│   │   ├── schemas.py                   # Pydantic validation schemas
 
-│   │   │   ├── grievances.py           # Grievance CRUD endpoints
+   - Use database query optimization (select only needed fields)
 
-│   │   │   └── status.py               # System status endpoints        "name": "document.pdf",Response: 201 Created
+   - Enable async workers for long-running tasks (PDF generation, emails)│   │   ├── 📂 routers/      {
+
+
+
+5. **Infrastructure**│   │   │   ├── grievances.py           # Grievance CRUD endpoints
+
+   - Use container orchestration (Kubernetes or AWS ECS) for auto-scaling
+
+   - Configure horizontal pod autoscaling based on CPU/memory│   │   │   └── status.py               # System status endpoints        "name": "document.pdf",Response: 201 Created
+
+   - Set up load balancing for high availability
 
 │   │   └── 📂 utils/
 
+---
+
 │   │       ├── id.py                    # ULID generator (GRV-01ABC...)        "url": "https://storage.example.com/file.pdf",{
+
+## 📄 License
 
 │   │       └── pdf.py                   # PDF receipt generator (with QR)
 
+This project is licensed under the terms specified in the [`LICENSE`](LICENSE) file.
+
 │   ├── 📂 tests/        "size": 102400,  "id": "GRV-01ABC123...",
+
+---
 
 │   │   ├── test_api.py                  # 26 general API tests
 
+## 🤝 Contributing
+
 │   │   └── test_typebot_integration.py  # 15 Typebot integration tests        "type": "application/pdf"  "created_at": "2025-10-21T12:00:00Z",
+
+We welcome contributions! Please follow these guidelines:
 
 │   ├── Dockerfile                       # Multi-stage Docker build
 
+### Development Workflow
+
 │   ├── requirements.txt                 # Python dependencies      }  ...
 
-│   └── .env                            # Environment configuration
+1. **Fork & Clone** the repository
 
-│    ]}
+2. **Create a feature branch:** `git checkout -b feature/amazing-feature`│   └── .env                            # Environment configuration
 
-├── 📂 frontend-typebot/                  # Typebot Configuration
+3. **Make your changes** with clear, descriptive commits
 
-│   ├── typebot-export-grievance-intake-qwdn4no.json         # Production  }'```
+4. **Run tests:** `docker exec grievancemodule-api-1 pytest`│    ]}
 
-│   ├── typebot-export-grievance-intake-LOCALHOST-TEST.json  # Development
+5. **Ensure all tests pass** (41/41 should be green ✅)
 
-│   ├── 📂 public/```
+6. **Submit a Pull Request** with a clear description├── 📂 frontend-typebot/                  # Typebot Configuration
 
-│   │   └── typebot-grievance-flow.html  # Embed example
+
+
+### Code Standards│   ├── typebot-export-grievance-intake-qwdn4no.json         # Production  }'```
+
+
+
+- ✅ Follow **PEP 8** style guide for Python│   ├── typebot-export-grievance-intake-LOCALHOST-TEST.json  # Development
+
+- ✅ Write **meaningful commit messages**
+
+- ✅ Add **tests for new features** (maintain or increase coverage)│   ├── 📂 public/```
+
+- ✅ Update **documentation** for API changes
+
+- ✅ Use **type hints** for Python code│   │   └── typebot-grievance-flow.html  # Embed example
+
+- ✅ Keep functions **small and focused**
 
 │   └── test-browser-webhook.html        # Browser testing tool**Get Grievance**
 
+### Pull Request Checklist
+
 │
 
-├── 📂 docs/                              # Documentation & Diagrams**Response:** `201 Created````bash
+- [ ] Tests pass (`pytest`)
 
-│   └── 📂 images/
+- [ ] Code follows style guidelines├── 📂 docs/                              # Documentation & Diagrams**Response:** `201 Created````bash
+
+- [ ] Documentation updated
+
+- [ ] No new warnings or errors│   └── 📂 images/
+
+- [ ] Commits are clean and descriptive
 
 │       └── figure-10-grm-architecture.png```jsonGET /api/grievances/{id}
 
+---
+
 │
+
+<div align="center">
 
 ├── 📂 ops/                               # CI/CD & Operations{Response: 200 OK
 
+### 🌟 Built With
+
 │   └── 📂 github-actions/
+
+[FastAPI](https://fastapi.tiangolo.com) · [PostgreSQL](https://www.postgresql.org) · [Typebot](https://typebot.io) · [MinIO](https://min.io) · [Redis](https://redis.io) · [Docker](https://www.docker.com)
 
 │       ├── ci.yml                       # Continuous Integration  "id": "GRV-01K83WMY346N2S1KA7FK3W26RP",```
 
+<br>
+
 │       └── docker-api.yml               # Docker build & push
+
+**Made with ❤️ for Vaka Sosiale**
 
 │  "created_at": "2025-10-21T12:00:00Z",
 
+<br>
+
 ├── docker-compose.yml                    # Service orchestration
 
-├── README.md                             # This file  "updated_at": "2025-10-21T12:00:00Z",**Download Receipt**
+[![Report Bug](https://img.shields.io/badge/🐛-Report%20Bug-red?style=for-the-badge)](https://github.com/gger-max/grievance-module/issues)
+
+[![Request Feature](https://img.shields.io/badge/✨-Request%20Feature-blue?style=for-the-badge)](https://github.com/gger-max/grievance-module/issues)├── README.md                             # This file  "updated_at": "2025-10-21T12:00:00Z",**Download Receipt**
+
+[![Documentation](https://img.shields.io/badge/📚-Documentation-green?style=for-the-badge)](http://localhost:8000/docs)
 
 └── LICENSE                               # Project license
+
+</div>
 
 ```  "is_anonymous": false,```bash
 
