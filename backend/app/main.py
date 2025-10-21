@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import grievances, status
+from .routers import grievances
 from .database import init_db
 
 app = FastAPI(title="Grievance FrontEnd API", version="0.1.0")
@@ -22,7 +22,7 @@ app.add_middleware(
 def on_startup():
     init_db()
 
-app.include_router(grievances.router, prefix="", tags=["grievances"])
+app.include_router(grievances.router, prefix="/api", tags=["grievances"])
 
 @app.get("/")
 def root():
