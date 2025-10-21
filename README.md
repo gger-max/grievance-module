@@ -6,7 +6,7 @@
 
 
 
-### _Modern, scalable grievance tracking for Vaka Sosiale_# 🎯 Grievance Management System
+### _Modern, scalable grievance tracking for Vaka Sosiale_#
 
 
 
@@ -14,7 +14,7 @@
 
 
 
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)### _Modern, scalable grievance tracking for Vaka Sosiale_# 🎯 Grievance Management SystemMonorepo for the **Vaka Sosiale** GRM. It captures grievances via Typebot, processes and classifies them through a FastAPI middleware, stores data in PostgreSQL/MinIO, and integrates with Vaka Sosiale for analytics and feedback.<p align="center">
+### Grievance Management System Monorepo for the **Vaka Sosiale** GRM. It captures grievances via Typebot, processes and classifies them through a FastAPI middleware, stores data in PostgreSQL/MinIO, and integrates with Vaka Sosiale for analytics and feedback.<p align="center">
 
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 
@@ -22,55 +22,24 @@
 
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
 
-[![Tests](https://img.shields.io/badge/Tests-41%20passing-success.svg?style=flat)](backend/tests/)[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
+[![Tests](https://img.shields.io/badge/Tests-41%20passing-success.svg?style=flat)](backend/tests/)
+
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
 
 
-
-<br>[![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
-
-
-
-<p align="center">[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)### _Modern, scalable grievance tracking for Vaka Sosiale_  <img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture Overview" width="720">
-
-  <img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture" width="800">
-
-</p>[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
-
-
-
-<br>[![Tests](https://img.shields.io/badge/Tests-41%20passing-success.svg?style=flat)](backend/tests/)
-
-
-
-**Capture grievances via Typebot chatbot** · **Process through FastAPI middleware** · **Store in PostgreSQL/MinIO** · **Integrate with analytics**
-
-
-
-<br><br>[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)<p align="center"></p>
-
-
-
-[Quick Start](#-quick-start) • [Architecture](#-architecture) • [API Docs](#-api-endpoints) • [Testing](#-testing) • [Deployment](#-production-deployment)
-
-
-
----<img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture" width="800">[![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
-
-
+<p align="center"><img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture Overview" width="720">
+</p>
 
 </div>
 
 
-
-## 📋 Table of Contents<br>[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)## Repository layout
-
-
+## 📋 Table of Contents<br>
 
 - [🚀 Quick Start](#-quick-start)
 
 - [🏗 Architecture](#-architecture)
 
-- [🧪 Testing](#-testing)**Capture grievances via Typebot chatbot** · **Process through FastAPI middleware** · **Store in PostgreSQL/MinIO** · **Integrate with analytics**[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
+- [🧪 Testing](#-testing)
 
 - [📡 API Endpoints](#-api-endpoints)
 
@@ -78,44 +47,31 @@
 
 - [💻 Development](#-development)
 
-- [🔧 Troubleshooting](#-troubleshooting)<br>[![Tests](https://img.shields.io/badge/Tests-41%20passing-success.svg?style=flat)](backend/tests/)grievance-module/# 
+- [🔧 Troubleshooting](#-troubleshooting) 
 
 - [🚀 Production Deployment](#-production-deployment)
 
-
-
 ---
-
-[Quick Start](#-quick-start) • [Architecture](#-architecture) • [Testing](#-testing) • [API Docs](#-api-endpoints) • [Deployment](#-production-deployment)
 
 ## 🚀 Quick Start
 
 
-
 Get up and running in 3 simple steps:
 
-</div>---├── backend/              # FastAPI app, tests, Dockerfile# 
-
+</div>
 ```bash
 
 # Step 1: Create Docker network for service communication
 
 docker network create grievance_net
 
----├── frontend-typebot/     # Typebot export, embed snippets, docs# 
-
 # Step 2: Start all services
 
 docker compose up -d --build
 
-
-
 # Step 3: Access the services ✨## 📋 Table of Contents<img src="docs/images/figure-10-grm-architecture.png" alt="GRM System Architecture" width="800">├── infra/                # docker-compose, .env.example, local run# 
 
 ```
-
-
-
 ### 🌐 Service URLs
 
 - [🚀 Quick Start](#-quick-start)├── ops/                  # CI/CD workflows and helper scripts# 
@@ -126,7 +82,7 @@ docker compose up -d --build
 
 | 📚 **API Documentation** | http://localhost:8000/docs | Interactive Swagger UI |
 
-| 🤖 **Typebot Builder** | http://localhost:8081 | Design bot flows |- [🧪 Testing](#-testing)**Capture grievances via Typebot chatbot** · **Process through FastAPI middleware** · **Store in PostgreSQL/MinIO** · **Integrate with analytics**├── docs/                 # report docs, images, diagrams# 
+| 🤖 **Typebot Builder** | http://localhost:8081 | Design bot flows |- [🧪 Testing](#-testing)
 
 | 💬 **Typebot Viewer** | http://localhost:8082 | Public bot interface |
 
