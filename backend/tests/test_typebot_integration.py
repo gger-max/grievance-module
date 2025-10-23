@@ -350,3 +350,94 @@ def test_typebot_both_grievance_details_and_details_provided(client):
     data = response.json()
     # When both are provided, 'details' takes precedence (standard API behavior)
     assert data["details"] == "This should be used"
+
+
+def test_typebot_anonymous_with_single_attachment(client):
+    """Test anonymous user uploading a single file attachment"""
+    typebot_payload = {
+        "is_anonymous": True,
+        "complainant_name": None,
+        "complainant_email": None,
+        "complainant_phone": None,
+        "grievance_details": "Anonymous complaint with photo evidence",
+        "category_type": "Service Delivery",
+        "island": "Tarawa",
+        "attachments": [
+            {
+                "name": "evidence.jpg",
+                "url": "https://example.com/evidence.jpg",
+                "size": 153600,
+                "type": "image/jpeg"
+            }
+        ]
+    }
+    
+    response = client.post("/api/grievances/", json=typebot_payload)
+    assert response.status_code == 201
+    
+    data = response.json()
+    assert data["is_anonymous"] is True
+    assert data["complainant_name"] is None
+    assert data["complainant_email"] is None
+    assert data["details"] == "Anonymous complaint with photo evidence"
+    assert data["category_type"] == "Service Delivery"
+    assert data["island"] == "Tarawa"
+    assert len(data["attachments"]) == 1
+    assert data["attachments"][0]["name"] == "evidence.jpg"
+    assert data["attachments"][0]["url"] == "https://example.com/evidence.jpg"
+    assert data["attachments"][0]["size"] == 153600
+    assert data["attachments"][0]["type"] == "image/jpeg"
+
+
+def test_typebot_anonymous_with_multiple_attachments(client):
+    """Test anonymous user uploading multiple file attachments"""
+    typebot_payload = {
+        "is_anonymous": True,
+        "complainant_name": None,
+        "complainant_email": None,
+        "complainant_phone": None,
+        "grievance_details": "Anonymous complaint with multiple documents",
+        "category_type": "Documentation Issue",
+        "island": "Kiritimati",
+        "district": None,
+        "village": None,
+        "attachments": [
+            {
+                "name": "photo1.jpg",
+                "url": "https://example.com/photo1.jpg",
+                "size": 204800,
+                "type": "image/jpeg"
+            },
+            {
+                "name": "document.pdf",
+                "url": "https://example.com/document.pdf",
+                "size": 512000,
+                "type": "application/pdf"
+            },
+            {
+                "name": "screenshot.png",
+                "url": "https://example.com/screenshot.png",
+                "size": 307200,
+                "type": "image/png"
+            }
+        ]
+    }
+    
+    response = client.post("/api/grievances/", json=typebot_payload)
+    assert response.status_code == 201
+    
+    data = response.json()
+    assert data["is_anonymous"] is True
+    assert data["complainant_name"] is None
+    assert data["complainant_email"] is None
+    assert data["complainant_phone"] is None
+    assert data["details"] == "Anonymous complaint with multiple documents"
+    assert data["category_type"] == "Documentation Issue"
+    assert data["island"] == "Kiritimati"
+    assert len(data["attachments"]) == 3
+    assert data["attachments"][0]["name"] == "photo1.jpg"
+    assert data["attachments"][0]["type"] == "image/jpeg"
+    assert data["attachments"][1]["name"] == "document.pdf"
+    assert data["attachments"][1]["type"] == "application/pdf"
+    assert data["attachments"][2]["name"] == "screenshot.png"
+    assert data["attachments"][2]["type"] == "image/png"
