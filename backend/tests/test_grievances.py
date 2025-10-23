@@ -90,6 +90,101 @@ def test_create_grievance_with_attachments(client):
     assert data["attachments"] is None or data["attachments"] == []
 
 
+def test_create_grievance_non_anonymous_with_single_attachment(client):
+    """Test creating a non-anonymous grievance with single file attachment"""
+    payload = {
+        "is_anonymous": False,
+        "complainant_name": "John Smith",
+        "complainant_email": "john.smith@example.com",
+        "complainant_phone": "+676123456",
+        "category_type": "Service Complaint",
+        "details": "Issue with service delivery - photo attached",
+        "island": "Tarawa",
+        "attachments": [
+            {
+                "name": "evidence.jpg",
+                "url": "https://example.com/uploads/evidence.jpg",
+                "size": 204800,
+                "type": "image/jpeg"
+            }
+        ]
+    }
+    
+    response = client.post("/api/grievances/", json=payload)
+    assert response.status_code == 201
+    
+    data = response.json()
+    assert data["is_anonymous"] is False
+    assert data["complainant_name"] == "John Smith"
+    assert data["complainant_email"] == "john.smith@example.com"
+    assert data["complainant_phone"] == "+676123456"
+    assert data["details"] == "Issue with service delivery - photo attached"
+    assert data["attachments"] is not None
+    assert len(data["attachments"]) == 1
+    assert data["attachments"][0]["name"] == "evidence.jpg"
+    assert data["attachments"][0]["url"] == "https://example.com/uploads/evidence.jpg"
+    assert data["attachments"][0]["size"] == 204800
+    assert data["attachments"][0]["type"] == "image/jpeg"
+
+
+def test_create_grievance_non_anonymous_with_multiple_attachments(client):
+    """Test creating a non-anonymous grievance with multiple file attachments"""
+    payload = {
+        "is_anonymous": False,
+        "complainant_name": "Jane Doe",
+        "complainant_email": "jane.doe@example.com",
+        "complainant_phone": "+676789012",
+        "complainant_gender": "Female",
+        "category_type": "Financial Assistance",
+        "details": "Request for assistance - documents attached",
+        "island": "Abemama",
+        "district": "North",
+        "village": "Kariatebike",
+        "attachments": [
+            {
+                "name": "id_card.pdf",
+                "url": "https://example.com/uploads/id_card.pdf",
+                "size": 512000,
+                "type": "application/pdf"
+            },
+            {
+                "name": "proof_of_residence.jpg",
+                "url": "https://example.com/uploads/proof.jpg",
+                "size": 307200,
+                "type": "image/jpeg"
+            },
+            {
+                "name": "application_form.png",
+                "url": "https://example.com/uploads/form.png",
+                "size": 409600,
+                "type": "image/png"
+            }
+        ]
+    }
+    
+    response = client.post("/api/grievances/", json=payload)
+    assert response.status_code == 201
+    
+    data = response.json()
+    assert data["is_anonymous"] is False
+    assert data["complainant_name"] == "Jane Doe"
+    assert data["complainant_email"] == "jane.doe@example.com"
+    assert data["complainant_phone"] == "+676789012"
+    assert data["complainant_gender"] == "Female"
+    assert data["details"] == "Request for assistance - documents attached"
+    assert data["island"] == "Abemama"
+    assert data["district"] == "North"
+    assert data["village"] == "Kariatebike"
+    assert data["attachments"] is not None
+    assert len(data["attachments"]) == 3
+    assert data["attachments"][0]["name"] == "id_card.pdf"
+    assert data["attachments"][0]["type"] == "application/pdf"
+    assert data["attachments"][1]["name"] == "proof_of_residence.jpg"
+    assert data["attachments"][1]["type"] == "image/jpeg"
+    assert data["attachments"][2]["name"] == "application_form.png"
+    assert data["attachments"][2]["type"] == "image/png"
+
+
 def test_create_grievance_details_too_long(client):
     """Test that creating a grievance with too long details fails"""
     payload = {
