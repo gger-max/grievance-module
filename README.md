@@ -51,7 +51,7 @@ docker compose up -d --build
 | MinIO | 9000/9001 | File storage |
 | Redis | 6379 | Cache |
 
-**Features:** ULID IDs  Client-provided IDs  PDF Receipts  Multi-file attachments  Anti-spam  Custom CORS
+**Features:** ULID IDs  Client-provided IDs  PDF Receipts  **Status Tracking**  Multi-file attachments  Anti-spam  Custom CORS
 
 ##  Testing
 
@@ -67,12 +67,13 @@ docker compose exec api pytest tests/test_grievances.py -v
 docker compose exec api pytest tests/ --cov=app --cov-report=html
 ```
 
-### Test Coverage (45 tests)
+### Test Coverage (51 tests)
 - ✅ **Grievance CRUD** (22 tests) - Create, read, update, delete operations
 - ✅ **Client ID Handling** (4 tests) - Timestamp format, ULID format, validation
 - ✅ **Typebot Integration** (11 tests) - Full chatbot flow, payload formats
 - ✅ **Status API** (7 tests) - Authentication, authorization, updates
 - ✅ **Batch Operations** (5 tests) - Bulk updates, error handling
+- ✅ **Status Check Flow** (6 tests) - End-to-end status tracking from Typebot
 
 ### Client-Provided ID Support
 The API accepts client-generated IDs in two formats:
@@ -85,16 +86,32 @@ If an invalid ID is provided, the server generates a new ULID automatically.
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/api/grievances` | Create |
-| GET | `/api/grievances/{id}` | Get by ID |
-| GET | `/api/grievances/{id}/receipt.pdf` | Download PDF |
-| PATCH | `/api/grievances/{id}` | Update |
+| POST | `/api/grievances` | Create new grievance |
+| GET | `/api/grievances/{id}` | **Check status** - Get grievance details |
+| GET | `/api/grievances/{id}/receipt.pdf` | Download PDF receipt |
+| PUT | `/api/grievances/{id}/status` | Update grievance status |
+| PATCH | `/api/grievances/{id}` | Update grievance details |
 
 ##  Typebot Integration
 
 ### Configuration Files
 - **Production:** `typebot-export-grievance-intake-qwdn4no.json` (server-side)  
 - **Development:** `typebot-export-grievance-intake-LOCALHOST-TEST.json` (browser)
+
+### Status Check Feature
+
+Users can check their grievance status at any time:
+
+1. **Select "Check status?"** from the welcome menu
+2. **Enter tracking ID** (e.g., `GRV-01K88MF7431X7NF9D4GHQN5742`)
+3. **View status information**:
+   - Current status (Pending, Under Review, Resolved, etc.)
+   - Status notes from case workers
+   - Location details (Island, District, Village)
+   - Category type and submission date
+   - Household ID (if applicable)
+
+📖 **See [docs/STATUS_CHECK_FEATURE.md](docs/STATUS_CHECK_FEATURE.md) for detailed documentation**
 
 ### ID Generation Workflow
 Due to Typebot 3.12.0 limitations (webhook response mapping is non-functional), IDs are pre-generated:
