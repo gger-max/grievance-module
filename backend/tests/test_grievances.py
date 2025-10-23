@@ -321,3 +321,170 @@ def test_create_grievance_without_client_id(client):
     assert data["id"].startswith("GRV-")  # Should generate valid ID
     assert len(data["id"]) == 30  # ULID format
 
+
+def test_update_grievance_category_type(client):
+    """Test updating a grievance category type"""
+    # Create a grievance
+    create_payload = {
+        "is_anonymous": True,
+        "category_type": "Original Category",
+        "details": "Test grievance for category update"
+    }
+    
+    create_response = client.post("/api/grievances/", json=create_payload)
+    assert create_response.status_code == 201
+    grievance_id = create_response.json()["id"]
+    
+    # Update the category type
+    update_payload = {
+        "category_type": "Updated Category"
+    }
+    
+    update_response = client.put(f"/api/grievances/{grievance_id}/status", json=update_payload)
+    assert update_response.status_code == 200
+    
+    data = update_response.json()
+    assert data["category_type"] == "Updated Category"
+    
+    # Verify the update persists
+    get_response = client.get(f"/api/grievances/{grievance_id}")
+    assert get_response.status_code == 200
+    retrieved_data = get_response.json()
+    assert retrieved_data["category_type"] == "Updated Category"
+
+
+def test_update_grievance_location_with_hh_id(client):
+    """Test that updating grievance with household ID updates location from Odoo"""
+    # Create a grievance without location
+    create_payload = {
+        "is_anonymous": False,
+        "complainant_name": "Test User",
+        "category_type": "Test",
+        "details": "Test grievance"
+    }
+    
+    create_response = client.post("/api/grievances/", json=create_payload)
+    grievance_id = create_response.json()["id"]
+    
+    # Verify no location initially
+    get_response = client.get(f"/api/grievances/{grievance_id}")
+    initial_data = get_response.json()
+    assert initial_data["island"] is None
+    assert initial_data["district"] is None
+    assert initial_data["village"] is None
+    
+    # Update with HH ID which should populate location from Odoo stub
+    update_payload = {
+        "hh_id": "HH123"
+    }
+    
+    update_response = client.put(f"/api/grievances/{grievance_id}/status", json=update_payload)
+    assert update_response.status_code == 200
+    
+    data = update_response.json()
+    assert data["hh_id"] == "HH123"
+    # Check that Odoo stub populated location data
+    assert data["island"] == "Maiana"
+    assert data["district"] == "North"
+    assert data["village"] == "Tabontebike"
+
+
+def test_update_grievance_status_and_note(client):
+    """Test updating grievance status and note together"""
+    # Create a grievance
+    create_payload = {
+        "is_anonymous": True,
+        "category_type": "Test",
+        "details": "Test grievance for status update"
+    }
+    
+    create_response = client.post("/api/grievances/", json=create_payload)
+    assert create_response.status_code == 201
+    grievance_id = create_response.json()["id"]
+    
+    # Verify no status initially
+    get_response = client.get(f"/api/grievances/{grievance_id}")
+    initial_data = get_response.json()
+    assert initial_data["external_status"] is None
+    assert initial_data["external_status_note"] is None
+    
+    # Update status and note
+    update_payload = {
+        "external_status": "Resolved",
+        "external_status_note": "Issue has been resolved successfully"
+    }
+    
+    update_response = client.put(f"/api/grievances/{grievance_id}/status", json=update_payload)
+    assert update_response.status_code == 200
+    
+    data = update_response.json()
+    assert data["external_status"] == "Resolved"
+    assert data["external_status_note"] == "Issue has been resolved successfully"
+    
+    # Verify the update persists
+    get_response = client.get(f"/api/grievances/{grievance_id}")
+    assert get_response.status_code == 200
+    retrieved_data = get_response.json()
+    assert retrieved_data["external_status"] == "Resolved"
+    assert retrieved_data["external_status_note"] == "Issue has been resolved successfully"
+
+
+def test_update_grievance_status_only(client):
+    """Test updating only the grievance status without note"""
+    # Create a grievance
+    create_payload = {
+        "is_anonymous": True,
+        "category_type": "Test",
+        "details": "Test grievance"
+    }
+    
+    create_response = client.post("/api/grievances/", json=create_payload)
+    grievance_id = create_response.json()["id"]
+    
+    # Update only status
+    update_payload = {
+        "external_status": "Acknowledged"
+    }
+    
+    update_response = client.put(f"/api/grievances/{grievance_id}/status", json=update_payload)
+    assert update_response.status_code == 200
+    
+    data = update_response.json()
+    assert data["external_status"] == "Acknowledged"
+    assert data["external_status_note"] is None
+
+
+def test_update_grievance_multiple_fields(client):
+    """Test updating status, category, and household ID together"""
+    # Create a grievance
+    create_payload = {
+        "is_anonymous": False,
+        "complainant_name": "Test User",
+        "category_type": "Original Category",
+        "details": "Test grievance"
+    }
+    
+    create_response = client.post("/api/grievances/", json=create_payload)
+    grievance_id = create_response.json()["id"]
+    
+    # Update multiple fields
+    update_payload = {
+        "external_status": "In Progress",
+        "external_status_note": "Currently being reviewed",
+        "category_type": "Updated Category",
+        "hh_id": "HH456"
+    }
+    
+    update_response = client.put(f"/api/grievances/{grievance_id}/status", json=update_payload)
+    assert update_response.status_code == 200
+    
+    data = update_response.json()
+    assert data["external_status"] == "In Progress"
+    assert data["external_status_note"] == "Currently being reviewed"
+    assert data["category_type"] == "Updated Category"
+    assert data["hh_id"] == "HH456"
+    # Location should be updated from Odoo stub for HH456
+    assert data["island"] == "Abemama"
+    assert data["district"] == "West"
+    assert data["village"] == "Kariatebike"
+
