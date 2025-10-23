@@ -51,12 +51,12 @@ services:
       DISABLE_SIGNUP: false
       # Disable billing/subscription checks for self-hosted
       NEXT_PUBLIC_BILLING_ENABLED: false
-      # Email configuration with MailHog
-      NEXT_PUBLIC_SMTP_FROM: noreply@typebot.local
-      SMTP_HOST: mailhog
-      SMTP_PORT: 1025
-      SMTP_USERNAME: x
-      SMTP_PASSWORD: x
+      # Email configuration with Gmail
+      NEXT_PUBLIC_SMTP_FROM: "'Typebot' <tongavakasosiale@gmail.com>"
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: 587
+      SMTP_USERNAME: tongavakasosiale@gmail.com
+      SMTP_PASSWORD: oksgwfebgamdbjgj
       SMTP_SECURE: false
       SMTP_AUTH_DISABLED: false
       # S3/MinIO configuration - use HTTP not HTTPS
