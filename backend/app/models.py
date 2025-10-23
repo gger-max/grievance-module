@@ -1,10 +1,10 @@
 from sqlalchemy import Column, String, DateTime, Boolean, Text, JSON, Index
-from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.sql import func
-from .database import Base, engine
+from .database import Base
 
-# Use JSONB for PostgreSQL, JSON for others (like SQLite)
-JSONType = JSONB if engine.dialect.name == "postgresql" else JSON
+# Use JSON type which works with both PostgreSQL and SQLite
+# PostgreSQL will automatically use JSONB when available
+JSONType = JSON
 
 
 class Grievance(Base):

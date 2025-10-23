@@ -249,3 +249,75 @@ def test_get_receipt_pdf(client):
     assert response.headers["content-type"] == "application/pdf"
     assert "receipt-" in response.headers["content-disposition"]
 
+
+def test_create_grievance_with_client_provided_id(client):
+    """Test creating a grievance with client-provided ID (timestamp format)"""
+    client_id = "GRV-1761231827861197849"
+    payload = {
+        "id": client_id,
+        "is_anonymous": True,
+        "category_type": "Test",
+        "details": "Test with client-provided timestamp ID"
+    }
+    
+    response = client.post("/api/grievances/", json=payload)
+    assert response.status_code == 201
+    
+    data = response.json()
+    assert data["id"] == client_id  # Should use client-provided ID
+    assert data["is_anonymous"] is True
+    assert data["details"] == "Test with client-provided timestamp ID"
+
+
+def test_create_grievance_with_client_provided_ulid(client):
+    """Test creating a grievance with client-provided ULID format"""
+    client_id = "GRV-01K88MF7431X7NF9D4GHQN5742"
+    payload = {
+        "id": client_id,
+        "is_anonymous": True,
+        "category_type": "Test",
+        "details": "Test with client-provided ULID"
+    }
+    
+    response = client.post("/api/grievances/", json=payload)
+    assert response.status_code == 201
+    
+    data = response.json()
+    assert data["id"] == client_id  # Should use client-provided ID
+    assert data["is_anonymous"] is True
+
+
+def test_create_grievance_with_invalid_client_id(client):
+    """Test that invalid client ID is rejected and server generates new ID"""
+    invalid_id = "INVALID-ID-123"
+    payload = {
+        "id": invalid_id,
+        "is_anonymous": True,
+        "category_type": "Test",
+        "details": "Test with invalid client ID"
+    }
+    
+    response = client.post("/api/grievances/", json=payload)
+    assert response.status_code == 201
+    
+    data = response.json()
+    assert data["id"] != invalid_id  # Should NOT use invalid ID
+    assert data["id"].startswith("GRV-")  # Should generate valid ID
+    assert len(data["id"]) == 30  # ULID format: GRV- + 26 chars
+
+
+def test_create_grievance_without_client_id(client):
+    """Test that server generates ID when none provided"""
+    payload = {
+        "is_anonymous": True,
+        "category_type": "Test",
+        "details": "Test without client ID"
+    }
+    
+    response = client.post("/api/grievances/", json=payload)
+    assert response.status_code == 201
+    
+    data = response.json()
+    assert data["id"].startswith("GRV-")  # Should generate valid ID
+    assert len(data["id"]) == 30  # ULID format
+

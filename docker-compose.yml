@@ -49,6 +49,8 @@ services:
       NEXTAUTH_URL_INTERNAL: http://typebot-builder:3000
       ADMIN_EMAIL: ${TYPEBOT_ADMIN_EMAIL:-admin@example.com}
       DISABLE_SIGNUP: false
+      # Disable billing/subscription checks for self-hosted
+      NEXT_PUBLIC_BILLING_ENABLED: false
       # Email configuration with MailHog
       NEXT_PUBLIC_SMTP_FROM: noreply@typebot.local
       SMTP_HOST: mailhog
@@ -125,6 +127,8 @@ services:
       - redis
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend/app:/app/app  # Mount source code for live reload
     # This service connects to two networks:
     # 1. The "default" network to communicate with `db` and `redis`.
     # 2. The external "grievance_net" to be reachable from the Typebot container.

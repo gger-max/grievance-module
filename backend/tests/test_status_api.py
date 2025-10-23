@@ -60,7 +60,7 @@ def test_status_update_with_valid_token(client, monkeypatch):
     # Need to reload the module to pick up the new env var
     from app.routers import status as status_module
     status_module.ODOO_TOKEN = test_token
-    status_module.ALLOWED = []  # Disable IP checking for tests
+    status_module.ALLOWED_IPS = []  # Disable IP checking for tests
     
     # Create a grievance
     payload = {
@@ -103,7 +103,7 @@ def test_status_update_not_found(client, monkeypatch):
     
     from app.routers import status as status_module
     status_module.ODOO_TOKEN = test_token
-    status_module.ALLOWED = []
+    status_module.ALLOWED_IPS = []
     
     status_payload = {
         "status": "Acknowledged",
@@ -125,7 +125,7 @@ def test_status_update_with_timestamp(client, monkeypatch):
     
     from app.routers import status as status_module
     status_module.ODOO_TOKEN = test_token
-    status_module.ALLOWED = []
+    status_module.ALLOWED_IPS = []
     
     # Create a grievance
     payload = {
@@ -159,7 +159,7 @@ def test_status_update_without_note(client, monkeypatch):
     
     from app.routers import status as status_module
     status_module.ODOO_TOKEN = test_token
-    status_module.ALLOWED = []
+    status_module.ALLOWED_IPS = []
     
     # Create a grievance
     payload = {
@@ -191,7 +191,7 @@ def test_status_update_multiple_times(client, monkeypatch):
     
     from app.routers import status as status_module
     status_module.ODOO_TOKEN = test_token
-    status_module.ALLOWED = []
+    status_module.ALLOWED_IPS = []
     
     # Create a grievance
     payload = {
