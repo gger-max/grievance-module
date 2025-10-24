@@ -10,7 +10,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
-[![Tests](https://img.shields.io/badge/Tests-45%20passing-success.svg?style=flat)](backend/tests/)
+[![Tests](https://img.shields.io/badge/Tests-52%20passing-success.svg?style=flat)](backend/tests/)
 
 <br>
 
@@ -57,7 +57,7 @@ docker compose up -d --build
 
 ### Run All Tests
 ```bash
-# Run complete test suite (45 tests)
+# Run complete test suite (52 tests)
 docker compose exec api pytest tests/ -v
 
 # Run specific test file
@@ -67,12 +67,12 @@ docker compose exec api pytest tests/test_grievances.py -v
 docker compose exec api pytest tests/ --cov=app --cov-report=html
 ```
 
-### Test Coverage (45 tests)
+### Test Coverage (52 tests)
 - ✅ **Grievance CRUD** (22 tests) - Create, read, update, delete operations
 - ✅ **Client ID Handling** (4 tests) - Timestamp format, ULID format, validation
 - ✅ **Typebot Integration** (11 tests) - Full chatbot flow, payload formats
 - ✅ **Status API** (7 tests) - Authentication, authorization, updates
-- ✅ **Batch Operations** (5 tests) - Bulk updates, error handling
+- ✅ **Batch Operations** (12 tests) - Bulk updates, error handling, edge cases
 
 ### Client-Provided ID Support
 The API accepts client-generated IDs in two formats:
