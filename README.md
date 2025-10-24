@@ -10,7 +10,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
-[![Tests](https://img.shields.io/badge/Tests-45%20passing-success.svg?style=flat)](backend/tests/)
+[![Tests](https://img.shields.io/badge/Tests-59%20passing-success.svg?style=flat)](backend/tests/)
 
 <br>
 
@@ -51,28 +51,32 @@ docker compose up -d --build
 | MinIO | 9000/9001 | File storage |
 | Redis | 6379 | Cache |
 
-**Features:** ULID IDs  Client-provided IDs  PDF Receipts  Multi-file attachments  Anti-spam  Custom CORS
+**Features:** ULID IDs  Client-provided IDs  PDF Receipts  Multi-file attachments  Anti-spam  Custom CORS  **LLM-based Categorization**
 
 ##  Testing
 
 ### Run All Tests
 ```bash
-# Run complete test suite (45 tests)
+# Run complete test suite (59 tests)
 docker compose exec api pytest tests/ -v
 
 # Run specific test file
 docker compose exec api pytest tests/test_grievances.py -v
 
+# Run categorization tests
+docker compose exec api pytest tests/test_categorization.py -v
+
 # Run with coverage
 docker compose exec api pytest tests/ --cov=app --cov-report=html
 ```
 
-### Test Coverage (45 tests)
+### Test Coverage (59 tests)
 - ✅ **Grievance CRUD** (22 tests) - Create, read, update, delete operations
 - ✅ **Client ID Handling** (4 tests) - Timestamp format, ULID format, validation
 - ✅ **Typebot Integration** (11 tests) - Full chatbot flow, payload formats
 - ✅ **Status API** (7 tests) - Authentication, authorization, updates
 - ✅ **Batch Operations** (5 tests) - Bulk updates, error handling
+- ✅ **LLM Categorization** (14 tests) - Auto-categorization, error handling, validation
 
 ### Client-Provided ID Support
 The API accepts client-generated IDs in two formats:
@@ -89,6 +93,51 @@ If an invalid ID is provided, the server generates a new ULID automatically.
 | GET | `/api/grievances/{id}` | Get by ID |
 | GET | `/api/grievances/{id}/receipt.pdf` | Download PDF |
 | PATCH | `/api/grievances/{id}` | Update |
+| **POST** | **`/api/grievances/categorize/`** | **LLM-based categorization** |
+
+##  LLM-based Categorization
+
+The system uses OpenAI's GPT models to automatically categorize grievances based on complainant input before submission to Odoo. This feature helps streamline the grievance processing workflow.
+
+### Quick Start
+
+1. **Set API Key**: Add your OpenAI API key to `.env`:
+   ```bash
+   OPENAI_API_KEY=your-api-key-here
+   OPENAI_MODEL=gpt-4o-mini  # Optional, defaults to gpt-4o-mini
+   ```
+
+2. **Test the endpoint**:
+   ```bash
+   curl -X POST "http://localhost:8000/api/grievances/categorize/" \
+     -H "Content-Type: application/json" \
+     -d '{"details": "Staff was rude when I asked for help"}'
+   ```
+
+3. **Response**:
+   ```json
+   {
+     "category": "5",
+     "subcategory": "5.3",
+     "category_name": "Staff performance",
+     "subcategory_name": "Discourtesy or poor service",
+     "confidence": "high",
+     "reasoning": "The grievance describes discourteous staff behavior.",
+     "display": "5.3 Discourtesy or poor service"
+   }
+   ```
+
+### Categories Supported
+
+1. Inquiries and suggestions (1.1-1.2)
+2. Registration related (2.1-2.4)
+3. Socioeconomic/PMT classification (3.1-3.3)
+4. Misbehavior of registrant (4.1-4.2)
+5. Staff performance (5.1-5.4)
+6. Gender-based violence (6.1-6.2)
+7. Others
+
+For detailed documentation, see [docs/LLM_CATEGORIZATION.md](docs/LLM_CATEGORIZATION.md).
 
 ##  Typebot Integration
 
@@ -144,6 +193,7 @@ pytest tests/ -v
 - [ ] Remove development volume mounts from `docker-compose.yml`
 - [ ] Set `ODOO_TOKEN` environment variable for status API
 - [ ] Configure `ODOO_ALLOWED_IPS` for IP whitelisting
+- [ ] Set `OPENAI_API_KEY` for LLM categorization feature
 - [ ] Set `DATABASE_URL` to production PostgreSQL
 - [ ] Enable HTTPS/TLS for all services
 - [ ] Configure backup strategy for PostgreSQL and MinIO

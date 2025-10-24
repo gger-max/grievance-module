@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
-from .routers import grievances, status
+from .routers import grievances, status, categorization
 from .database import init_db
 
 
@@ -58,6 +58,7 @@ async def custom_cors_middleware(request: Request, call_next):
 # Register routers
 app.include_router(grievances.router, prefix="/api", tags=["grievances"])
 app.include_router(status.router, prefix="/api/status", tags=["status"])
+app.include_router(categorization.router, prefix="/api/grievances", tags=["categorization"])
 
 
 @app.get("/", tags=["health"])

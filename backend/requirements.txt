@@ -8,6 +8,7 @@ python-dotenv==1.0.1
 python-dateutil==2.9.0
 reportlab==4.2.2
 email-validator==2.2.0
+openai==1.54.3
 
 # Testing
 pytest==8.3.2
