@@ -11,6 +11,7 @@ from .. import models, schemas
 from ..schemas import GrievanceCreate, GrievancePublic, AttachmentIn
 from ..utils.id import new_grievance_id
 from ..utils.pdf import build_receipt_pdf
+from ..utils.email import send_grievance_confirmation_email
 
 router = APIRouter(prefix="/grievances", tags=["grievances"])
 
@@ -204,6 +205,15 @@ async def create_grievance(
     db.commit()
     db.refresh(obj)
 
+    # Send confirmation email if not anonymous and email is provided
+    if not payload.is_anonymous and payload.complainant_email:
+        send_grievance_confirmation_email(
+            to_email=payload.complainant_email,
+            grievance_id=gid,
+            complainant_name=payload.complainant_name,
+            details=details,
+        )
+
     # Return JSONResponse with custom header
     public_data = _row_to_dict(obj)
     import sys
@@ -217,7 +227,6 @@ async def create_grievance(
         content=public_data,
         headers={"X-Grievance-ID": gid}
     )
-
 
 @router.put("/{gid}/status", response_model=schemas.GrievancePublic)
 def update_grievance_status(

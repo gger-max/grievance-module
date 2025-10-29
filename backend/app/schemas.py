@@ -48,12 +48,27 @@ class GrievanceCreate(BaseModel):
     
     @model_validator(mode='before')
     @classmethod
-    def accept_grievance_details_alias(cls, data: Any) -> Any:
-        """Accept both 'details' and 'grievance_details' field names for Typebot compatibility"""
+    def convert_empty_strings_to_none(cls, data: Any) -> Any:
+        """
+        Convert empty strings to None for optional fields.
+        This handles Typebot's behavior of sending empty strings instead of null/undefined.
+        """
         if isinstance(data, dict):
+            # Fields that should be converted from empty string to None
+            string_fields = [
+                'complainant_name', 'complainant_email', 'complainant_phone', 'complainant_gender',
+                'hh_id', 'hh_address', 'island', 'district', 'village', 'category_type',
+                'details', 'grievance_details', 'grievance_details_attachment_friendly'
+            ]
+            
+            for field in string_fields:
+                if field in data and data[field] == '':
+                    data[field] = None
+            
             # If 'grievance_details' is provided but 'details' is not, use it
             if 'grievance_details' in data and 'details' not in data:
                 data['details'] = data['grievance_details']
+        
         return data
 
 class GrievancePublic(BaseModel):
@@ -139,3 +154,15 @@ class GrievanceBatchUpdateResult(BaseModel):
 
 class GrievanceBatchUpdateResponse(BaseModel):
     results: List[GrievanceBatchUpdateResult]
+
+class CategorizationRequest(BaseModel):
+    details: str = Field(..., description="Grievance details text to categorize", min_length=1)
+
+class CategorizationResponse(BaseModel):
+    category: str = Field(..., description="Main category number (e.g., '1', '2')")
+    subcategory: Optional[str] = Field(None, description="Subcategory code (e.g., '1.1', '2.3')")
+    category_name: str = Field(..., description="Human-readable category name")
+    subcategory_name: Optional[str] = Field(None, description="Human-readable subcategory name")
+    confidence: str = Field(..., description="Confidence level: high, medium, or low")
+    reasoning: str = Field(..., description="Brief explanation for the categorization")
+    display: str = Field(..., description="Formatted display string for the category")
