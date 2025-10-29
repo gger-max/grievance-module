@@ -151,3 +151,15 @@ class GrievanceBatchUpdateResult(BaseModel):
 
 class GrievanceBatchUpdateResponse(BaseModel):
     results: List[GrievanceBatchUpdateResult]
+
+class CategorizationRequest(BaseModel):
+    details: str = Field(..., description="Grievance details text to categorize", min_length=1)
+
+class CategorizationResponse(BaseModel):
+    category: str = Field(..., description="Main category number (e.g., '1', '2')")
+    subcategory: Optional[str] = Field(None, description="Subcategory code (e.g., '1.1', '2.3')")
+    category_name: str = Field(..., description="Human-readable category name")
+    subcategory_name: Optional[str] = Field(None, description="Human-readable subcategory name")
+    confidence: str = Field(..., description="Confidence level: high, medium, or low")
+    reasoning: str = Field(..., description="Brief explanation for the categorization")
+    display: str = Field(..., description="Formatted display string for the category")
