@@ -10,7 +10,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
-[![Tests](https://img.shields.io/badge/Tests-67%20passing-success.svg?style=flat)](backend/tests/)
+[![Tests](https://img.shields.io/badge/Tests-102%20passing-success.svg?style=flat)](backend/tests/)
 
 <br>
 
@@ -51,13 +51,13 @@ docker compose up -d --build
 | MinIO | 9000/9001 | File storage |
 | Redis | 6379 | Cache |
 
-**Features:** ULID IDs  Client-provided IDs  PDF Receipts  **Status Tracking**  Multi-file attachments  Anti-spam  Custom CORS **LLM-based Categorization**
+**Features:** ULID IDs  Client-provided IDs  PDF Receipts  **Status Tracking**  Multi-file attachments  Anti-spam  Custom CORS **LLM-based Categorization** **Email Notifications**
 
 ##  Testing
 
 ### Run All Tests
 ```bash
-# Run complete test suite (67 tests)
+# Run complete test suite (102 tests)
 docker compose exec api pytest tests/ -v
 
 # Run specific test file
@@ -66,19 +66,24 @@ docker compose exec api pytest tests/test_grievances.py -v
 # Run categorization tests
 docker compose exec api pytest tests/test_categorization.py -v
 
+# Run email notification tests
+docker compose exec api pytest tests/test_email_notifications.py -v
+
 # Run with coverage
 docker compose exec api pytest tests/ --cov=app --cov-report=html
 ```
 
-### Test Coverage (81 tests)
-- ✅ **Grievance CRUD** (22 tests) - Create, read, update, delete operations
+### Test Coverage (102 tests)
+- ✅ **Grievance CRUD** (23 tests) - Create, read, update, delete operations
 - ✅ **Email Notifications** (12 tests) - Confirmation emails for non-anonymous submissions
 - ✅ **Client ID Handling** (4 tests) - Timestamp format, ULID format, validation
-- ✅ **Typebot Integration** (11 tests) - Full chatbot flow, payload formats
+- ✅ **Typebot Integration** (17 tests) - Full chatbot flow, payload formats
 - ✅ **Status API** (7 tests) - Authentication, authorization, updates
-- ✅ **Batch Operations** (5 tests) - Bulk updates, error handling
+- ✅ **Batch Operations** (12 tests) - Bulk updates, error handling
 - ✅ **Status Check Flow** (6 tests) - End-to-end status tracking from Typebot
-- ✅ **LLM Categorization** (14 tests) - Auto-categorization, error handling, validation- 
+- ✅ **LLM Categorization** (14 tests) - Auto-categorization, error handling, validation
+- ✅ **Empty String Handling** (10 tests) - Typebot empty field compatibility
+- ✅ **Main App** (1 test) - Health check endpoint
 
 ### Client-Provided ID Support
 The API accepts client-generated IDs in two formats:
@@ -91,11 +96,14 @@ If an invalid ID is provided, the server generates a new ULID automatically.
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/api/grievances` | Create |
-| GET | `/api/grievances/{id}` | Get by ID |
-| GET | `/api/grievances/{id}/receipt.pdf` | Download PDF |
-| PATCH | `/api/grievances/{id}` | Update |
-| **POST** | **`/api/grievances/categorize/`** | **LLM-based categorization** |
+| POST | `/api/grievances/` | Create new grievance |
+| POST | `/api/grievances/submit-simple` | Create grievance (simplified response) |
+| GET | `/api/grievances/{id}` | **Check status** - Get grievance details |
+| GET | `/api/grievances/{id}/receipt.pdf` | Download PDF receipt |
+| PUT | `/api/grievances/{id}/status` | Update grievance status |
+| GET | `/api/grievances/export` | Export recent grievances |
+| PUT | `/api/grievances/status-batch` | Batch status updates |
+| POST | `/api/grievances/categorize/` | **LLM-based categorization** |
 
 ##  LLM-based Categorization
 
@@ -140,12 +148,6 @@ The system uses OpenAI's GPT models to automatically categorize grievances based
 7. Others
 
 For detailed documentation, see [docs/LLM_CATEGORIZATION.md](docs/LLM_CATEGORIZATION.md).
-=======
-| POST | `/api/grievances` | Create new grievance |
-| GET | `/api/grievances/{id}` | **Check status** - Get grievance details |
-| GET | `/api/grievances/{id}/receipt.pdf` | Download PDF receipt |
-| PUT | `/api/grievances/{id}/status` | Update grievance status |
-| PATCH | `/api/grievances/{id}` | Update grievance details |
 
 ##  Email Notifications
 
@@ -162,15 +164,14 @@ See [EMAIL_NOTIFICATIONS.md](backend/EMAIL_NOTIFICATIONS.md) for detailed config
 ##  Typebot Integration
 
 ### Configuration Files
-- **Production:** `typebot-export-grievance-intake-qwdn4no.json` (server-side)  
-- **Development:** `typebot-export-grievance-intake-LOCALHOST-TEST.json` (browser)
+- **Production:** `typebot-export-grievance-intake.json` (consolidated)
 
 ### Status Check Feature
 
 Users can check their grievance status at any time:
 
 1. **Select "Check status?"** from the welcome menu
-2. **Enter tracking ID** (e.g., `GRV-01K88MF7431X7NF9D4GHQN5742`)
+2. **Enter tracking ID** (e.g., `GRV-01K88MF7431X7NF9D4GHQN5742` or `GRV-1761231827861197849`)
 3. **View status information**:
    - Current status (Pending, Under Review, Resolved, etc.)
    - Status notes from case workers
@@ -178,17 +179,19 @@ Users can check their grievance status at any time:
    - Category type and submission date
    - Household ID (if applicable)
 
-📖 **See [docs/STATUS_CHECK_FEATURE.md](docs/STATUS_CHECK_FEATURE.md) for detailed documentation**
+📖 **See [docs/STATUS_CHECK_FEATURE.md](docs/STATUS_CHECK_FEATURE.md) and [docs/TYPEBOT_ID_SOLUTION.md](docs/TYPEBOT_ID_SOLUTION.md) for detailed documentation**
 
 ### ID Generation Workflow
-Due to Typebot 3.12.0 limitations (webhook response mapping is non-functional), IDs are pre-generated:
+IDs are pre-generated client-side to ensure tracking ID matches database ID:
 
 1. **Script Block** generates unique ID: `GRV-${Date.now()}${random6digits}`
 2. ID stored in `grievance_id` variable
 3. **Webhook** sends ID in request body: `{"id": "{{grievance_id}}", ...}`
-4. **Confirmation** displays the same ID: `{{grievance_id}}`
+4. **API validates** format (timestamp or ULID) and uses it, or generates ULID if invalid
+5. **Confirmation** displays the same ID: `{{grievance_id}}`
+6. **Response includes** `tracking_id` field and `X-Grievance-ID` header
 
-This ensures the displayed tracking ID matches the database ID for receipt downloads and status tracking.
+This ensures the displayed tracking ID matches the database ID for receipt downloads and status tracking. See [docs/TYPEBOT_ID_SOLUTION.md](docs/TYPEBOT_ID_SOLUTION.md) for implementation details.
 
 ##  Troubleshooting
 
@@ -229,10 +232,12 @@ pytest tests/ -v
 - [ ] Set `ODOO_TOKEN` environment variable for status API
 - [ ] Configure `ODOO_ALLOWED_IPS` for IP whitelisting
 - [ ] Set `OPENAI_API_KEY` for LLM categorization feature
+- [ ] Configure SMTP settings for email notifications (or use MailHog for testing)
 - [ ] Set `DATABASE_URL` to production PostgreSQL
 - [ ] Enable HTTPS/TLS for all services
 - [ ] Configure backup strategy for PostgreSQL and MinIO
 - [ ] Set up monitoring and logging
+- [ ] Update Typebot configuration with production URLs
 
 See full docs for detailed production configuration and security guidelines.
 
