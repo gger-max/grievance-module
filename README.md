@@ -10,7 +10,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
-[![Tests](https://img.shields.io/badge/Tests-47%20passing-success.svg?style=flat)](backend/tests/)
+[![Tests](https://img.shields.io/badge/Tests-57%20passing-success.svg?style=flat)](backend/tests/)
 
 <br>
 
@@ -51,7 +51,7 @@ docker compose up -d --build
 | MinIO | 9000/9001 | File storage |
 | Redis | 6379 | Cache |
 
-**Features:** ULID IDs  Client-provided IDs  PDF Receipts  Multi-file attachments  Anti-spam  Custom CORS
+**Features:** ULID IDs  Client-provided IDs  PDF Receipts  Multi-file attachments  Email Notifications  Anti-spam  Custom CORS
 
 ##  Testing
 
@@ -67,8 +67,9 @@ docker compose exec api pytest tests/test_grievances.py -v
 docker compose exec api pytest tests/ --cov=app --cov-report=html
 ```
 
-### Test Coverage (47 tests)
-- ✅ **Grievance CRUD** (24 tests) - Create, read, update, delete operations
+### Test Coverage (57 tests)
+- ✅ **Grievance CRUD** (22 tests) - Create, read, update, delete operations
+- ✅ **Email Notifications** (12 tests) - Confirmation emails for non-anonymous submissions
 - ✅ **Client ID Handling** (4 tests) - Timestamp format, ULID format, validation
 - ✅ **Typebot Integration** (11 tests) - Full chatbot flow, payload formats
 - ✅ **Status API** (7 tests) - Authentication, authorization, updates
@@ -89,6 +90,18 @@ If an invalid ID is provided, the server generates a new ULID automatically.
 | GET | `/api/grievances/{id}` | Get by ID |
 | GET | `/api/grievances/{id}/receipt.pdf` | Download PDF |
 | PATCH | `/api/grievances/{id}` | Update |
+
+##  Email Notifications
+
+Automatic confirmation emails are sent to complainants who submit non-anonymous grievances with a valid email address.
+
+### Features
+- 📧 **Automatic emails** for non-anonymous submissions
+- 🔒 **Graceful failure handling** - grievance creation succeeds even if email fails
+- 🧪 **MailHog integration** for testing (http://localhost:8025)
+- ✉️ **Professional templates** with grievance tracking ID
+
+See [EMAIL_NOTIFICATIONS.md](backend/EMAIL_NOTIFICATIONS.md) for detailed configuration and testing.
 
 ##  Typebot Integration
 
