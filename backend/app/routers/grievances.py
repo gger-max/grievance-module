@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException, Response, Query
+from fastapi import APIRouter, Depends, HTTPException, Response, Query, Request
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta, timezone
 from typing import List, Optional, Any, Dict, Union
@@ -14,7 +15,8 @@ from ..utils.pdf import build_receipt_pdf
 router = APIRouter(prefix="/grievances", tags=["grievances"])
 
 # Compile regex once at module level for better performance
-GRIEVANCE_ID_PATTERN = re.compile(r"^GRV-[A-Z0-9]{26}$")
+# Accept both ULID format and simpler timestamp format
+GRIEVANCE_ID_PATTERN = re.compile(r"^GRV-[A-Z0-9]{26}$|^GRV-\d+$")
 
 # Constants
 MAX_DETAILS_LENGTH = 10000
@@ -122,11 +124,60 @@ def _row_to_public(row: models.Grievance) -> GrievancePublic:
     """Convert database row to public schema."""
     return GrievancePublic(**_row_to_dict(row))
 
-@router.post("/", response_model=GrievancePublic, status_code=201)
-def create_grievance(payload: GrievanceCreate, db: Session = Depends(get_db)):
+@router.post("/submit-simple", status_code=201)
+def create_grievance_simple_text(
+    payload: GrievanceCreate,
+    db: Session = Depends(get_db)
+):
+    """Create a new grievance and return just the ID for Typebot."""
+    # Use client-provided ID if available and valid, otherwise generate one
+    if payload.id and GRIEVANCE_ID_PATTERN.match(payload.id):
+        gid = payload.id
+    else:
+        gid = new_grievance_id()
+    
+    details = _normalize_details(payload.details)
+    attachments = _normalize_attachments(payload.attachments)
+
+    # Create grievance object
+    obj = models.Grievance(
+        id=gid,
+        is_anonymous=payload.is_anonymous,
+        complainant_name=payload.complainant_name,
+        complainant_email=payload.complainant_email,
+        complainant_phone=payload.complainant_phone,
+        complainant_gender=payload.complainant_gender,
+        is_hh_registered=payload.is_hh_registered,
+        hh_id=payload.hh_id,
+        hh_address=payload.hh_address,
+        island=payload.island,
+        district=payload.district,
+        village=payload.village,
+        category_type=payload.category_type,
+        details=details,
+        attachments=attachments,
+    )
+    
+    db.add(obj)
+    db.commit()
+    
+    # Return just the ID in a simple format
+    return {"id": gid}
+
+
+@router.post("/", status_code=201)
+async def create_grievance(
+    request: Request,
+    payload: GrievanceCreate,
+    db: Session = Depends(get_db)
+):
     """Create a new grievance entry."""
-    # Generate ID and normalize data
-    gid = new_grievance_id()
+    
+    # Use client-provided ID if available and valid, otherwise generate one
+    if payload.id and GRIEVANCE_ID_PATTERN.match(payload.id):
+        gid = payload.id
+    else:
+        gid = new_grievance_id()
     details = _normalize_details(payload.details)
     attachments = _normalize_attachments(payload.attachments)
 
@@ -153,7 +204,20 @@ def create_grievance(payload: GrievanceCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(obj)
 
-    return _row_to_public(obj)
+    # Return JSONResponse with custom header
+    public_data = _row_to_dict(obj)
+    import sys
+    print(f"=== RETURNING ID: {gid} ===", file=sys.stderr, flush=True)
+    
+    # Add tracking_id at root level for easier Typebot access
+    public_data["tracking_id"] = gid
+    
+    return JSONResponse(
+        status_code=201,
+        content=public_data,
+        headers={"X-Grievance-ID": gid}
+    )
+
 
 @router.put("/{gid}/status", response_model=schemas.GrievancePublic)
 def update_grievance_status(

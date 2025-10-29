@@ -3,3 +3,14 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* Hide honeypot field - spam protection */
+input[placeholder*="Leave this blank"],
+input[placeholder*="leave this blank"] {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

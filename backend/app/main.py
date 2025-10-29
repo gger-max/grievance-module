@@ -51,6 +51,7 @@ async def custom_cors_middleware(request: Request, call_next):
     response.headers["Access-Control-Allow-Origin"] = origin if origin else "*"
     response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS, PATCH"
     response.headers["Access-Control-Allow-Headers"] = "*"
+    response.headers["Access-Control-Expose-Headers"] = "X-Grievance-ID"
     response.headers["Vary"] = "Origin"
     
     return response

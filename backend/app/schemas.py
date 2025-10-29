@@ -14,6 +14,9 @@ class AttachmentIn(BaseModel):
 class GrievanceCreate(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
     
+    # Optional client-provided ID (must match GRV-{26 uppercase alphanumeric})
+    id: Optional[str] = None
+    
     is_anonymous: bool = Field(default=True)
 
     # Optional complainant info (only when not anonymous)

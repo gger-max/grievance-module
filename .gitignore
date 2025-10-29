@@ -31,3 +31,12 @@ backend/uploads/
 infra/minio-data/
 infra/pgdata/
 infra/redis-data/
+
+# Temporary development files
+*.backup
+*_old.json
+test-payload.json
+check_typebot.py
+fix_honeypot.py
+update_honeypot.py
+typebot-id-generator.js
