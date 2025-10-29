@@ -10,7 +10,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
-[![Tests](https://img.shields.io/badge/Tests-59%20passing-success.svg?style=flat)](backend/tests/)
+[![Tests](https://img.shields.io/badge/Tests-67%20passing-success.svg?style=flat)](backend/tests/)
 
 <br>
 
@@ -51,13 +51,13 @@ docker compose up -d --build
 | MinIO | 9000/9001 | File storage |
 | Redis | 6379 | Cache |
 
-**Features:** ULID IDs  Client-provided IDs  PDF Receipts  Multi-file attachments  Anti-spam  Custom CORS  **LLM-based Categorization**
+**Features:** ULID IDs  Client-provided IDs  PDF Receipts  **Status Tracking**  Multi-file attachments  Anti-spam  Custom CORS **LLM-based Categorization**
 
 ##  Testing
 
 ### Run All Tests
 ```bash
-# Run complete test suite (59 tests)
+# Run complete test suite (67 tests)
 docker compose exec api pytest tests/ -v
 
 # Run specific test file
@@ -70,13 +70,15 @@ docker compose exec api pytest tests/test_categorization.py -v
 docker compose exec api pytest tests/ --cov=app --cov-report=html
 ```
 
-### Test Coverage (59 tests)
+### Test Coverage (81 tests)
 - ✅ **Grievance CRUD** (22 tests) - Create, read, update, delete operations
+- ✅ **Email Notifications** (12 tests) - Confirmation emails for non-anonymous submissions
 - ✅ **Client ID Handling** (4 tests) - Timestamp format, ULID format, validation
 - ✅ **Typebot Integration** (11 tests) - Full chatbot flow, payload formats
 - ✅ **Status API** (7 tests) - Authentication, authorization, updates
 - ✅ **Batch Operations** (5 tests) - Bulk updates, error handling
-- ✅ **LLM Categorization** (14 tests) - Auto-categorization, error handling, validation
+- ✅ **Status Check Flow** (6 tests) - End-to-end status tracking from Typebot
+- ✅ **LLM Categorization** (14 tests) - Auto-categorization, error handling, validation- 
 
 ### Client-Provided ID Support
 The API accepts client-generated IDs in two formats:
@@ -138,12 +140,45 @@ The system uses OpenAI's GPT models to automatically categorize grievances based
 7. Others
 
 For detailed documentation, see [docs/LLM_CATEGORIZATION.md](docs/LLM_CATEGORIZATION.md).
+=======
+| POST | `/api/grievances` | Create new grievance |
+| GET | `/api/grievances/{id}` | **Check status** - Get grievance details |
+| GET | `/api/grievances/{id}/receipt.pdf` | Download PDF receipt |
+| PUT | `/api/grievances/{id}/status` | Update grievance status |
+| PATCH | `/api/grievances/{id}` | Update grievance details |
+
+##  Email Notifications
+
+Automatic confirmation emails are sent to complainants who submit non-anonymous grievances with a valid email address.
+
+### Features
+- 📧 **Automatic emails** for non-anonymous submissions
+- 🔒 **Graceful failure handling** - grievance creation succeeds even if email fails
+- 🧪 **MailHog integration** for testing (http://localhost:8025)
+- ✉️ **Professional templates** with grievance tracking ID
+
+See [EMAIL_NOTIFICATIONS.md](backend/EMAIL_NOTIFICATIONS.md) for detailed configuration and testing.
 
 ##  Typebot Integration
 
 ### Configuration Files
 - **Production:** `typebot-export-grievance-intake-qwdn4no.json` (server-side)  
 - **Development:** `typebot-export-grievance-intake-LOCALHOST-TEST.json` (browser)
+
+### Status Check Feature
+
+Users can check their grievance status at any time:
+
+1. **Select "Check status?"** from the welcome menu
+2. **Enter tracking ID** (e.g., `GRV-01K88MF7431X7NF9D4GHQN5742`)
+3. **View status information**:
+   - Current status (Pending, Under Review, Resolved, etc.)
+   - Status notes from case workers
+   - Location details (Island, District, Village)
+   - Category type and submission date
+   - Household ID (if applicable)
+
+📖 **See [docs/STATUS_CHECK_FEATURE.md](docs/STATUS_CHECK_FEATURE.md) for detailed documentation**
 
 ### ID Generation Workflow
 Due to Typebot 3.12.0 limitations (webhook response mapping is non-functional), IDs are pre-generated:
