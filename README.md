@@ -57,7 +57,7 @@ docker compose up -d --build
 
 ### Run All Tests
 ```bash
-# Run complete test suite (45 tests)
+# Run complete test suite (47 tests)
 docker compose exec api pytest tests/ -v
 
 # Run specific test file
