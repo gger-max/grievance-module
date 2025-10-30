@@ -41,8 +41,33 @@
       
       /* Container for the typebot */
       .typebot-container {
-        height: calc(100% - 140px);
+        height: calc(100% - 180px);
         width: 100%;
+        position: relative;
+      }
+      
+      /* Custom footer */
+      .custom-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #f9fafb;
+        border-top: 1px solid #e5e7eb;
+        padding: 10px;
+        text-align: center;
+        font-size: 12px;
+        color: #6b7280;
+        z-index: 1000;
+      }
+      
+      .custom-footer a {
+        color: #3b82f6;
+        text-decoration: none;
+      }
+      
+      .custom-footer a:hover {
+        text-decoration: underline;
       }
       
       /* Custom styles for the bot */
@@ -66,7 +91,7 @@
           max-width: 200px;
         }
         .typebot-container {
-          height: calc(100% - 120px);
+          height: calc(100% - 160px);
         }
       }
     </style>
@@ -79,13 +104,18 @@
       <p>Your voice matters. Share your concerns confidentially.</p>
     </div>
     
-    <!-- Typebot Viewer -->
+    <!-- Typebot Viewer in iframe -->
     <div class="typebot-container">
-      <script src="https://unpkg.com/typebot-js@latest/dist/web.js"></script>
-      <typebot-standard 
-        typebot="grievance-intake" 
-        style="width:100%;height:100%;">
-      </typebot-standard>
+      <iframe 
+        src="http://localhost:8082/grievance-intake-g8dna59" 
+        style="width:100%;height:100%;border:none;"
+        title="Grievance System">
+      </iframe>
+      
+      <!-- Custom Footer -->
+      <div class="custom-footer">
+        Made with <a href="https://typebot.io" target="_blank">Typebot</a> for <strong>Vaka Sosiale</strong>
+      </div>
     </div>
   </body>
 </html>
