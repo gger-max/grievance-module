@@ -265,9 +265,12 @@ The PDF is generated on-demand using ReportLab library with proper text wrapping
 
 **Branded Interface (Recommended):**
 - URL: http://localhost:8000/static/vaka-sosiale-grievance.html
-- Features custom Vaka Sosiale header with logo
-- Professional blue gradient design
-- Clean, user-friendly layout
+- Features:
+  - Custom Vaka Sosiale header with logo
+  - Professional blue gradient design
+  - Clean, user-friendly layout
+  - Custom footer: "Made with Typebot for Vaka Sosiale"
+  - Seamless integration with full Typebot functionality
 
 **Standard Interface:**
 - URL: http://localhost:8082 (Typebot Viewer)
