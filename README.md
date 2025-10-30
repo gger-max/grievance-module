@@ -107,35 +107,60 @@ The API accepts **ULID-format IDs only**: `GRV-[A-Z0-9]{26}` (e.g., `GRV-01K88MF
 
 ##  LLM-based Categorization
 
-The system uses OpenAI's GPT models to automatically categorize grievances based on complainant input before submission to Odoo. This feature helps streamline the grievance processing workflow.
+The system uses OpenAI's GPT models to automatically categorize grievances based on complainant input. Categorization happens **automatically** when grievances are created, or can be called manually via the API endpoint.
 
-### Quick Start
+### Automatic Categorization
 
-1. **Set API Key**: Add your OpenAI API key to `.env`:
-   ```bash
-   OPENAI_API_KEY=your-api-key-here
-   OPENAI_MODEL=gpt-4o-mini  # Optional, defaults to gpt-4o-mini
-   ```
+Every grievance submitted **without** a `category_type` field will be automatically categorized using LLM:
 
-2. **Test the endpoint**:
-   ```bash
-   curl -X POST "http://localhost:8000/api/grievances/categorize/" \
-     -H "Content-Type: application/json" \
-     -d '{"details": "Staff was rude when I asked for help"}'
-   ```
+1. **Submission**: User submits grievance through Typebot or API
+2. **Auto-categorize**: System calls OpenAI API with grievance details
+3. **Storage**: Grievance is saved with the suggested category (e.g., "5.3 Discourtesy or poor service")
+4. **Graceful Failure**: If categorization fails (no API key, API error), grievance is still created without a category
 
-3. **Response**:
-   ```json
-   {
-     "category": "5",
-     "subcategory": "5.3",
-     "category_name": "Staff performance",
-     "subcategory_name": "Discourtesy or poor service",
-     "confidence": "high",
-     "reasoning": "The grievance describes discourteous staff behavior.",
-     "display": "5.3 Discourtesy or poor service"
-   }
-   ```
+```bash
+# Example: Grievance submitted without category_type
+POST /api/grievances/
+{
+  "details": "Staff was rude when I asked for help",
+  "is_anonymous": true
+}
+
+# Result: Automatically categorized as "5.3 Discourtesy or poor service"
+```
+
+**Note:** If a `category_type` is provided in the request, automatic categorization is skipped.
+
+### Manual Categorization Endpoint
+
+You can also categorize text manually using the dedicated endpoint:
+
+```bash
+curl -X POST "http://localhost:8000/api/grievances/categorize/" \
+  -H "Content-Type: application/json" \
+  -d '{"details": "Staff was rude when I asked for help"}'
+```
+
+Response:
+```json
+{
+  "category": "5",
+  "subcategory": "5.3",
+  "category_name": "Staff performance",
+  "subcategory_name": "Discourtesy or poor service",
+  "confidence": "high",
+  "reasoning": "The grievance describes discourteous staff behavior.",
+  "display": "5.3 Discourtesy or poor service"
+}
+```
+
+### Configuration
+
+Add your OpenAI API key to `backend/.env`:
+```bash
+OPENAI_API_KEY=sk-your-actual-api-key-here
+OPENAI_MODEL=gpt-4o-mini  # Optional, defaults to gpt-4o-mini
+```
 
 ### Categories Supported
 

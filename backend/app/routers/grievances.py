@@ -16,6 +16,7 @@ from ..utils.id import new_grievance_id
 from ..utils.pdf import build_receipt_pdf
 from ..utils.email import send_grievance_confirmation_email
 from ..utils.minio import minio_client
+from ..services.llm_categorizer import categorize_grievance
 
 router = APIRouter(prefix="/grievances", tags=["grievances"])
 
@@ -181,6 +182,35 @@ def _row_to_public(row: models.Grievance) -> GrievancePublic:
     """Convert database row to public schema."""
     return GrievancePublic(**_row_to_dict(row))
 
+def _auto_categorize(details: str) -> Optional[str]:
+    """
+    Automatically categorize grievance using LLM.
+    
+    Args:
+        details: Grievance details text
+        
+    Returns:
+        Formatted category string (e.g., "2.3 HH member not registered") or None if categorization fails
+    """
+    if not details or not details.strip():
+        return None
+    
+    try:
+        result = categorize_grievance(details)
+        
+        # Format as "subcategory subcategory_name" or "category. category_name"
+        if result.get('subcategory') and result.get('subcategory_name'):
+            return f"{result['subcategory']} {result['subcategory_name']}"
+        elif result.get('category') and result.get('category_name'):
+            return f"{result['category']}. {result['category_name']}"
+        
+        return None
+    except Exception as e:
+        # Log the error but don't fail the grievance creation
+        import sys
+        print(f"Warning: Auto-categorization failed: {e}", file=sys.stderr, flush=True)
+        return None
+
 @router.post("/submit-simple", status_code=201)
 def create_grievance_simple_text(
     payload: GrievanceCreate,
@@ -195,6 +225,11 @@ def create_grievance_simple_text(
     
     details = _normalize_details(payload.details)
     attachments = _normalize_attachments(payload.attachments)
+    
+    # Auto-categorize if no category_type provided and details exist
+    category_type = payload.category_type
+    if not category_type and details:
+        category_type = _auto_categorize(details)
 
     # Create grievance object
     obj = models.Grievance(
@@ -210,7 +245,7 @@ def create_grievance_simple_text(
         island=payload.island,
         district=payload.district,
         village=payload.village,
-        category_type=payload.category_type,
+        category_type=category_type,
         details=details,
         attachments=attachments,
     )
@@ -237,6 +272,11 @@ async def create_grievance(
         gid = new_grievance_id()
     details = _normalize_details(payload.details)
     attachments = _normalize_attachments(payload.attachments)
+    
+    # Auto-categorize if no category_type provided and details exist
+    category_type = payload.category_type
+    if not category_type and details:
+        category_type = _auto_categorize(details)
 
     # Create grievance object with direct attribute access
     obj = models.Grievance(
@@ -252,7 +292,7 @@ async def create_grievance(
         island=payload.island,
         district=payload.district,
         village=payload.village,
-        category_type=payload.category_type,
+        category_type=category_type,
         details=details,
         attachments=attachments,
     )
