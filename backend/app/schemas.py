@@ -10,6 +10,8 @@ class AttachmentIn(BaseModel):
     url: Optional[str] = ""
     size: Optional[int] = 0
     type: Optional[str] = ""
+    
+    model_config = ConfigDict(extra='ignore')  # Ignore unexpected fields
 
 class GrievanceCreate(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
@@ -43,8 +45,8 @@ class GrievanceCreate(BaseModel):
     # Friendly string from Typebot (not required by backend)
     grievance_details_attachment_friendly: Optional[str] = None
 
-    # Can arrive as a native array or a JSON-encoded string
-    attachments: Optional[Union[List[AttachmentIn], str]] = None
+    # Can arrive as a native array or a JSON-encoded string, or list of URLs
+    attachments: Optional[Any] = None
     
     @model_validator(mode='before')
     @classmethod

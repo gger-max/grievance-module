@@ -47,25 +47,34 @@ services:
       NEXTAUTH_URL: http://localhost:8081
       NEXT_PUBLIC_VIEWER_URL: http://localhost:8082
       NEXTAUTH_URL_INTERNAL: http://typebot-builder:3000
+      NEXTAUTH_SECRET: your-super-secret-nextauth-key-change-this-in-production
+      HOSTNAME: 0.0.0.0
+      HOST: 0.0.0.0
       ADMIN_EMAIL: ${TYPEBOT_ADMIN_EMAIL:-admin@example.com}
       DISABLE_SIGNUP: false
       # Disable billing/subscription checks for self-hosted
       NEXT_PUBLIC_BILLING_ENABLED: false
-      # Email configuration with Gmail
-      NEXT_PUBLIC_SMTP_FROM: "'Typebot' <tongavakasosiale@gmail.com>"
+      # Disable all feature restrictions
+      NEXT_PUBLIC_E2E_TEST: false
+      LICENSE_KEY: ""
+      # Email configuration with Gmail SMTP
+      NEXT_PUBLIC_SMTP_FROM: "'Typebot Grievance' <tongavakasosiale@gmail.com>"
       SMTP_HOST: smtp.gmail.com
       SMTP_PORT: 587
-      SMTP_USERNAME: tongavakasosiale@gmail.com
-      SMTP_PASSWORD: oksgwfebgamdbjgj
-      SMTP_SECURE: false
-      SMTP_AUTH_DISABLED: false
+      SMTP_USERNAME: "tongavakasosiale@gmail.com"
+      SMTP_PASSWORD: "bpfjuukwbtjduzqx"
+      SMTP_SECURE: true
       # S3/MinIO configuration - use HTTP not HTTPS
-      S3_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
-      S3_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
-      S3_BUCKET: typebot
+      S3_ACCESS_KEY: minioadmin
+      S3_SECRET_KEY: minioadmin
+      S3_BUCKET: grievance-attachments
       S3_ENDPOINT: minio
       S3_PORT: 9000
       S3_SSL: false
+      S3_REGION: us-east-1
+      S3_FORCE_PATH_STYLE: true
+      S3_SIGNATURE_VERSION: v4
+      AWS_SDK_LOAD_CONFIG: 1
       # Public URL for browser access
       NEXT_PUBLIC_S3_ENDPOINT: http://localhost:9000
     depends_on:
@@ -86,15 +95,31 @@ services:
       ENCRYPTION_SECRET: aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpP
       NEXTAUTH_URL: http://localhost:8082
       NEXT_PUBLIC_VIEWER_URL: http://localhost:8082
+      HOSTNAME: 0.0.0.0
+      HOST: 0.0.0.0
       # Allow http:// connections in development
       NEXT_PUBLIC_VIEWER_INTERNAL_URL: http://typebot-viewer:3000
+      # Disable billing/subscription checks
+      NEXT_PUBLIC_BILLING_ENABLED: false
+      NEXT_PUBLIC_E2E_TEST: false
+      # Email configuration with Gmail SMTP
+      NEXT_PUBLIC_SMTP_FROM: "'Typebot Grievance' <tongavakasosiale@gmail.com>"
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: 587
+      SMTP_USERNAME: "tongavakasosiale@gmail.com"
+      SMTP_PASSWORD: "bpfjuukwbtjduzqx"
+      SMTP_SECURE: true
       # S3/MinIO configuration - use HTTP not HTTPS
-      S3_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
-      S3_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
-      S3_BUCKET: typebot
+      S3_ACCESS_KEY: minioadmin
+      S3_SECRET_KEY: minioadmin
+      S3_BUCKET: grievance-attachments
       S3_ENDPOINT: minio
       S3_PORT: 9000
       S3_SSL: false
+      S3_REGION: us-east-1
+      S3_FORCE_PATH_STYLE: true
+      S3_SIGNATURE_VERSION: v4
+      AWS_SDK_LOAD_CONFIG: 1
       # Public URL for browser access
       NEXT_PUBLIC_S3_ENDPOINT: http://localhost:9000
     depends_on:
@@ -113,11 +138,18 @@ services:
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      MINIO_BROWSER_REDIRECT_URL: http://localhost:9001
+      MINIO_DOMAIN: localhost
+      MINIO_SERVER_URL: http://localhost:9000
+      MINIO_CORS_ALLOW_ORIGIN: "http://localhost:8082,http://localhost:8081,*"
+      MINIO_CORS_ALLOW_METHOD: "GET,POST,PUT,DELETE,OPTIONS"
+      MINIO_CORS_ALLOW_HEADER: "*"
     ports:
       - "9000:9000"
       - "9001:9001"
     volumes:
       - minio_data:/data
+      - ./infra/minio-cors.xml:/etc/minio/cors.xml:ro
 
   api:
     build: ./backend

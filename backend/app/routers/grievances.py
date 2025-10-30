@@ -1,10 +1,13 @@
-from fastapi import APIRouter, Depends, HTTPException, Response, Query, Request
+from fastapi import APIRouter, Depends, HTTPException, Response, Query, Request, UploadFile, File
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta, timezone
 from typing import List, Optional, Any, Dict, Union
 import json
 import re
+import uuid
+import os
+from pathlib import Path
 
 from ..database import get_db
 from .. import models, schemas
@@ -12,12 +15,13 @@ from ..schemas import GrievanceCreate, GrievancePublic, AttachmentIn
 from ..utils.id import new_grievance_id
 from ..utils.pdf import build_receipt_pdf
 from ..utils.email import send_grievance_confirmation_email
+from ..utils.minio import minio_client
 
 router = APIRouter(prefix="/grievances", tags=["grievances"])
 
 # Compile regex once at module level for better performance
-# Accept both ULID format and simpler timestamp format
-GRIEVANCE_ID_PATTERN = re.compile(r"^GRV-[A-Z0-9]{26}$|^GRV-\d+$")
+# Accept only ULID format (26 character alphanumeric)
+GRIEVANCE_ID_PATTERN = re.compile(r"^GRV-[A-Z0-9]{26}$")
 
 # Constants
 MAX_DETAILS_LENGTH = 10000
@@ -28,6 +32,42 @@ MAX_EXPORT_HOURS = 7 * 24
 MAX_DETAILS_LENGTH = 10000
 DEFAULT_EXPORT_HOURS = 24
 MAX_EXPORT_HOURS = 7 * 24
+
+
+@router.post("/upload-file", status_code=201)
+async def upload_file(file: UploadFile = File(...)):
+    """Upload a file and return its URL."""
+    try:
+        # Read file content
+        content = await file.read()
+
+        # Validate file size (10MB limit)
+        max_size = 10 * 1024 * 1024  # 10MB
+        if len(content) > max_size:
+            raise HTTPException(status_code=413, detail="File too large. Maximum size is 10MB.")
+
+        # Validate file type
+        allowed_types = [
+            'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        ]
+
+        if file.content_type not in allowed_types:
+            raise HTTPException(status_code=400, detail=f"File type {file.content_type} not allowed.")
+
+        # Upload to MinIO
+        result = minio_client.upload_file(content, file.filename, file.content_type)
+
+        return result
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
 
 
 def _now_utc() -> datetime:
@@ -75,7 +115,8 @@ def _normalize_attachments(raw: Optional[Union[str, List[Any]]]) -> Optional[Lis
         data = json.loads(raw) if isinstance(raw, str) else raw
         
         if not isinstance(data, list):
-            raise ValueError("attachments must be an array")
+            # If it's a single file object, wrap it in a list
+            data = [data]
         
         # Validate each attachment using Pydantic model
         validated_attachments = []
@@ -83,12 +124,27 @@ def _normalize_attachments(raw: Optional[Union[str, List[Any]]]) -> Optional[Lis
             # If already an AttachmentIn object, just dump it
             if isinstance(item, AttachmentIn):
                 validated_attachments.append(item.model_dump())
-            else:
-                # Otherwise validate and convert
-                att = AttachmentIn(**(item or {}))
+            elif isinstance(item, str):
+                # Handle string URLs directly
+                att = AttachmentIn(url=item)
                 validated_attachments.append(att.model_dump())
+            else:
+                # Otherwise validate and convert, with defaults for missing fields
+                try:
+                    att = AttachmentIn(**(item or {}))
+                    validated_attachments.append(att.model_dump())
+                except Exception as e:
+                    # Log the error but continue processing other attachments
+                    import sys
+                    print(f"Warning: Skipping invalid attachment: {e}", file=sys.stderr, flush=True)
+                    continue
         
-        return validated_attachments
+        return validated_attachments if validated_attachments else None
+    except json.JSONDecodeError as e:
+        # If JSON parsing fails, log and return None (treat as no attachments)
+        import sys
+        print(f"Warning: Failed to parse attachments JSON: {e}", file=sys.stderr, flush=True)
+        return None
     except Exception as e:
         raise HTTPException(
             status_code=422,
@@ -173,7 +229,7 @@ async def create_grievance(
     db: Session = Depends(get_db)
 ):
     """Create a new grievance entry."""
-    
+
     # Use client-provided ID if available and valid, otherwise generate one
     if payload.id and GRIEVANCE_ID_PATTERN.match(payload.id):
         gid = payload.id
@@ -204,6 +260,14 @@ async def create_grievance(
     db.add(obj)
     db.commit()
     db.refresh(obj)
+    
+    # Verify it was saved by querying it back
+    import sys
+    verify = db.get(models.Grievance, gid)
+    if verify:
+        print(f"✅ Verified: Grievance {gid} saved to DB", file=sys.stderr, flush=True)
+    else:
+        print(f"❌ ERROR: Grievance {gid} NOT found after commit!", file=sys.stderr, flush=True)
 
     # Send confirmation email if not anonymous and email is provided
     if not payload.is_anonymous and payload.complainant_email:
@@ -216,7 +280,6 @@ async def create_grievance(
 
     # Return JSONResponse with custom header
     public_data = _row_to_dict(obj)
-    import sys
     print(f"=== RETURNING ID: {gid} ===", file=sys.stderr, flush=True)
     
     # Add tracking_id at root level for easier Typebot access

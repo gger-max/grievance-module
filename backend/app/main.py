@@ -31,6 +31,34 @@ async def custom_cors_middleware(request: Request, call_next):
     # Log the request for debugging
     print(f"Request: {request.method} {request.url.path} from origin: {origin}")
     
+    # DEBUG: Capture and log request body for POST requests to grievances endpoint
+    if request.method == "POST" and request.url.path == "/api/grievances/":
+        import sys
+        
+        # Read the body
+        body_bytes = await request.body()
+        
+        # Log it
+        print("=" * 60, file=sys.stderr, flush=True)
+        print("WEBHOOK REQUEST BODY:", file=sys.stderr, flush=True)
+        print(body_bytes.decode("utf-8"), file=sys.stderr, flush=True)
+        print("=" * 60, file=sys.stderr, flush=True)
+        
+        # Create a new receive callable that replays the body
+        # This needs to track state to send body then EOF
+        body_sent = False
+        
+        async def receive():
+            nonlocal body_sent
+            if not body_sent:
+                body_sent = True
+                return {"type": "http.request", "body": body_bytes, "more_body": False}
+            # Should not be called again, but return empty if it is
+            return {"type": "http.request", "body": b"", "more_body": False}
+        
+        # IMPORTANT: Replace the request with a new one that has the body available
+        request = Request(scope=request.scope, receive=receive)
+    
     # Handle preflight OPTIONS requests
     if request.method == "OPTIONS":
         return Response(

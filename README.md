@@ -51,7 +51,7 @@ docker compose up -d --build
 | MinIO | 9000/9001 | File storage |
 | Redis | 6379 | Cache |
 
-**Features:** ULID IDs  Client-provided IDs  PDF Receipts  **Status Tracking**  Multi-file attachments  Anti-spam  Custom CORS **LLM-based Categorization** **Email Notifications**
+**Features:** ULID-only IDs (`GRV-[A-Z0-9]{26}`)  Client-provided IDs  PDF Receipts  **Status Tracking**  Multi-file attachments  MinIO S3 storage  Custom CORS **LLM-based Categorization** **Gmail Email Notifications**
 
 ##  Testing
 
@@ -74,23 +74,23 @@ docker compose exec api pytest tests/ --cov=app --cov-report=html
 ```
 
 ### Test Coverage (102 tests)
-- ✅ **Grievance CRUD** (23 tests) - Create, read, update, delete operations
+- ✅ **Grievance CRUD** (25 tests) - Create, read, update, delete operations
 - ✅ **Email Notifications** (12 tests) - Confirmation emails for non-anonymous submissions
-- ✅ **Client ID Handling** (4 tests) - Timestamp format, ULID format, validation
-- ✅ **Typebot Integration** (17 tests) - Full chatbot flow, payload formats
+- ✅ **Client ID Handling** - ULID format validation (`GRV-[A-Z0-9]{26}`)
+- ✅ **Typebot Integration** (16 tests) - Full chatbot flow, payload formats
 - ✅ **Status API** (7 tests) - Authentication, authorization, updates
 - ✅ **Batch Operations** (12 tests) - Bulk updates, error handling
 - ✅ **Status Check Flow** (6 tests) - End-to-end status tracking from Typebot
 - ✅ **LLM Categorization** (14 tests) - Auto-categorization, error handling, validation
-- ✅ **Empty String Handling** (10 tests) - Typebot empty field compatibility
+- ✅ **Empty String Handling** (9 tests) - Typebot empty field compatibility
 - ✅ **Main App** (1 test) - Health check endpoint
 
 ### Client-Provided ID Support
-The API accepts client-generated IDs in two formats:
-- **Timestamp format:** `GRV-1761231827861197849` (from Typebot Script blocks)
-- **ULID format:** `GRV-01K88MF7431X7NF9D4GHQN5742` (server-generated)
+The API accepts **ULID-format IDs only**: `GRV-[A-Z0-9]{26}` (e.g., `GRV-01K88MF7431X7NF9D4GHQN5742`)
 
-If an invalid ID is provided, the server generates a new ULID automatically.
+- IDs are generated client-side using ULID library in Typebot JavaScript
+- If an invalid ID is provided, the server generates a new ULID automatically
+- Ensures tracking ID displayed to user matches database ID
 
 ##  API Endpoints
 
@@ -151,27 +151,50 @@ For detailed documentation, see [docs/LLM_CATEGORIZATION.md](docs/LLM_CATEGORIZA
 
 ##  Email Notifications
 
-Automatic confirmation emails are sent to complainants who submit non-anonymous grievances with a valid email address.
+Automatic confirmation emails are sent via **Gmail SMTP** to complainants who submit non-anonymous grievances with a valid email address.
 
 ### Features
-- 📧 **Automatic emails** for non-anonymous submissions
+- 📧 **Gmail SMTP** integration for production email delivery
 - 🔒 **Graceful failure handling** - grievance creation succeeds even if email fails
-- 🧪 **MailHog integration** for testing (http://localhost:8025)
-- ✉️ **Professional templates** with grievance tracking ID
+- ✉️ **Professional templates** with grievance tracking ID and PDF receipt
+- 🎯 **Configurable** - supports Gmail app passwords or other SMTP providers
+
+### Configuration
+Set these environment variables in `docker-compose.yml`:
+```yaml
+SMTP_SERVER: smtp.gmail.com
+SMTP_PORT: 587
+SMTP_USERNAME: your-email@gmail.com
+SMTP_PASSWORD: your-app-password  # Gmail app password (no spaces)
+SMTP_FROM_EMAIL: your-email@gmail.com
+SMTP_FROM_NAME: "Grievance System"
+```
+
+**Note:** Gmail requires [app-specific passwords](https://support.google.com/accounts/answer/185833) when 2FA is enabled.
 
 See [EMAIL_NOTIFICATIONS.md](backend/EMAIL_NOTIFICATIONS.md) for detailed configuration and testing.
 
 ##  Typebot Integration
 
 ### Configuration Files
-- **Production:** `typebot-export-grievance-intake.json` (consolidated)
+- **Production:** `typebot-export-grievance-intake.json` (consolidated flow)
+- **Authentication:** Gmail SMTP with magic link login
+- **Environment:** `NEXT_PUBLIC_E2E_TEST=false` (enforces authentication)
+
+### Features
+- 🤖 **Chatbot interface** for user-friendly grievance submission
+- 📎 **File attachments** - upload images, PDFs, documents (max 10MB)
+- 🆔 **ULID generation** - client-side ID generation using JavaScript
+- 🔐 **Anonymous & non-anonymous** submission flows
+- 📧 **Email receipts** with PDF attachments for non-anonymous users
+- 📊 **Status tracking** - users can check grievance status with tracking ID
 
 ### Status Check Feature
 
 Users can check their grievance status at any time:
 
 1. **Select "Check status?"** from the welcome menu
-2. **Enter tracking ID** (e.g., `GRV-01K88MF7431X7NF9D4GHQN5742` or `GRV-1761231827861197849`)
+2. **Enter tracking ID** (e.g., `GRV-01K88MF7431X7NF9D4GHQN5742`)
 3. **View status information**:
    - Current status (Pending, Under Review, Resolved, etc.)
    - Status notes from case workers
@@ -182,14 +205,18 @@ Users can check their grievance status at any time:
 📖 **See [docs/STATUS_CHECK_FEATURE.md](docs/STATUS_CHECK_FEATURE.md) and [docs/TYPEBOT_ID_SOLUTION.md](docs/TYPEBOT_ID_SOLUTION.md) for detailed documentation**
 
 ### ID Generation Workflow
-IDs are pre-generated client-side to ensure tracking ID matches database ID:
+IDs are generated client-side using ULID to ensure tracking ID matches database ID:
 
-1. **Script Block** generates unique ID: `GRV-${Date.now()}${random6digits}`
+1. **JavaScript ULID generation** in Typebot "Set variable" blocks
+   ```javascript
+   function ulid() { /* ULID implementation */ }
+   return 'GRV-' + ulid();
+   ```
 2. ID stored in `grievance_id` variable
-3. **Webhook** sends ID in request body: `{"id": "{{grievance_id}}", ...}`
-4. **API validates** format (timestamp or ULID) and uses it, or generates ULID if invalid
-5. **Confirmation** displays the same ID: `{{grievance_id}}`
-6. **Response includes** `tracking_id` field and `X-Grievance-ID` header
+3. **Webhook** sends ID to API: `http://api:8000/api/grievances/` (Docker service name)
+4. **API validates** ULID format: `^GRV-[A-Z0-9]{26}$`
+5. **Confirmation** displays tracking ID: `{{grievance_id}}`
+6. **Email receipt** includes PDF and tracking information
 
 This ensures the displayed tracking ID matches the database ID for receipt downloads and status tracking. See [docs/TYPEBOT_ID_SOLUTION.md](docs/TYPEBOT_ID_SOLUTION.md) for implementation details.
 
@@ -197,12 +224,17 @@ This ensures the displayed tracking ID matches the database ID for receipt downl
 
 | Issue | Solution |
 |-------|----------|
-| Typebot Test Error | Use "Publish" not "Test" |
-| CORS Errors | Fixed with custom middleware |
+| Typebot Auto-login | Ensure `NEXT_PUBLIC_E2E_TEST=false` in docker-compose.yml |
+| Typebot Test Error | Use "Publish" not "Test" for webhook integration |
+| Email Not Sending | Check Gmail app password (no spaces), verify SMTP settings |
+| Webhook Failed | Use Docker service name `http://api:8000` not `localhost:8000` |
+| File Upload Error | Check MinIO bucket exists and is accessible |
+| CORS Errors | Fixed with custom middleware in FastAPI |
 | Network Issues | `docker network create grievance_net` |
-| ID Mismatch | Script block pre-generates ID before webhook |
+| ID Validation Error | Ensure ULID format: `GRV-[A-Z0-9]{26}` (26 characters) |
 | Code Not Updating | Restart container: `docker compose restart api` |
 | Tests Not Found | Tests are in container: `docker compose exec api pytest tests/` |
+| Test File Not Updating | Use `docker cp` if tests folder not volume-mounted |
 
 ##  Development Setup
 
@@ -229,15 +261,49 @@ pytest tests/ -v
 
 ### Production Checklist
 - [ ] Remove development volume mounts from `docker-compose.yml`
+- [ ] Set `NEXT_PUBLIC_E2E_TEST=false` for Typebot authentication
+- [ ] Configure Gmail SMTP credentials (use app password)
+- [ ] Set `NEXTAUTH_SECRET` for Typebot session encryption
 - [ ] Set `ODOO_TOKEN` environment variable for status API
 - [ ] Configure `ODOO_ALLOWED_IPS` for IP whitelisting
 - [ ] Set `OPENAI_API_KEY` for LLM categorization feature
-- [ ] Configure SMTP settings for email notifications (or use MailHog for testing)
 - [ ] Set `DATABASE_URL` to production PostgreSQL
+- [ ] Configure MinIO S3 storage with production credentials
+- [ ] Create `grievance-attachments` bucket in MinIO
 - [ ] Enable HTTPS/TLS for all services
 - [ ] Configure backup strategy for PostgreSQL and MinIO
 - [ ] Set up monitoring and logging
+- [ ] Update Typebot webhook URLs to production API endpoint
 - [ ] Update Typebot configuration with production URLs
+
+### Environment Variables Reference
+```yaml
+# API
+DATABASE_URL: postgresql://user:pass@postgres:5432/grievance
+OPENAI_API_KEY: sk-...
+OPENAI_MODEL: gpt-4o-mini
+ODOO_TOKEN: your-secret-token
+ODOO_ALLOWED_IPS: 192.168.1.0/24,10.0.0.1
+
+# Email
+SMTP_SERVER: smtp.gmail.com
+SMTP_PORT: 587
+SMTP_USERNAME: your-email@gmail.com
+SMTP_PASSWORD: your-app-password
+SMTP_FROM_EMAIL: your-email@gmail.com
+
+# Typebot
+NEXT_PUBLIC_E2E_TEST: false
+NEXTAUTH_SECRET: your-secret-key
+ENCRYPTION_SECRET: your-encryption-key
+TYPEBOT_DATABASE_URL: postgresql://user:pass@postgres:5433/typebot
+
+# MinIO
+S3_ENDPOINT: minio:9000
+S3_ACCESS_KEY: minioadmin
+S3_SECRET_KEY: minioadmin
+S3_BUCKET: grievance-attachments
+```
 
 See full docs for detailed production configuration and security guidelines.
 

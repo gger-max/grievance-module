@@ -346,13 +346,13 @@ def test_get_receipt_pdf(client):
 
 
 def test_create_grievance_with_client_provided_id(client):
-    """Test creating a grievance with client-provided ID (timestamp format)"""
-    client_id = "GRV-1761231827861197849"
+    """Test creating a grievance with client-provided ID (ULID format)"""
+    client_id = "GRV-01K8VARG6HWGB7ET8Y8EGJP6A1"
     payload = {
         "id": client_id,
         "is_anonymous": True,
         "category_type": "Test",
-        "details": "Test with client-provided timestamp ID"
+        "details": "Test with client-provided ULID"
     }
     
     response = client.post("/api/grievances/", json=payload)
@@ -361,7 +361,7 @@ def test_create_grievance_with_client_provided_id(client):
     data = response.json()
     assert data["id"] == client_id  # Should use client-provided ID
     assert data["is_anonymous"] is True
-    assert data["details"] == "Test with client-provided timestamp ID"
+    assert data["details"] == "Test with client-provided ULID"
 
 
 def test_create_grievance_with_client_provided_ulid(client):
