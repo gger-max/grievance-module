@@ -169,9 +169,11 @@ def build_receipt_pdf(data: dict) -> bytes:
                     else:
                         size_text = f"{size / (1024 * 1024):.1f} MB"
                 else:
-                    size_text = "Unknown size"
+                    # Try to get file extension from name for better display
+                    ext = name.split('.')[-1].upper() if '.' in name else 'File'
+                    size_text = f"{ext} (see link)"
                 
-                attachment_data.append([f"{idx}. {name}", f"Size: {size_text}"])
+                attachment_data.append([f"{idx}. {name}", f"Type: {size_text}"])
         
         # Convert attachment data to use Paragraph objects
         formatted_attachment_data = []
