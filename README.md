@@ -174,6 +174,41 @@ SMTP_FROM_NAME: "Grievance System"
 
 See [EMAIL_NOTIFICATIONS.md](backend/EMAIL_NOTIFICATIONS.md) for detailed configuration and testing.
 
+##  PDF Receipts
+
+Professional PDF receipts are automatically generated for each grievance submission. Recipients can download their receipt at any time using the tracking ID.
+
+### Features
+- 🖼️ **Branded header** with organization logo (Vaka Sosiale)
+- 📊 **Table format** - Clean 2-column layout with bold labels and italic content
+- 🕒 **Local timestamps** - User-friendly date/time format (e.g., "Thu Jan 30 2025 12:34:56")
+- 👤 **Complainant information** - Name, email, phone, gender (for non-anonymous)
+- 🏠 **Household details** - Household ID and landmark (when provided)
+- 📎 **Attachment details** - File names and sizes in human-readable format (B/KB/MB)
+- ✅ **Conditional rendering** - Only shows fields that have data
+
+### Access Receipts
+Download via API endpoint:
+```bash
+GET /api/grievances/{grievance_id}/receipt.pdf
+```
+
+Example:
+```bash
+curl -o receipt.pdf http://localhost:8000/api/grievances/GRV-01K88MF7431X7NF9D4GHQN5742/receipt.pdf
+```
+
+### PDF Layout
+- **Logo**: Centered at top (50mm × 15mm)
+- **Title**: "Grievance / Feedback Receipt" (center-aligned)
+- **Information Table**: Two columns with grid borders
+  - Column 1 (45mm): Labels in **bold** (e.g., "Grievance ID:", "Created at:")
+  - Column 2 (125mm): Content in *italic* (e.g., ID value, timestamp)
+- **Attachments Table**: Separate section if files are attached
+
+### Technical Details
+The PDF is generated on-demand using ReportLab library with proper text wrapping and responsive layout. Logo file is bundled in the Docker container at `backend/app/static/images/VAKA SOCIALE_final_NEW.png`.
+
 ##  Typebot Integration
 
 ### Configuration Files

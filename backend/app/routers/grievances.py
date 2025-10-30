@@ -388,13 +388,20 @@ def receipt(gid: str, db: Session = Depends(get_db)):
     if not row:
         raise HTTPException(status_code=404, detail="Grievance not found")
     
-    # Build PDF with essential data
+    # Build PDF with essential data including attachments and complainant info
     pdf = build_receipt_pdf({
         "id": row.id,
         "created_at": _to_iso(row.created_at),
         "is_anonymous": row.is_anonymous,
+        "complainant_name": row.complainant_name,
+        "complainant_email": row.complainant_email,
+        "complainant_phone": row.complainant_phone,
+        "complainant_gender": row.complainant_gender,
+        "hh_id": row.hh_id,
+        "hh_address": row.hh_address,
         "details": row.details or "N/A",
         "category_type": row.category_type or "Unspecified",
+        "attachments": row.attachments,
     })
     
     return Response(
