@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Vaka Sosiale - Grievance System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      }
+      
+      /* Custom header with Vaka Sosiale branding */
+      .custom-header {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .custom-header img {
+        max-width: 250px;
+        height: auto;
+        margin-bottom: 10px;
+      }
+      
+      .custom-header h1 {
+        margin: 10px 0 5px 0;
+        font-size: 24px;
+        font-weight: 600;
+      }
+      
+      .custom-header p {
+        margin: 0;
+        font-size: 14px;
+        opacity: 0.9;
+      }
+      
+      /* Container for the typebot */
+      .typebot-container {
+        height: calc(100% - 140px);
+        width: 100%;
+      }
+      
+      /* Custom styles for the bot */
+      typebot-standard {
+        --typebot-button-bg-color: #3b82f6;
+        --typebot-button-color: white;
+        --typebot-host-bubble-bg-color: #f3f4f6;
+        --typebot-host-bubble-color: #1f2937;
+        --typebot-guest-bubble-bg-color: #3b82f6;
+        --typebot-guest-bubble-color: white;
+      }
+      
+      @media (max-width: 768px) {
+        .custom-header h1 {
+          font-size: 20px;
+        }
+        .custom-header p {
+          font-size: 12px;
+        }
+        .custom-header img {
+          max-width: 200px;
+        }
+        .typebot-container {
+          height: calc(100% - 120px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Custom Vaka Sosiale Header -->
+    <div class="custom-header">
+      <img src="http://localhost:8000/static/vaka-sosiale-logo.png" alt="Vaka Sosiale" onerror="this.style.display='none'">
+      <h1>Grievance & Feedback System</h1>
+      <p>Your voice matters. Share your concerns confidentially.</p>
+    </div>
+    
+    <!-- Typebot Viewer -->
+    <div class="typebot-container">
+      <script src="https://unpkg.com/typebot-js@latest/dist/web.js"></script>
+      <typebot-standard 
+        typebot="grievance-intake" 
+        style="width:100%;height:100%;">
+      </typebot-standard>
+    </div>
+  </body>
+</html>

@@ -1,7 +1,9 @@
 from contextlib import asynccontextmanager
+from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
+from fastapi.staticfiles import StaticFiles
 from .routers import grievances, status, categorization
 from .database import init_db
 
@@ -88,6 +90,11 @@ async def custom_cors_middleware(request: Request, call_next):
 app.include_router(grievances.router, prefix="/api", tags=["grievances"])
 app.include_router(status.router, prefix="/api/status", tags=["status"])
 app.include_router(categorization.router, prefix="/api/grievances", tags=["categorization"])
+
+# Mount static files directory
+static_dir = Path(__file__).parent / "static"
+if static_dir.exists():
+    app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
 
 @app.get("/", tags=["health"])

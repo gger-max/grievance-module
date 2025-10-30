@@ -37,9 +37,11 @@ docker compose up -d --build
 
 | Service | URL |
 |---------|-----|
+|  **Grievance Portal** | **http://localhost:8000/static/vaka-sosiale-grievance.html** |
 |  API Docs | http://localhost:8000/docs |
-|  Typebot | http://localhost:8081 |
-|  MinIO | http://localhost:9001 |
+|  Typebot Builder | http://localhost:8081 |
+|  Typebot Viewer | http://localhost:8082 |
+|  MinIO Console | http://localhost:9001 |
 
 ##  Architecture
 
@@ -257,6 +259,19 @@ The PDF is generated on-demand using ReportLab library with proper text wrapping
 - 🔐 **Anonymous & non-anonymous** submission flows
 - 📧 **Email receipts** with PDF attachments for non-anonymous users
 - 📊 **Status tracking** - users can check grievance status with tracking ID
+- 🎨 **Custom branding** - Vaka Sosiale branded interface
+
+### Accessing the Typebot
+
+**Branded Interface (Recommended):**
+- URL: http://localhost:8000/static/vaka-sosiale-grievance.html
+- Features custom Vaka Sosiale header with logo
+- Professional blue gradient design
+- Clean, user-friendly layout
+
+**Standard Interface:**
+- URL: http://localhost:8082 (Typebot Viewer)
+- Default Typebot styling
 
 ### Status Check Feature
 
