@@ -107,7 +107,7 @@ The API accepts **ULID-format IDs only**: `GRV-[A-Z0-9]{26}` (e.g., `GRV-01K88MF
 
 ##  LLM-based Categorization
 
-The system uses OpenAI's GPT models to automatically categorize grievances based on complainant input. Categorization happens **automatically** when grievances are created, or can be called manually via the API endpoint.
+The system uses OpenAI's GPT models to **automatically categorize** grievances based on complainant input. Categorization happens automatically when grievances are created, or can be called manually via the API endpoint.
 
 ### Automatic Categorization
 
@@ -128,6 +128,15 @@ POST /api/grievances/
 
 # Result: Automatically categorized as "5.3 Discourtesy or poor service"
 ```
+
+**Verified Categories:** The system has been tested across all 7 main categories including:
+- Inquiries (1.1) - Community center access requests
+- Suggestions/feedback (1.2) - Thank you messages, policy suggestions
+- Registration issues (2.2) - HH not registered, flood scenarios
+- Poor/vulnerable excluded (3.1) - Socioeconomic classification issues
+- Staff performance (5.3, 5.4) - Discourtesy, collection of bribes
+- Gender-based violence (6.1) - Sexual exploitation and abuse
+- Others (7) - Issues unrelated to program (e.g., neighbor complaints)
 
 **Note:** If a `category_type` is provided in the request, automatic categorization is skipped.
 
