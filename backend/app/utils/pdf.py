@@ -145,8 +145,8 @@ def build_receipt_pdf(data: dict) -> bytes:
     # Add attachments if present
     attachments = data.get('attachments')
     if attachments and isinstance(attachments, list) and len(attachments) > 0:
-        # Create attachments table
-        attachment_data = [["Attachments", ""]]  # Header row
+        # Create attachments table with three columns: Number, Name, Link
+        attachment_data = [["#", "File Name", "Download Link"]]  # Header row
         
         for idx, attachment in enumerate(attachments, 1):
             if isinstance(attachment, dict):
@@ -160,20 +160,18 @@ def build_receipt_pdf(data: dict) -> bytes:
                 elif not name:
                     name = f'Attachment {idx}'
                 
-                # Format file size in human-readable format
-                if size and size > 0:
-                    if size < 1024:
-                        size_text = f"{size} B"
-                    elif size < 1024 * 1024:
-                        size_text = f"{size / 1024:.1f} KB"
-                    else:
-                        size_text = f"{size / (1024 * 1024):.1f} MB"
-                else:
-                    # Try to get file extension from name for better display
-                    ext = name.split('.')[-1].upper() if '.' in name else 'File'
-                    size_text = f"{ext} (see link)"
+                # Format file type
+                ext = name.split('.')[-1].upper() if '.' in name else 'File'
                 
-                attachment_data.append([f"{idx}. {name}", f"Type: {size_text}"])
+                # Create clickable link - replace minio:9000 with localhost:9000 for external access
+                display_url = url.replace('http://minio:9000', 'http://localhost:9000')
+                link_text = f'<a href="{display_url}" color="blue"><u>Download {ext}</u></a>'
+                
+                attachment_data.append([
+                    f"{idx}", 
+                    name,
+                    link_text
+                ])
         
         # Convert attachment data to use Paragraph objects
         formatted_attachment_data = []
@@ -181,16 +179,20 @@ def build_receipt_pdf(data: dict) -> bytes:
             if i == 0:  # Header row
                 formatted_attachment_data.append([
                     Paragraph(row[0], label_style),
-                    Paragraph(row[1], label_style)
+                    Paragraph(row[1], label_style),
+                    Paragraph(row[2], label_style)
                 ])
             else:
                 formatted_attachment_data.append([
                     Paragraph(row[0], content_style),
-                    Paragraph(row[1], content_style)
+                    Paragraph(row[1], content_style),
+                    Paragraph(row[2], content_style)
                 ])
         
-        # Create attachments table
-        attachment_table = Table(formatted_attachment_data, colWidths=col_widths)
+        # Create attachments table with three columns: #, Name, Link
+        # Column widths: 10mm for number, 90mm for name, 70mm for link
+        attachment_col_widths = [10*mm, 90*mm, 70*mm]
+        attachment_table = Table(formatted_attachment_data, colWidths=attachment_col_widths)
         attachment_table.setStyle(TableStyle([
             ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
             ('VALIGN', (0, 0), (-1, -1), 'TOP'),
