@@ -43,6 +43,16 @@ docker compose up -d --build
 |  Typebot Viewer | http://localhost:8082 |
 |  MinIO Console | http://localhost:9001 |
 
+### Custom Branded Interface
+
+The grievance portal features a **fully branded Vaka Sosiale interface**:
+
+- **Custom Header**: Blue gradient with Vaka Sosiale logo
+- **Custom Footer**: "Made with Typebot for Vaka Sosiale"
+- **Favicon**: Vaka Sosiale logo (200x200px optimized)
+- **Typebot Avatar**: Vaka Sosiale logo displayed in chat
+- **Clickable PDF Links**: Attachment download links in PDF receipts
+
 ##  Architecture
 
 | Service | Port | Purpose |
