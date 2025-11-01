@@ -8,35 +8,47 @@
 
 2. **From the welcome screen**, select:
    ```
-   ☑️ Check status?
+   Check the status of a grievance
    ```
 
 3. **Enter your tracking ID** when prompted:
    ```
    Please enter your reference ID (e.g., GRV-01ABC…):
    
-   [Enter: GRV-01K88MF7431X7NF9D4GHQN5742]
+   [Placeholder: GRV-01ABC…]
    ```
+   
+   **ID Validation:** The system validates that your ID matches the format `^GRV-[A-Z0-9]{26}$`
 
 4. **View your status information**:
    ```
-   📊 Status for GRV-01K88MF7431X7NF9D4GHQN5742
+   πŸ"Š Status for GRV-01K88MF7431X7NF9D4GHQN5742
 
-   **Status Information**
+   Status Information
    Status: Under Review
    Note: Case assigned to social worker
-   Submitted: 2025-10-23T10:30:00Z
+   Updated: Mon Oct 23 2025 3:30:00 PM
 
-   **Location**
-   Island: Tarawa
-   District: South Tarawa
-   Village: Bairiki
-
-   **Details**
-   Category: Service Delivery
+   Details
+   Created: Mon Oct 23 2025 10:30:00 AM
+   Category: 2.3 HH member not registered
    Type: Named
-   Household ID: HH2024001
+   Household ID*: HH2024001
+   For more details: Receipt.pdf (clickable link)
+
+   Location*
+   Island: Tongatapu
+   District: Lapaha
+   Village: Lapaha Village
+
+   An email will also be send with the above info*.
+
+   * = If not anonymous
    ```
+
+5. **Options after viewing**:
+   - πŸ" **Check another** - Look up a different grievance ID
+   - βœ… **Done** - Exit the status check flow
 
 ### Where to Find Your Tracking ID
 
@@ -57,22 +69,26 @@ Your tracking ID is provided when you submit a grievance:
 
 ### What Information You'll See
 
-#### For Everyone:
-- ✅ Current status (Pending, Under Review, Resolved, etc.)
-- ✅ Status notes from case workers
-- ✅ Submission date and time
-- ✅ Location (Island, District, Village)
-- ✅ Category type
-- ✅ Household ID (if applicable)
+The status display shows:
 
-#### For Named Submissions (not anonymous):
-- ✅ Your name
-- ✅ Your email address
-- ✅ Your phone number
+#### Status Information Section:
+- ✅ **Status** - Current status (defaults to "Pending" if not set)
+- ✅ **Note** - Status notes from case workers
+- ✅ **Updated** - Last update timestamp (formatted as readable date/time)
 
-#### For Anonymous Submissions:
-- 🔒 Personal information is **not** displayed
-- ✅ All other information is available
+#### Details Section:
+- ✅ **Created** - Submission date and time (formatted as readable date/time)
+- ✅ **Category** - Category type (e.g., "2.3 HH member not registered")
+- ✅ **Type** - "Anonymous" or "Named"
+- ✅ **Household ID*** - Household registration ID (if applicable)
+- πŸ"„ **Receipt.pdf** - Clickable link to download PDF receipt
+
+#### Location Section*:
+- ✅ **Island** - Island location
+- ✅ **District** - District location
+- ✅ **Village** - Village location
+
+**Note:** Fields marked with * are only displayed for non-anonymous submissions. Anonymous submissions will see "Anonymous" as Type and won't see Household ID, Location, or email notification.
 
 ### Common Status Values
 
@@ -93,19 +109,21 @@ Your tracking ID is provided when you submit a grievance:
 
 ### Troubleshooting
 
-**Problem:** "I couldn't find that reference"
-- **Solution:** Make sure you entered the complete ID starting with "GRV-"
-- **Example:** `GRV-01K88MF7431X7NF9D4GHQN5742` (30 characters total)
+**Problem:** "I couldn't find that GRV reference"
+- **Solution:** Make sure you entered the complete ID
+- **Tip:** Paste the full ID starting with "GRV-"
+- **Example:** `GRV-01K88MF7431X7NF9D4GHQN5742` (exactly 30 characters)
 
-**Problem:** "Please paste a full GRV ID"
-- **Solution:** Your ID format is incorrect. Check that:
-  - It starts with "GRV-"
-  - It's exactly 30 characters long
-  - It contains no spaces
+**Problem:** Invalid ID format error
+- **Solution:** Check that your ID:
+  - Starts with "GRV-"
+  - Is exactly 30 characters long (GRV- + 26 alphanumeric characters)
+  - Contains only uppercase letters and numbers after GRV-
+  - Has no spaces or special characters
 
-**Problem:** "Our system is busy right now"
-- **Solution:** Wait 60 seconds and try again
-- The system may be temporarily unavailable
+**Problem:** ID validation fails in Typebot
+- **Solution:** The system validates using regex pattern `^GRV-[A-Z0-9]{26}$`
+- If your ID doesn't match this exact pattern, it won't proceed to lookup
 
 ---
 
