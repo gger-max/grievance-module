@@ -10,7 +10,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
-[![Tests](https://img.shields.io/badge/Tests-100%20passing-success.svg?style=flat)](backend/tests/)
+[![Tests](https://img.shields.io/badge/Tests-118%20passing-success.svg?style=flat)](backend/tests/)
 
 <br>
 
@@ -69,8 +69,14 @@ The grievance portal features a **fully branded Vaka Sosiale interface**:
 
 ### Run All Tests
 ```bash
-# Run complete test suite (100 tests)
+# Run complete test suite (118 tests)
 docker compose exec api pytest tests/ -v
+
+# Run unit tests (100 tests)
+docker compose exec api pytest tests/ -v --ignore=tests/test_uat.py
+
+# Run UAT tests (18 end-to-end tests)
+docker compose exec api pytest tests/test_uat.py -v
 
 # Run specific test file
 docker compose exec api pytest tests/test_grievances.py -v
@@ -85,7 +91,9 @@ docker compose exec api pytest tests/test_email_notifications.py -v
 docker compose exec api pytest tests/ --cov=app --cov-report=html
 ```
 
-### Test Coverage (100 tests)
+### Test Coverage (118 tests)
+
+#### Unit Tests (100 tests)
 - ✅ **Grievance CRUD** (22 tests) - Create, read, update, delete operations
 - ✅ **Email Notifications** (11 tests) - Confirmation emails for non-anonymous submissions
 - ✅ **Server-side ID Generation** - ULID format (`GRV-[A-Z0-9]{26}`), client IDs rejected
@@ -96,6 +104,20 @@ docker compose exec api pytest tests/ --cov=app --cov-report=html
 - ✅ **LLM Categorization** (14 tests) - Auto-categorization, error handling, validation
 - ✅ **Empty String Handling** (14 tests) - Typebot empty field compatibility
 - ✅ **Main App** (1 test) - Health check endpoint
+
+#### UAT Tests (18 end-to-end tests)
+- ✅ **UAT-001:** Anonymous grievance submission and tracking (2 tests)
+- ✅ **UAT-002:** Identified grievance with contact details (1 test)
+- ✅ **UAT-003:** AI-powered auto-categorization (2 tests)
+- ✅ **UAT-004:** Grievance lifecycle and status updates (1 test)
+- ✅ **UAT-005:** Search and filter grievances (2 tests)
+- ✅ **UAT-006:** Input validation and security (4 tests)
+- ✅ **UAT-007:** PDF report generation (1 test)
+- ✅ **UAT-008:** Bulk operations and reporting (1 test)
+- ✅ **UAT-009:** Edge cases and error scenarios (3 tests)
+- ✅ **UAT-010:** System health monitoring (1 test)
+
+📄 **Full UAT Documentation:** [docs/UAT-TEST-PLAN.md](docs/UAT-TEST-PLAN.md)
 
 ### Server-Side ID Generation
 **Security Enhancement:** IDs are now generated exclusively by the backend server.
