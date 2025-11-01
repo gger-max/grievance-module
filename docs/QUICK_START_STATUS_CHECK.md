@@ -22,7 +22,7 @@
 
 4. **View your status information**:
    ```
-   πŸ"Š Status for GRV-01K88MF7431X7NF9D4GHQN5742
+   Status for GRV-01K88MF7431X7NF9D4GHQN5742
 
    Status Information
    Status: Under Review
@@ -47,15 +47,15 @@
    ```
 
 5. **Options after viewing**:
-   - πŸ" **Check another** - Look up a different grievance ID
-   - βœ… **Done** - Exit the status check flow
+   - **Check another** - Look up a different grievance ID
+   - **Done** - Exit the status check flow
 
 ### Where to Find Your Tracking ID
 
 Your tracking ID is provided when you submit a grievance:
-- ✅ In the confirmation message from Typebot
-- 📧 In your email receipt (if you provided an email and submitted as non-anonymous)
-- 📄 In your PDF receipt (download from Typebot confirmation or via direct URL)
+- In the confirmation message from Typebot
+- In your email receipt (if you provided an email and submitted as non-anonymous)
+- In your PDF receipt (download from Typebot confirmation or via direct URL)
 
 **Download your PDF receipt:**
 - URL format: `http://localhost:8000/api/grievances/{YOUR_ID}/receipt.pdf`
@@ -72,21 +72,21 @@ Your tracking ID is provided when you submit a grievance:
 The status display shows:
 
 #### Status Information Section:
-- ✅ **Status** - Current status (defaults to "Pending" if not set)
-- ✅ **Note** - Status notes from case workers
-- ✅ **Updated** - Last update timestamp (formatted as readable date/time)
+- **Status** - Current status (defaults to "Pending" if not set)
+- **Note** - Status notes from case workers
+- **Updated** - Last update timestamp (formatted as readable date/time)
 
 #### Details Section:
-- ✅ **Created** - Submission date and time (formatted as readable date/time)
-- ✅ **Category** - Category type (e.g., "2.3 HH member not registered")
-- ✅ **Type** - "Anonymous" or "Named"
-- ✅ **Household ID*** - Household registration ID (if applicable)
-- πŸ"„ **Receipt.pdf** - Clickable link to download PDF receipt
+- **Created** - Submission date and time (formatted as readable date/time)
+- **Category** - Category type (e.g., "2.3 HH member not registered")
+- **Type** - "Anonymous" or "Named"
+- **Household ID*** - Household registration ID (if applicable)
+- **Receipt.pdf** - Clickable link to download PDF receipt
 
 #### Location Section*:
-- ✅ **Island** - Island location
-- ✅ **District** - District location
-- ✅ **Village** - Village location
+- **Island** - Island location
+- **District** - District location
+- **Village** - Village location
 
 **Note:** Fields marked with * are only displayed for non-anonymous submissions. Anonymous submissions will see "Anonymous" as Type and won't see Household ID, Location, or email notification.
 
@@ -102,10 +102,10 @@ The status display shows:
 
 ### Tips
 
-- 💡 You can check your status as many times as you want
-- 💡 Status updates appear immediately when you check
-- 💡 Keep your tracking ID safe and confidential
-- 💡 If you get an error, double-check your tracking ID is complete
+- You can check your status as many times as you want
+- Status updates appear immediately when you check
+- Keep your tracking ID safe and confidential
+- If you get an error, double-check your tracking ID is complete
 
 ### Troubleshooting
 
@@ -184,9 +184,9 @@ pytest tests/test_status_check_flow.py --cov=app.routers.grievances
 
 ### Documentation
 
-- 📖 **Full documentation:** [STATUS_CHECK_FEATURE.md](STATUS_CHECK_FEATURE.md)
-- 📖 **Main README:** [../README.md](../README.md)
-- 🧪 **Test suite:** `backend/tests/test_status_check_flow.py`
+- **Full documentation:** [STATUS_CHECK_FEATURE.md](STATUS_CHECK_FEATURE.md)
+- **Main README:** [../README.md](../README.md)
+- **Test suite:** `backend/tests/test_status_check_flow.py`
 
 ---
 
@@ -278,6 +278,6 @@ docker compose logs api | grep "GET /api/grievances/" | grep "$(date +%Y-%m-%d)"
 ## Support
 
 Need help? 
-- 📧 Review the full documentation in [STATUS_CHECK_FEATURE.md](STATUS_CHECK_FEATURE.md)
-- 🐛 Check the test suite for expected behavior
-- 💬 Contact the development team for technical issues
+- Review the full documentation in [STATUS_CHECK_FEATURE.md](STATUS_CHECK_FEATURE.md)
+- Check the test suite for expected behavior
+- Contact the development team for technical issues
