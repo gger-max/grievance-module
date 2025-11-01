@@ -26,6 +26,13 @@ def format_timestamp(iso_string: str) -> str:
 def build_receipt_pdf(data: dict) -> bytes:
     buf = BytesIO()
     c = canvas.Canvas(buf, pagesize=A4)
+    
+    # Set PDF metadata - this sets the browser tab title
+    grievance_id = data.get('id', 'Receipt')
+    c.setTitle(grievance_id)
+    c.setAuthor("Vaka Sosiale Grievance System")
+    c.setSubject(f"Grievance Receipt - {grievance_id}")
+    
     width, height = A4
     y = height - 20*mm
     
