@@ -11,11 +11,11 @@
 ┌─────────────────────────────────────────────────────────────────────┐
 │                      WELCOME SCREEN                                 │
 │  ┌───────────────────────────────────────────────────────────┐     │
-│  │  👋 Welcome to the Grievance & Feedback system            │     │
+│  │  Welcome to the Grievance & Feedback system               │     │
 │  │  What would you like to do today?                          │     │
 │  │                                                             │     │
-│  │  [ Submit a grievance? ]                                   │     │
-│  │  [ Check status? ]         ◄─── USER SELECTS THIS        │     │
+│  │  [ Submit a grievance ]                                    │     │
+│  │  [ Check the status of a grievance ]  ◄─── USER SELECTS  │     │
 │  └───────────────────────────────────────────────────────────┘     │
 └─────────────────────┬───────────────────────────────────────────────┘
                       │
@@ -45,8 +45,8 @@
 ┌──────────────────────────────┐      ┌─────────────────────────────┐
 │   FETCH GRIEVANCE            │      │   ERROR MESSAGE             │
 │  ┌────────────────────────┐  │      │  ┌──────────────────────┐   │
-│  │ GET /api/grievances/   │  │      │  │ Please paste a full  │   │
-│  │ {lookup_id}            │  │      │  │ GRV ID               │   │
+│  │ GET /api/grievances/   │  │      │  │ Validation failed    │   │
+│  │ {lookup_id}            │  │      │  │ (handled by Typebot) │   │
 │  │                        │  │      │  │                      │   │
 │  │ Server: grievance-api  │  │      │  │ [ Try again ]        │   │
 │  │ Port: 8000             │  │      │  └──────────────────────┘   │
@@ -62,20 +62,27 @@
 ┌────────────────┐    ┌────────────────────┐        │
 │  SHOW STATUS   │    │  NOT FOUND ERROR   │        │
 │  ┌──────────┐  │    │  ┌──────────────┐  │        │
-│  │ STATUS:  │  │    │  │ I couldn't   │  │        │
-│  │ Under    │  │    │  │ find that    │  │        │
-│  │ Review   │  │    │  │ reference    │  │        │
-│  │          │  │    │  │              │  │        │
-│  │ DETAILS  │  │    │  │ [ Try again ]│  │        │
-│  │ ...      │  │    │  └──────────────┘  │        │
-│  └──────────┘  │    └─────────┬──────────┘        │
+│  │ Status   │  │    │  │ I couldn't   │  │        │
+│  │ Info:    │  │    │  │ find that    │  │        │
+│  │ - Status │  │    │  │ GRV reference│  │        │
+│  │ - Note   │  │    │  │              │  │        │
+│  │ - Updated│  │    │  │ [ Try again ]│  │        │
+│  │          │  │    │  └──────────────┘  │        │
+│  │ Details: │  │    └─────────┬──────────┘        │
+│  │ - Created│  │              │                   │
+│  │ - Category│ │              │                   │
+│  │ - Type   │  │              │                   │
+│  │ - PDF    │  │              │                   │
+│  │          │  │              │                   │
+│  │ Location*│  │              │                   │
+│  └──────────┘  │              │                   │
 └────┬───────────┘              │                   │
      │                           │                   │
      │                           └───────────────────┘
      │                                   │
      │                           ┌───────▼────────┐
-     └──────────────────────────▶│  RE-ENTER ID   │
-                                 │  OR EXIT       │
+     └──────────────────────────▶│ Check another  │
+                                 │ or Done        │
                                  └────────────────┘
 ```
 
@@ -181,31 +188,21 @@
 
 1. INVALID FORMAT
    │
-   GRV-123 (too short)
+   GRV-123 (too short) or invalid characters
    │
    ├─▶ Typebot regex validation fails
-   └─▶ Error: "Please paste a full GRV ID"
+   └─▶ Error handled inline by Typebot
        └─▶ Return to input prompt
 
 2. GRIEVANCE NOT FOUND
    │
    GRV-01K88INVALID0000000000
    │
-   ├─▶ Typebot validation passes
+   ├─▶ Typebot validation passes (format is correct)
    ├─▶ API call made
    ├─▶ Database returns null
    └─▶ API returns 404
-       └─▶ Error: "I couldn't find that reference"
-           └─▶ Return to input prompt
-
-3. SYSTEM TEMPORARILY UNAVAILABLE
-   │
-   API connection timeout
-   │
-   ├─▶ Network/server issue
-   ├─▶ No response received
-   └─▶ Error: "Our system is busy right now"
-       └─▶ Wait 60 seconds
+       └─▶ Error: "I couldn't find that GRV reference"
            └─▶ Return to input prompt
 ```
 
@@ -255,13 +252,13 @@ ANONYMOUS SUBMISSION
 ┌─────────────────────────────┐
 │  Status Check Response      │
 │  ┌───────────────────────┐  │
-│  │ ✅ id                 │  │
-│  │ ✅ external_status    │  │
-│  │ ✅ category_type      │  │
-│  │ ✅ island, details    │  │
-│  │ ❌ complainant_name   │  │
-│  │ ❌ complainant_email  │  │
-│  │ ❌ complainant_phone  │  │
+│  │ id                    │  │
+│  │ external_status       │  │
+│  │ category_type         │  │
+│  │ island, details       │  │
+│  │ complainant_name: null│  │
+│  │ complainant_email:null│  │
+│  │ complainant_phone:null│  │
 │  └───────────────────────┘  │
 └─────────────────────────────┘
 
@@ -273,13 +270,13 @@ NAMED SUBMISSION
 ┌─────────────────────────────┐
 │  Status Check Response      │
 │  ┌───────────────────────┐  │
-│  │ ✅ id                 │  │
-│  │ ✅ external_status    │  │
-│  │ ✅ category_type      │  │
-│  │ ✅ island, details    │  │
-│  │ ✅ complainant_name   │  │
-│  │ ✅ complainant_email  │  │
-│  │ ✅ complainant_phone  │  │
+│  │ id                    │  │
+│  │ external_status       │  │
+│  │ category_type         │  │
+│  │ island, details       │  │
+│  │ complainant_name      │  │
+│  │ complainant_email     │  │
+│  │ complainant_phone     │  │
 │  └───────────────────────┘  │
 └─────────────────────────────┘
 ```
@@ -289,14 +286,12 @@ NAMED SUBMISSION
 ## Key Components
 
 ### Typebot Groups (from JSON config)
-- `efypu2p9ta19ka6j7wjh58jy` - Welcome screen with options
-- `zyx72qhxfuz2eg8l4l4wxvdt` - Status lookup (ID input)
-- `tw52lmlbc9nuvs2ei1gy428f` - Fetch grievance (API webhook)
-- `t7lcrwdj8j93dwmyohmb72h4` - Route lookup (response handling)
-- `rs3ppgp6g8pim55rwigako4u` - Show status (display block)
-- `gjuezqnqlpvn34k5qzj8pr4p` - Not found error
-- `znbo90i4kdy2zsid50epuzv2` - Invalid ID error
-- `xyuyggayijho4c468yfxhg4i` - Temporary error
+- "Welcome" - Welcome screen with options
+- "Check Status" - ID input and validation
+- "Show status" - Display formatted status information
+- "Not found" - Error handling for non-existent IDs
+
+**Note:** Specific group IDs in the Typebot JSON may change when reimporting. Refer to group titles for identification.
 
 ### Backend Components
 - **Router**: `app/routers/grievances.py`
@@ -306,9 +301,10 @@ NAMED SUBMISSION
 - **Database**: PostgreSQL table `grievance`
 
 ### Test Coverage
-- `test_status_check_flow.py` - 6 comprehensive tests
-- `test_typebot_integration.py` - 3 status lookup tests
+- `test_status_check_flow.py` - Status check flow tests
+- `test_typebot_integration.py` - Typebot integration tests
 - `test_grievances.py` - Core retrieval tests
+- **Total:** 118 tests (117 passing + 1 skipped)
 
 ---
 
@@ -317,5 +313,4 @@ NAMED SUBMISSION
 - `▼` Process continues
 - `◀─▶` Bidirectional communication
 - `──▶` Request/Response
-- `✅` Field included in response
-- `❌` Field excluded (privacy)
+- `*` Field only for non-anonymous submissions

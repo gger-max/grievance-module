@@ -10,35 +10,37 @@ The Grievance Management System provides a comprehensive status check feature th
 
 1. **Welcome Screen**
    - User is presented with two options:
-     - "Submit a grievance?"
-     - "Check status?"
+     - "Submit a grievance"
+     - "Check the status of a grievance"
 
 2. **Status Check Selection**
-   - When user selects "Check status?", they are prompted to enter their reference ID
+   - When user selects "Check the status of a grievance", they are prompted to enter their reference ID
 
 3. **ID Validation**
    - The system validates the ID format using regex: `^GRV-[A-Z0-9]{26}$`
    - Valid IDs are 30 characters long: "GRV-" prefix + 26-character ULID
-   - Invalid formats are rejected with a helpful error message
+   - Invalid formats are rejected immediately before API call
 
 4. **Status Display**
-   - Upon successful lookup, the system displays:
+   - Upon successful lookup, the system displays three sections:
      - **Status Information**
-       - Current status (e.g., "Pending", "Under Review", "Resolved")
-       - Status notes from case workers
-       - Submission date/time
-     - **Location Details**
+       - Status (defaults to "Pending" if not set)
+       - Note from case workers
+       - Updated timestamp (formatted as readable date/time)
+     - **Details**
+       - Created timestamp (formatted as readable date/time)
+       - Category type
+       - Type (Anonymous or Named)
+       - Household ID (if applicable and non-anonymous)
+       - Clickable PDF receipt link
+     - **Location** (if non-anonymous)
        - Island
        - District
        - Village
-     - **Case Details**
-       - Category type
-       - Whether it's anonymous or named
-       - Household ID (if registered)
 
 5. **Next Actions**
-   - User can check another grievance ID
-   - User can exit the chatbot
+   - User can select "Check another" to look up a different grievance ID
+   - User can select "Done" to exit the status check flow
 
 ## API Endpoint
 
@@ -143,6 +145,7 @@ Status updates can come from:
 - **Unique Identifier:** 26-character ULID (Universally Unique Lexicographically Sortable Identifier)
 - **Total Length:** 30 characters
 - **Example:** `GRV-01K88MF7431X7NF9D4GHQN5742`
+- **Generation:** Server-side only (client-provided IDs are rejected for security)
 
 ### ULID Benefits
 
@@ -161,23 +164,16 @@ Typebot validates the ID format before making the API call:
 - Must contain only uppercase letters and numbers in the ULID portion
 
 If validation fails, users see:
-- Error message: "Please paste a full GRV ID"
+- Error message displayed inline
 - Option to try again
 - Returns to ID input prompt
 
 ### Grievance Not Found
 
 If the API returns 404 (grievance doesn't exist):
-- Error message: "I couldn't find that reference. Please ensure it starts with GRV- and paste the full ID."
+- Error message: "I couldn't find that GRV reference. Please ensure it starts with GRV- and paste the full ID."
 - Option to try again
 - Returns to ID input prompt
-
-### Temporary System Issues
-
-If the API is temporarily unavailable:
-- Error message: "Our system is busy right now. Please try again in a minute."
-- 60-second wait period
-- Option to retry
 
 ## Technical Implementation
 
@@ -185,11 +181,12 @@ If the API is temporarily unavailable:
 
 The status check flow is implemented in the Typebot configuration file:
 - **File:** `frontend-typebot/typebot-export-grievance-intake.json`
-- **Groups:**
-  - `zyx72qhxfuz2eg8l4l4wxvdt` - Status lookup (ID input and validation)
-  - `tw52lmlbc9nuvs2ei1gy428f` - Fetch Grievance (API call)
-  - `t7lcrwdj8j93dwmyohmb72h4` - Route lookup (handle response)
-  - `rs3ppgp6g8pim55rwigako4u` - Show status (display information)
+- **Key Groups:**
+  - "Check Status" - ID input and validation
+  - "Show status" - Display formatted status information
+  - "Not found" - Error handling for non-existent IDs
+  
+**Note:** Group IDs may change when reimporting the Typebot flow. Refer to the JSON file for current group IDs.
 
 ### Backend Implementation
 
@@ -224,14 +221,18 @@ Comprehensive test coverage is provided in:
 ### Test Coverage
 
 The test suite verifies:
-- ✅ Complete status check flow from submission to lookup
-- ✅ Status updates by external systems
-- ✅ Anonymous grievance privacy protection
-- ✅ Invalid ID format handling
-- ✅ Multiple status checks for same grievance
-- ✅ Household information display
-- ✅ 404 error handling for non-existent IDs
-- ✅ Proper response structure and field presence
+- Complete status check flow from submission to lookup
+- Status updates by external systems
+- Anonymous grievance privacy protection
+- Invalid ID format handling
+- Multiple status checks for same grievance
+- Household information display
+- 404 error handling for non-existent IDs
+- Proper response structure and field presence
+- Auto-categorization when category not provided
+- Server-side ID generation (client IDs rejected)
+
+**Total Tests:** 118 (117 passing + 1 skipped)
 
 ## Usage Examples
 
@@ -240,10 +241,11 @@ The test suite verifies:
 User submits a grievance and receives: `GRV-01K88MF7431X7NF9D4GHQN5742`
 
 Later, they return to check status:
-1. Select "Check status?"
+1. Select "Check the status of a grievance"
 2. Enter: `GRV-01K88MF7431X7NF9D4GHQN5742`
 3. See current status: "Under Review"
 4. See note: "Case assigned to social worker"
+5. See formatted timestamps and clickable PDF receipt link
 
 ### Example 2: Anonymous Status Check
 
