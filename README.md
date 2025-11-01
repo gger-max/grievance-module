@@ -155,7 +155,6 @@ POST /api/grievances/
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/api/grievances/` | Create new grievance |
-| POST | `/api/grievances/submit-simple` | Create grievance (simplified response) |
 | GET | `/api/grievances/{id}` | **Check status** - Get grievance details |
 | GET | `/api/grievances/{id}/receipt.pdf` | Download PDF receipt |
 | PUT | `/api/grievances/{id}/status` | Update grievance status |

@@ -211,52 +211,6 @@ def _auto_categorize(details: str) -> Optional[str]:
         print(f"Warning: Auto-categorization failed: {e}", file=sys.stderr, flush=True)
         return None
 
-@router.post("/submit-simple", status_code=201)
-def create_grievance_simple_text(
-    payload: GrievanceCreate,
-    db: Session = Depends(get_db)
-):
-    """Create a new grievance and return just the ID for Typebot."""
-    # Use client-provided ID if available and valid, otherwise generate one
-    if payload.id and GRIEVANCE_ID_PATTERN.match(payload.id):
-        gid = payload.id
-    else:
-        gid = new_grievance_id()
-    
-    details = _normalize_details(payload.details)
-    attachments = _normalize_attachments(payload.attachments)
-    
-    # Auto-categorize if no category_type provided and details exist
-    category_type = payload.category_type
-    if not category_type and details:
-        category_type = _auto_categorize(details)
-
-    # Create grievance object
-    obj = models.Grievance(
-        id=gid,
-        is_anonymous=payload.is_anonymous,
-        complainant_name=payload.complainant_name,
-        complainant_email=payload.complainant_email,
-        complainant_phone=payload.complainant_phone,
-        complainant_gender=payload.complainant_gender,
-        is_hh_registered=payload.is_hh_registered,
-        hh_id=payload.hh_id,
-        hh_address=payload.hh_address,
-        island=payload.island,
-        district=payload.district,
-        village=payload.village,
-        category_type=category_type,
-        details=details,
-        attachments=attachments,
-    )
-    
-    db.add(obj)
-    db.commit()
-    
-    # Return just the ID in a simple format
-    return {"id": gid}
-
-
 @router.post("/", status_code=201)
 async def create_grievance(
     request: Request,
