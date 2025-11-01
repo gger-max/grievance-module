@@ -267,4 +267,4 @@ def convert_empty_strings_to_none(cls, data: Any) -> Any:
 - `backend/app/routers/grievances.py` - Grievance creation endpoint
 - `backend/tests/test_empty_string_handling.py` - Test suite for empty strings
 - `backend/tests/test_typebot_integration.py` - Full Typebot integration tests
-- `frontend-typebot/typebot-export-grievance-intake-qwdn4no.json` - Typebot flow configuration
+- `frontend-typebot/typebot-export-grievance-intake.json` - Typebot flow configuration

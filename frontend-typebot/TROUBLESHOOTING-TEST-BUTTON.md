@@ -57,7 +57,7 @@ All services should show "Up":
 ### Step 2: Import Updated Typebot
 1. Open Typebot Builder: **http://localhost:8081**
 2. Delete any old imported bots
-3. Import: **`typebot-export-grievance-intake-qwdn4no.json`**
+3. Import: **`typebot-export-grievance-intake.json`**
 
 ### Step 3: Test the Bot
 1. Open the imported bot
@@ -94,7 +94,7 @@ Invoke-WebRequest http://localhost:8000/docs
 Both Typebot export files have been updated:
 
 ### 1. Production Version (Recommended)
-**File:** `typebot-export-grievance-intake-qwdn4no.json`
+**File:** `typebot-export-grievance-intake.json`
 - ✅ URLs: `http://grievance-api:8000`
 - ✅ Execution: Server-side (`isExecutedOnClient: false`)
 - ✅ Use for: Testing AND Publishing

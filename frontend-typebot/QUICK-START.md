@@ -19,7 +19,7 @@ Error! Could not reach server. Check your connection.{}
 1. Open Typebot Builder: **http://localhost:8081**
 2. **Delete the old bot** (if you previously imported one)
 3. Click **"Create a typebot"** → **"Import a file"**
-4. Select: **`typebot-export-grievance-intake-qwdn4no.json`**
+4. Select: **`typebot-export-grievance-intake.json`**
 5. You'll see: **"Grievance Intake"**
 
 ### Step 2: Test the Bot

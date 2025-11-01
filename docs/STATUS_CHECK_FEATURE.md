@@ -184,7 +184,7 @@ If the API is temporarily unavailable:
 ### Typebot Configuration
 
 The status check flow is implemented in the Typebot configuration file:
-- **File:** `frontend-typebot/typebot-export-grievance-intake-qwdn4no.json`
+- **File:** `frontend-typebot/typebot-export-grievance-intake.json`
 - **Groups:**
   - `zyx72qhxfuz2eg8l4l4wxvdt` - Status lookup (ID input and validation)
   - `tw52lmlbc9nuvs2ei1gy428f` - Fetch Grievance (API call)

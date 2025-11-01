@@ -4,7 +4,7 @@ This folder contains two versions of the Grievance Intake Typebot flow:
 
 ## Files
 
-### 1. `typebot-export-grievance-intake-qwdn4no.json` ✅ PRODUCTION
+### 1. `typebot-export-grievance-intake.json` ✅ PRODUCTION
 **Use this for:** Production deployment and published bots
 
 **Webhook URLs:** `http://grievance-api:8000`
