@@ -224,9 +224,19 @@ async def create_grievance(
     details = _normalize_details(payload.details)
     attachments = _normalize_attachments(payload.attachments)
     
-    # Auto-categorize if no category_type provided and details exist
+    # Get raw request body to check if category_type was explicitly provided
+    raw_body = await request.body()
+    raw_data = {}
+    try:
+        import json
+        raw_data = json.loads(raw_body.decode('utf-8'))
+    except:
+        pass
+    
+    # Auto-categorize ONLY if category_type field was NOT provided in request
+    # If empty string was sent, respect that and don't auto-categorize
     category_type = payload.category_type
-    if not category_type and details:
+    if 'category_type' not in raw_data and not category_type and details:
         category_type = _auto_categorize(details)
 
     # Create grievance object with direct attribute access

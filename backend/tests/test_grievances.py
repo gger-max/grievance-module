@@ -342,7 +342,7 @@ def test_get_receipt_pdf(client):
     response = client.get(f"/api/grievances/{grievance_id}/receipt.pdf")
     assert response.status_code == 200
     assert response.headers["content-type"] == "application/pdf"
-    assert "receipt-" in response.headers["content-disposition"]
+    assert f'filename="{grievance_id}.pdf"' in response.headers["content-disposition"]
 
 
 def test_create_grievance_rejects_client_provided_id(client):
