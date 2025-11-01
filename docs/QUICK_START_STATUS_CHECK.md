@@ -41,11 +41,19 @@
 ### Where to Find Your Tracking ID
 
 Your tracking ID is provided when you submit a grievance:
-- ✅ In the confirmation message
-- 📧 In your email receipt (if you provided an email)
-- 📄 In your PDF receipt
+- ✅ In the confirmation message from Typebot
+- 📧 In your email receipt (if you provided an email and submitted as non-anonymous)
+- 📄 In your PDF receipt (download from Typebot confirmation or via direct URL)
 
-**Important:** Save your tracking ID! You'll need it to check your status.
+**Download your PDF receipt:**
+- URL format: `http://localhost:8000/api/grievances/{YOUR_ID}/receipt.pdf`
+- Example: `http://localhost:8000/api/grievances/GRV-01K88MF7431X7NF9D4GHQN5742/receipt.pdf`
+- Filename will be: `{YOUR_ID}.pdf` (e.g., `GRV-01K88MF7431X7NF9D4GHQN5742.pdf`)
+
+**Important:** 
+- Save your tracking ID! You'll need it to check your status.
+- Tracking IDs are generated server-side for security
+- Format: `GRV-` followed by 26 alphanumeric characters (30 chars total)
 
 ### What Information You'll See
 
@@ -139,6 +147,9 @@ pytest tests/test_status_check_flow.py -v
 # Specific test
 pytest tests/test_status_check_flow.py::test_complete_status_check_flow -v
 
+# Run all tests (118 total: 117 pass + 1 skip)
+pytest tests/ -v
+
 # With coverage
 pytest tests/test_status_check_flow.py --cov=app.routers.grievances
 ```
@@ -146,10 +157,12 @@ pytest tests/test_status_check_flow.py --cov=app.routers.grievances
 ### Implementation Details
 
 - **Endpoint:** `GET /api/grievances/{gid}`
-- **No authentication required** (public endpoint)
+- **No authentication required** (public endpoint for status checking)
 - **ID validation:** Regex pattern `^GRV-[A-Z0-9]{26}$`
+- **ID generation:** Server-side only (client-provided IDs are rejected)
 - **Returns:** Full `GrievancePublic` schema
 - **Error handling:** Returns 404 for non-existent IDs
+- **Auto-categorization:** Applied automatically when category not provided
 
 ### Documentation
 
@@ -163,10 +176,10 @@ pytest tests/test_status_check_flow.py --cov=app.routers.grievances
 
 ### Updating Status
 
-**Via External System (Odoo):**
+**Via External System (Odoo) - Authenticated Endpoint:**
 ```bash
 curl -X PUT "http://localhost:8000/api/status/GRV-01K88MF7431X7NF9D4GHQN5742/status" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Authorization: Bearer YOUR_ODOO_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "status": "Under Review",
@@ -175,7 +188,7 @@ curl -X PUT "http://localhost:8000/api/status/GRV-01K88MF7431X7NF9D4GHQN5742/sta
   }'
 ```
 
-**Via Internal API:**
+**Via Internal API (No Auth Required):**
 ```bash
 curl -X PUT "http://localhost:8000/api/grievances/GRV-01K88MF7431X7NF9D4GHQN5742/status" \
   -H "Content-Type: application/json" \
@@ -183,6 +196,27 @@ curl -X PUT "http://localhost:8000/api/grievances/GRV-01K88MF7431X7NF9D4GHQN5742
     "external_status": "Resolved",
     "external_status_note": "Issue has been resolved",
     "external_updated_at": "2025-10-23T15:00:00Z"
+  }'
+```
+
+**Batch Update (Multiple Grievances):**
+```bash
+curl -X PUT "http://localhost:8000/api/grievances/status-batch" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "updates": [
+      {
+        "gid": "GRV-01K90BWNRHP3XGS9FSM6H0S8JF",
+        "external_status": "resolved",
+        "island": "Tongatapu",
+        "district": "Lapaha",
+        "village": "Lapaha Village"
+      },
+      {
+        "gid": "GRV-01K90C8JA782FM391FFTZ0S20D",
+        "external_status": "under_review"
+      }
+    ]
   }'
 ```
 
