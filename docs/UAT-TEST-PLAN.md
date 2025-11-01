@@ -303,7 +303,7 @@ The UAT tests simulate the Typebot chatbot interface. To test the full end-to-en
 
 ## Sign-off
 
-**Prepared by:** AI Assistant  
+**Prepared by:** Vaka Sosiale Team  
 **Date:** November 1, 2025  
 **Status:** Ready for Review  
 **Version:** 1.0
