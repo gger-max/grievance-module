@@ -2,7 +2,12 @@
 
 #  Grievance Management System
 
-### _Modern, scalable grievance tracking for Vaka Sosiale_
+### _Modern, scalable grievance tracking_
+
+**Built with:**  
+FastAPI • PostgreSQL • Typebot • MinIO • Redis • Docker
+
+**for Vaka Sosiale**
 
 <br>
 
