@@ -10,7 +10,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
-[![Tests](https://img.shields.io/badge/Tests-102%20passing-success.svg?style=flat)](backend/tests/)
+[![Tests](https://img.shields.io/badge/Tests-100%20passing-success.svg?style=flat)](backend/tests/)
 
 <br>
 
@@ -63,13 +63,13 @@ The grievance portal features a **fully branded Vaka Sosiale interface**:
 | MinIO | 9000/9001 | File storage |
 | Redis | 6379 | Cache |
 
-**Features:** ULID-only IDs (`GRV-[A-Z0-9]{26}`)  Client-provided IDs  PDF Receipts  **Status Tracking**  Multi-file attachments  MinIO S3 storage  Custom CORS **LLM-based Categorization** **Gmail Email Notifications**
+**Features:** **Server-side ID generation** (`GRV-[A-Z0-9]{26}`)  PDF Receipts  **Status Tracking**  Multi-file attachments  MinIO S3 storage  Custom CORS **LLM-based Categorization** **Gmail Email Notifications**
 
 ##  Testing
 
 ### Run All Tests
 ```bash
-# Run complete test suite (102 tests)
+# Run complete test suite (100 tests)
 docker compose exec api pytest tests/ -v
 
 # Run specific test file
@@ -85,24 +85,43 @@ docker compose exec api pytest tests/test_email_notifications.py -v
 docker compose exec api pytest tests/ --cov=app --cov-report=html
 ```
 
-### Test Coverage (102 tests)
-- ✅ **Grievance CRUD** (25 tests) - Create, read, update, delete operations
-- ✅ **Email Notifications** (12 tests) - Confirmation emails for non-anonymous submissions
-- ✅ **Client ID Handling** - ULID format validation (`GRV-[A-Z0-9]{26}`)
-- ✅ **Typebot Integration** (16 tests) - Full chatbot flow, payload formats
+### Test Coverage (100 tests)
+- ✅ **Grievance CRUD** (22 tests) - Create, read, update, delete operations
+- ✅ **Email Notifications** (11 tests) - Confirmation emails for non-anonymous submissions
+- ✅ **Server-side ID Generation** - ULID format (`GRV-[A-Z0-9]{26}`), client IDs rejected
+- ✅ **Typebot Integration** (13 tests) - Full chatbot flow, payload formats
 - ✅ **Status API** (7 tests) - Authentication, authorization, updates
 - ✅ **Batch Operations** (12 tests) - Bulk updates, error handling
-- ✅ **Status Check Flow** (6 tests) - End-to-end status tracking from Typebot
+- ✅ **Status Check Flow** (5 tests) - End-to-end status tracking from Typebot
 - ✅ **LLM Categorization** (14 tests) - Auto-categorization, error handling, validation
-- ✅ **Empty String Handling** (9 tests) - Typebot empty field compatibility
+- ✅ **Empty String Handling** (14 tests) - Typebot empty field compatibility
 - ✅ **Main App** (1 test) - Health check endpoint
 
-### Client-Provided ID Support
-The API accepts **ULID-format IDs only**: `GRV-[A-Z0-9]{26}` (e.g., `GRV-01K88MF7431X7NF9D4GHQN5742`)
+### Server-Side ID Generation
+**Security Enhancement:** IDs are now generated exclusively by the backend server.
 
-- IDs are generated client-side using ULID library in Typebot JavaScript
-- If an invalid ID is provided, the server generates a new ULID automatically
-- Ensures tracking ID displayed to user matches database ID
+- **Format:** ULID (`GRV-[A-Z0-9]{26}`) - e.g., `GRV-01K88MF7431X7NF9D4GHQN5742`
+- **Generated:** Server-side only for security and consistency
+- **Client Behavior:** Frontend receives the generated ID in the API response
+- **Security:** Client-provided `id` fields are explicitly rejected with 422 error
+- **Benefits:** Single source of truth, no ID collisions, database-level uniqueness
+
+```bash
+# Example: Client submits grievance without ID
+POST /api/grievances/
+{
+  "details": "Need assistance",
+  "is_anonymous": true
+}
+
+# Response: Server generates and returns the ID
+{
+  "id": "GRV-01K8YGX8Q6HS5B2PBCHP80WNGM",
+  "tracking_id": "GRV-01K8YGX8Q6HS5B2PBCHP80WNGM",
+  "details": "Need assistance",
+  ...
+}
+```
 
 ##  API Endpoints
 

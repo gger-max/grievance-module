@@ -265,11 +265,8 @@ async def create_grievance(
 ):
     """Create a new grievance entry."""
 
-    # Use client-provided ID if available and valid, otherwise generate one
-    if payload.id and GRIEVANCE_ID_PATTERN.match(payload.id):
-        gid = payload.id
-    else:
-        gid = new_grievance_id()
+    # Always generate ID server-side for security and consistency
+    gid = new_grievance_id()
     details = _normalize_details(payload.details)
     attachments = _normalize_attachments(payload.attachments)
     
