@@ -444,7 +444,9 @@ def receipt(gid: str, db: Session = Depends(get_db)):
     return Response(
         content=pdf,
         media_type="application/pdf",
-        headers={"Content-Disposition": f"inline; filename=receipt-{gid}.pdf"}
+        headers={
+            "Content-Disposition": f'inline; filename="{gid}.pdf"'
+        }
     )
 
 @router.put("/status-batch", response_model=schemas.GrievanceBatchUpdateResponse)
