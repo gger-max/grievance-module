@@ -450,8 +450,9 @@ See full docs for detailed production configuration and security guidelines.
 
 <div align="center">
 
-**Built with  for Vaka Sosiale**
+**Built with**  
+FastAPI • PostgreSQL • Typebot • MinIO • Redis • Docker
 
-FastAPI  PostgreSQL  Typebot  MinIO  Redis  Docker
+**for Vaka Sosiale**
 
 </div>
